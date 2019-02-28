@@ -62,4 +62,9 @@
 
 	将所有的alert打印错误信息变成console.log来打印
 
+3.3-3.4
+
+	新增._transposition()方法, 用于调换数组内元素的位置
+
+
 
