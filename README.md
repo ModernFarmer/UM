@@ -21,6 +21,7 @@ console.log(value);　　// {x:100, y:50}
 　　　　//　value.y : 竖向滚动条已滚动过的距离　　number
 </script>
 ```
+　</br>
 * >可直接调用的 **`方法`** :
 
 　</br>
