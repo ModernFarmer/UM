@@ -96,12 +96,72 @@ console.log(_maxDate('2018-1'));　　//　2018-01-31
 console.log(_maxDate('2018-02'));　　//　2018-02-28
 </script>
 ```
-　　　**`_maxDate(str)` :　　　　　获取某个月的一天字符串,　返回　*string***</br>
+　　　**`_maxDate(str)` :　　　　　获取某个月的最后一天字符串(即某月的最大天数),　返回　*string***</br>
 　　　　　参数: str :　　　日期字符串 [*string*]　　\*! 格式 : '[年]-[月]'或者'[年]-[月]-`[anything]`'</br>
 　　　　　返回格式 :　　　`[年]-[月]-[日]`　　*string*
 ```javascript
 <script>
 console.log(_maxDate('2018-1'));　　//　2018-01-31
 console.log(_maxDate('2018-02'));　　//　2018-02-28
+</script>
+```
+　　　**`_isArray(arg)` :　　　　　判断参数是不是一个数组,　返回　*boolean***</br>
+　　　　　参数: arg :　　　\*[*anything*]
+```javascript
+<script>
+let a = 'something';
+let b = ['something'];
+let c = {something:'something'};
+
+console.log(_isArray(a));　　//　false
+console.log(_isArray(b));　　//　true
+console.log(_isArray(c));　　//　false
+</script>
+```
+　　　**`_isJson(arg)` :　　　　　判断参数是不是一个json,　返回　*boolean***</br>
+　　　　　参数: arg :　　　\*[*anything*]
+```javascript
+<script>
+let a = 'something';
+let b = ['something'];
+let c = {something:'something'};
+
+console.log(_isJson(a));　　//　false
+console.log(_isJson(b));　　//　false
+console.log(_isJson(c));　　//　true
+</script>
+```
+　　　**`_isImg(dom, i)` :　　　　　判断一个<input type="file">元素所选的文件是否为一张图片,　返回　*boolean***</br>
+　　　　　参数: dom :　　　input元素 [*HTMLElement*]</br>
+　　　　　参数: i :　　　　选择的文件的索引 [*number*]\<可选\>  \* 默认为 0
+```javascript
+<html>
+<input type="file" id="myDom">　　<!-- 选择单个文件 -->
+<input type="file" multiple id="myDom_more">　　<!-- 选择多个文件 -->
+</html>
+
+<script>
+myDom.onchange = function(){　　//　当文本域(即<input type="file">)选择单个文件时
+	console.log(_isImg(myDom));　　//　true|false
+};
+
+myDom_more.onchange = function(){　　//　当文本域(即<input type="file">)选择多个文件时
+	console.log(_isImg(myDom_more, 1));　　//　true|false|undefined(当文件数量少于i+1时)
+};
+</script>
+```
+　　　**`_ifDom(str)` :　　　　　判断是否存在名为str的dom元素,　返回　*boolean***</br>
+　　　　　参数: str :　　　css选择器 [*string*]
+```javascript
+<html>
+<div class="element"></div>
+<div id="dom"></div>
+</html>
+
+<script>
+console.log(_ifDom('.element'));　　//　true
+console.log(_ifDom('#element'));　　//　false
+console.log(_ifDom('.dom'));　　//　false
+console.log(_ifDom('#dom'));　　//　true
 </script>
 ```
