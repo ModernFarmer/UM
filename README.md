@@ -87,15 +87,6 @@ console.log(_getPastMonth(10));　　//　2017-3
 console.log(_getPastWeek(1));　　//　2017-12-25,2017-12-31
 </script>
 ```
-　　　**`_maxDate(str)` :　　　　　获取某个月的一天字符串,　返回　*string***</br>
-　　　　　参数: str :　　　日期字符串 [*string*]　　\*! 格式 : '[年]-[月]'或者'[年]-[月]-`[anything]`'</br>
-　　　　　返回格式 :　　　`[年]-[月]-[日]`　　*string*
-```javascript
-<script>
-console.log(_maxDate('2018-1'));　　//　2018-01-31
-console.log(_maxDate('2018-02'));　　//　2018-02-28
-</script>
-```
 　　　**`_maxDate(str)` :　　　　　获取某个月的最后一天字符串(即某月的最大天数),　返回　*string***</br>
 　　　　　参数: str :　　　日期字符串 [*string*]　　\*! 格式 : '[年]-[月]'或者'[年]-[月]-`[anything]`'</br>
 　　　　　返回格式 :　　　`[年]-[月]-[日]`　　*string*
