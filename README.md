@@ -131,7 +131,7 @@ console.log(_isJson(b));　　//　false
 console.log(_isJson(c));　　//　true
 </script>
 ```
-　　　**`_isImg(dom, i)` :　　　　　判断一个<input type="file">元素所选的文件是否为一张图片,　返回　*boolean***</br>
+　　　**`_isImg(dom, i)` :　　　　　判断一个\<input type="file"\>元素所选的文件是否为一张图片,　返回　*boolean***</br>
 　　　　　参数: dom :　　　input元素 [*HTMLElement*]</br>
 　　　　　参数: i :　　　　选择的文件的索引 [*number*]\<可选\>  \* 默认为 0
 ```javascript
