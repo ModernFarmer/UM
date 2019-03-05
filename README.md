@@ -72,7 +72,7 @@ console.log(_dateFormat(1514736000000, 'Y-M-D h:m:s'));　　//　2018-01-01 00:
 ```
 　　　**`_getPastMonth(n)` :　　　　　获取距当前时间n个月前的日期字符串,　返回　*string***</br>
 　　　　　参数: n :　　　过去的n个月 [*number*]</br>
-　　　　　返回格式 :　　　[年]-[月]　　*string*
+　　　　　返回格式 :　　　`[年]-[月]`　　*string*
 ```javascript
 <script>
 console.log(_getPastMonth(1));　　//　2017-12
@@ -81,9 +81,18 @@ console.log(_getPastMonth(10));　　//　2017-3
 ```
 　　　**`_getPastWeek(n)` :　　　　　获取距当前时间n个星期的时间段字符串,　返回　*string***</br>
 　　　　　参数: n :　　　过去的n个星期 [*number*]</br>
-　　　　　返回格式 :　　　[年]-[月]-[日],[年]-[月]-[日]　　*string*
+　　　　　返回格式 :　　　`[年]-[月]-[日],[年]-[月]-[日]`　　*string*
 ```javascript
 <script>
 console.log(_getPastWeek(1));　　//　2017-12-25,2017-12-31
+</script>
+```
+　　　**`_maxDate(str)` :　　　　　获取某个月的一天字符串,　返回　*string***</br>
+　　　　　参数: str :　　　日期字符串 [*string*]　　\*! 格式 : '[年]-[月]'或者'[年]-[月]-`[anything]`'</br>
+　　　　　返回格式 :　　　`[年]-[月]-[日]`　　*string*
+```javascript
+<script>
+console.log(_maxDate('2018-1'));　　//　2018-01-31
+console.log(_maxDate('2018-02'));　　//　2018-02-28
 </script>
 ```
