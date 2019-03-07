@@ -202,7 +202,7 @@ console.log(_ifDom('#dom'));　　//　true
 　　　　　　　　***`UPpercent`*** : function(persent){　　　　　文件上传进度监控回调函数 [*function*]　\<可选\> 默认 null</br>
 　　　　　　　　　　　　　　　　　　`回调函数的参数 *persent* 即为文件上传进度百分比`</br>
 　　　　　　　　　　　　　　　　　　`UPpercent选项只有在 *存在FormData选项或者FormData_More选项* 的情况下才起作用`</br>
-　　　　　　　　},
+　　　　　　　　},</br>
 　　　　　　　　***`success`*** : function(data){　　　　请求成功回调函数 [*function*]　\<可选\> 默认 null</br>
 　　　　　　　　　　　　　　　　　　`回调函数的参数 *data* 即为服务器返回的数据对象`</br>
 　　　　　　　　},</br>
