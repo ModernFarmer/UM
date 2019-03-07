@@ -185,7 +185,7 @@ console.log(_ifDom('#dom'));　　//　true
 　　　　　　　　***`FormData_More`*** : {　　　　　发送多个表单的FormData文件 [*json*]　\<可选\> 默认 null</br>
 　　　　　　　`\*当存在 *FormData_More* 参数时, _ajax()方法的 *data* 参数、*method* 参数和 *FormData* 参数将会失效`</br>
 　　　　　　　　　　*`name`* : 'name_',　　　　　供服务器端文件改名的字符串 [*string*] (必须)</br>
-　　　　　　　　　　*`files`* : [],　　　　　　　需要上传的文件数组 [*array*] (必须)</br>
+　　　　　　　　　　*`files`* : [],　　　　　　　需要上传的元素数组 [*array*] (必须)</br>
 　　　　　　　　　　　　　　　　　　　　　`数组里面存放的必须是 *表单dom元素*`</br>
 　　　　　　　　　　*`encoded`* : {　　　　　上传encoded数据 [*json*]　\<可选\> 默认 null</br>
 　　　　　　　　　　　　encodedName1 : 'encodedContent1',</br>
@@ -212,10 +212,52 @@ console.log(_ifDom('#dom'));　　//　true
 　　　　　　}
 ```javascript
 <html>
-
+<input type="file" id="inputElement_1">
+<input type="file" id="inputElement_2">
 </html>
 
 <script>
+_ajax({
+　url:'',　　　　　　　//请求地址　　'/address'      
+　method:'post',　　　//请求的方法　　get || post　　默认为get
+　headers:{　　　　　//请求头　　{tokenName1:tokenValue1, ...}　　默认为null
+　　'token':'a-b-c'
+　},
+　data:{},　　　　　//请求的数据　　{a:'xxxx', b:'xxxxx', ......}　　默认为空的json
+　FormData:{　　　　//**设置为formdata上传模式　　默认为null**　>>>　该模式下data,method参数将会失效 <<<
+　　input:inputElement_1,　　//文件域dom元素
+　　name:'name_',　　//上传名字　　供后台改名用
+　　encoded:{　　　　//**是否上传encoded数据　　默认为null**
+　　　text1:'111111',
+　　　text2:'222222'
+　　}
+　},
+　FormData_More:{
+　　name:'name_',　　　//上传名字　　供后台改名用
+　　inputs:[　　　//文件数组　　[文件域dom元素, 文件域dom元素, ......]
+　　　inputElement_1,
+　　　inputElement_2
+　　],
+　　encoded:{　　　//**是否上传encoded数据　　默认为null**
+　　　text1:'111111',
+　　　text2:'222222'
+　　}
+　},
+　async:true,　　　//是否异步传输　　boolean　　默认为true
+　overtime:{　　　//设定请求超时时间　　objact　　默认为null
+　　name:'',　　　//设定定时器名字　　string
+　　msg:'连接超时!',　　　//设定超时后打印的信息　　string
+　　time:10*1000　　　//设定超时时间　　毫秒
+　},
+　UPpercent:function(val){　　　//**设置执行上传文件进度监控回调函数　　function(){},参数即为上传进度百分比　　默认为null**
+　　　　　　　　　　　　　　　　//   ***UPpercent选项只有在 *存在FormData选项或者FormData_More选项* 的情况下才起作用
+　}.bind(this),
+　success:function(data){　　　//请求成功回调函数　　function(){},参数即为服务器返回的信息　　默认为空
 
+　}.bind(this),
+　error:function(err){　　　//请求失败回调函数　　function(){},参数即为服务器返回的错误信息　　默认为空
+
+　}
+});
 </script>
 ```
