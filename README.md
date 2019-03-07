@@ -156,7 +156,7 @@ console.log(_ifDom('.dom'));　　//　false
 console.log(_ifDom('#dom'));　　//　true
 </script>
 ```
-　　　**`_ajax(json)` :　　　　　ajax请求</br>
+　　　**`_ajax(json)` :　　　　　ajax请求**</br>
 　　　　　参数 : json :　　　ajax参数对象 [*json*]</br>
 　　　　　参数详解 :</br>
 　　　　　　{
