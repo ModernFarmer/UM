@@ -70,34 +70,34 @@ console.log(_dateFormat('now', 'Y-M-D'));　　//　2018-01-01  *! 当参数date
 console.log(_dateFormat(1514736000000, 'Y-M-D h:m:s'));　　//　2018-01-01 00:00:00
 </script>
 ```
-　　　**`_getPastMonth(n)` :　　　　　获取距当前时间n个月前的日期字符串,　返回　*string***</br>
-　　　　　参数: n :　　　过去的n个月 [*number*]</br>
-　　　　　返回格式 :　　　`[年]-[月]`　　*string*
+　　　**`_getPastMonth(n)` :　　　　　获取距当前时间n个月前的日期字符串,　返回　*string***</br></br>
+　　　　　**参数: *`n`* :**　　　过去的n个月 [*number*]</br>
+　　　　　**返回格式 :**　　　`[年]-[月]`　　*string*
 ```javascript
 <script>
 console.log(_getPastMonth(1));　　//　2017-12
-console.log(_getPastMonth(10));　　//　2017-3
+console.log(_getPastMonth(10));　　//　2017-03
 </script>
 ```
-　　　**`_getPastWeek(n)` :　　　　　获取距当前时间n个星期的时间段字符串,　返回　*string***</br>
-　　　　　参数 : n :　　　过去的n个星期 [*number*]</br>
-　　　　　返回格式 :　　　`[年]-[月]-[日],[年]-[月]-[日]`　　*string*
+　　　**`_getPastWeek(n)` :　　　　　获取距当前时间n个星期的时间段字符串,　返回　*string***</br></br>
+　　　　　**参数 : *`n`* :**　　　过去的n个星期 [*number*]</br>
+　　　　　**返回格式 :**　　　`[年]-[月]-[日],[年]-[月]-[日]`　　*string*
 ```javascript
 <script>
 console.log(_getPastWeek(1));　　//　2017-12-25,2017-12-31
 </script>
 ```
-　　　**`_maxDate(str)` :　　　　　获取某个月的最后一天字符串(即某月的最大天数),　返回　*string***</br>
-　　　　　参数 : str :　　　日期字符串 [*string*]　　\*! 格式 : '[年]-[月]'或者'[年]-[月]-`[anything]`'</br>
-　　　　　返回格式 :　　　`[年]-[月]-[日]`　　*string*
+　　　**`_maxDate(str)` :　　　　　获取某个月的最后一天字符串(即某月的最大天数),　返回　*string***</br></br>
+　　　　　**参数 : *`str`* :**　　　日期字符串 [*string*]　　\*! 格式 : '[年]-[月]'或者'[年]-[月]-`[anything]`'</br>
+　　　　　**返回格式 :**　　　`[年]-[月]-[日]`　　*string*
 ```javascript
 <script>
 console.log(_maxDate('2018-1'));　　//　2018-01-31
 console.log(_maxDate('2018-02'));　　//　2018-02-28
 </script>
 ```
-　　　**`_isArray(arg)` :　　　　　判断参数是不是一个数组,　返回　*boolean***</br>
-　　　　　参数 : arg :　　　\*[*anything*]
+　　　**`_isArray(arg)` :　　　　　判断参数是不是一个数组,　返回　*boolean***</br></br>
+　　　　　**参数 : *`arg`* :**　　　\*[*anything*]
 ```javascript
 <script>
 let a = 'something';
@@ -109,8 +109,8 @@ console.log(_isArray(b));　　//　true
 console.log(_isArray(c));　　//　false
 </script>
 ```
-　　　**`_isJson(arg)` :　　　　　判断参数是不是一个json,　返回　*boolean***</br>
-　　　　　参数 : arg :　　　\*[*anything*]
+　　　**`_isJson(arg)` :　　　　　判断参数是不是一个json,　返回　*boolean***</br></br>
+　　　　　**参数 : *`arg`* :**　　　\*[*anything*]
 ```javascript
 <script>
 let a = 'something';
@@ -122,9 +122,9 @@ console.log(_isJson(b));　　//　false
 console.log(_isJson(c));　　//　true
 </script>
 ```
-　　　**`_isImg(dom, i)` :　　　　　判断一个\<input type="file"\>元素所选的文件是否为一张图片,　返回　*boolean***</br>
-　　　　　参数 : dom :　　　input元素 [*HTMLElement*]</br>
-　　　　　参数 : i :　　　　选择的文件的索引 [*number*]　\<可选\>  \* 默认为 0
+　　　**`_isImg(dom, i)` :　　　　　判断一个\<input type="file"\>元素所选的文件是否为一张图片,　返回　*boolean***</br></br>
+　　　　　**参数 : *`dom`* :**　　　input元素 [*HTMLElement*]</br>
+　　　　　　　　　***`i`*** :　　　　选择的文件的索引 [*number*]　\<可选\>  \* 默认为 0
 ```javascript
 <html>
 <input type="file" id="myDom">　　<!-- 选择单个文件 -->
@@ -141,8 +141,8 @@ myDom_more.onchange = function(){　　//　当文本域(即<input type="file">)
 };
 </script>
 ```
-　　　**`_ifDom(str)` :　　　　　判断是否存在名为str的dom元素,　返回　*boolean***</br>
-　　　　　参数 : str :　　　css选择器 [*string*]
+　　　**`_ifDom(str)` :　　　　　判断是否存在名为str的dom元素,　返回　*boolean***</br></br>
+　　　　　**参数 : *`str`* :**　　　css选择器 [*string*]
 ```javascript
 <html>
 <div class="element"></div>
@@ -156,57 +156,57 @@ console.log(_ifDom('.dom'));　　//　false
 console.log(_ifDom('#dom'));　　//　true
 </script>
 ```
-　　　**`_ajax(json)` :　　　　　ajax请求**</br>
-　　　　　参数 : json :　　　ajax参数对象 [*json*]</br>
-　　　　　参数详解 :</br>
+　　　**`_ajax(json)` :　　　　　ajax请求**</br></br>
+　　　　　**参数 : *`json`* :**　　　ajax参数对象 [*json*]</br>
+　　　　　**参数详解 :**</br>
 　　　　　　{
-　　　　　　　　url : 'https:\/\/...',　　　请求地址 [*string*]</br>
-　　　　　　　　method : 'post/get',　　　　请求方法(\*只能'get'或者'post') [*string*]　\<可选\> 默认 'get'</br>
-　　　　　　　　headers : {　　　　　　　　　请求头 [*json*]　\<可选\> 默认 null</br>
+　　　　　　　　***`url`*** : 'https:\/\/...',　　　请求地址 [*string*]</br>
+　　　　　　　　***`method`*** : 'post/get',　　　　请求方法(\*只能'get'或者'post') [*string*]　\<可选\> 默认 'get'</br>
+　　　　　　　　***`headers`*** : {　　　　　　　　　请求头 [*json*]　\<可选\> 默认 null</br>
 　　　　　　　　　　token_1 : 'token_1',</br>
 　　　　　　　　　　token_2 : 'token_2',</br>
 　　　　　　　　　　...</br>
-　　　　　　　　},
-　　　　　　　　data : {　　　　　　发送到服务器的数据 [*json*]　\<可选\> 默认 null</br>
+　　　　　　　　},</br>
+　　　　　　　　***`data`*** : {　　　　　　发送到服务器的数据 [*json*]　\<可选\> 默认 null</br>
 　　　　　　　　　　data1 : 'data1',</br>
 　　　　　　　　　　data2 : 'data2',</br>
 　　　　　　　　　　...</br>
 　　　　　　　　},</br>
-　　　　　　　　FormData : {　　　　发送单个表单的FormData文件 [*json*]　\<可选\> 默认 null</br>
+　　　　　　　　***`FormData`*** : {　　　　发送单个表单的FormData文件 [*json*]　\<可选\> 默认 null</br>
 　　　　　　　　　　　　　　　　　　`\*当存在 *FormData* 参数时, _ajax()方法的 *data* 参数和 *method* 参数将会失效`</br>
-　　　　　　　　　　fileEl : element,　　　　　　发送数据的表单元素 [*element*] (必须)</br>
-　　　　　　　　　　name : 'name_',　　　　　　　供服务器端文件改名的字符串 [*string*] (必须)</br>
-　　　　　　　　　　encoded : {　　　　　　　　　上传encoded数据 [*json*]　\<可选\> 默认 null</br>
+　　　　　　　　　　*`fileEl`* : element,　　　　　　发送数据的表单元素 [*element*] (必须)</br>
+　　　　　　　　　　*`name`* : 'name_',　　　　　　　供服务器端文件改名的字符串 [*string*] (必须)</br>
+　　　　　　　　　　*`encoded`* : {　　　　　　　　　上传encoded数据 [*json*]　\<可选\> 默认 null</br>
 　　　　　　　　　　　　encodedName1 : 'encodedContent1',</br>
 　　　　　　　　　　　　encodedName2 : 'encodedContent2',</br>
 　　　　　　　　　　　　...</br>
 　　　　　　　　　　}</br>
 　　　　　　　　},</br>
-　　　　　　　　FormData_More : {　　　　　发送多个表单的FormData文件 [*json*]　\<可选\> 默认 null</br>
+　　　　　　　　***`FormData_More`*** : {　　　　　发送多个表单的FormData文件 [*json*]　\<可选\> 默认 null</br>
 　　　　　　　`\*当存在 *FormData_More* 参数时, _ajax()方法的 *data* 参数、*method* 参数和 *FormData* 参数将会失效`</br>
-　　　　　　　　　　name:'name_',　　　　　供服务器端文件改名的字符串 [*string*] (必须)</br>
-　　　　　　　　　　files:[],　　　　　　　需要上传的文件数组 [*array*] (必须)</br>
+　　　　　　　　　　*`name`* : 'name_',　　　　　供服务器端文件改名的字符串 [*string*] (必须)</br>
+　　　　　　　　　　*`files`* : [],　　　　　　　需要上传的文件数组 [*array*] (必须)</br>
 　　　　　　　　　　　　　　　　　　　　　`数组里面存放的必须是 *表单dom元素*`</br>
-　　　　　　　　　　encoded:{　　　　　上传encoded数据 [*json*]　\<可选\> 默认 null</br>
-　　　　　　　　　　　　encodedName1:'encodedContent1',</br>
-　　　　　　　　　　　　encodedName2:'encodedContent2',</br>
+　　　　　　　　　　*`encoded`* : {　　　　　上传encoded数据 [*json*]　\<可选\> 默认 null</br>
+　　　　　　　　　　　　encodedName1 : 'encodedContent1',</br>
+　　　　　　　　　　　　encodedName2 : 'encodedContent2',</br>
 　　　　　　　　　　　　...</br>
 　　　　　　　　　　}</br>
 　　　　　　　　},</br>
-　　　　　　　　async : true　　　　　是否异步传输 [*boolean*]　\<可选\> 默认 true</br>
-　　　　　　　　overtime : {　　　　　设定请求超时时间 [*json*]　\<可选\> 默认 null</br>
-　　　　　　　　　　name : 'timerName',　　　　定时器名字 [*string*] (必须)</br>
-　　　　　　　　　　msg : '连接超时!',　　　　　超时后打印的信息 [*string*] (必须)</br>
-　　　　　　　　　　time : 10*1000　　　　　　　设定超时时间 (单位 : 毫秒) [*number*] (必须)</br>
+　　　　　　　　***`async`*** : true　　　　　是否异步传输 [*boolean*]　\<可选\> 默认 true</br>
+　　　　　　　　***`overtime`*** : {　　　　　设定请求超时时间 [*json*]　\<可选\> 默认 null</br>
+　　　　　　　　　　*`name`* : 'timerName',　　　　定时器名字 [*string*] (必须)</br>
+　　　　　　　　　　*`msg`* : '连接超时!',　　　　　超时后打印的信息 [*string*] (必须)</br>
+　　　　　　　　　　*`time`* : 10*1000　　　　　　　设定超时时间 (单位 : 毫秒) [*number*] (必须)</br>
 　　　　　　　　},</br>
-　　　　　　　　UPpercent : function(persent){　　　　　文件上传进度监控回调函数 [*function*]　\<可选\> 默认 null</br>
+　　　　　　　　***`UPpercent`*** : function(persent){　　　　　文件上传进度监控回调函数 [*function*]　\<可选\> 默认 null</br>
 　　　　　　　　　　　　　　　　　　`回调函数的参数 *persent* 即为文件上传进度百分比`</br>
 　　　　　　　　　　　　　　　　　　`UPpercent选项只有在 *存在FormData选项或者FormData_More选项* 的情况下才起作用`</br>
 　　　　　　　　},
-　　　　　　　　success : function(data){　　　　请求成功回调函数 [*function*]　\<可选\> 默认 null</br>
+　　　　　　　　***`success`*** : function(data){　　　　请求成功回调函数 [*function*]　\<可选\> 默认 null</br>
 　　　　　　　　　　　　　　　　　　`回调函数的参数 *data* 即为服务器返回的数据对象`</br>
 　　　　　　　　},</br>
-　　　　　　　　error : function(err){　　　　请求失败回调函数 [*function*]　\<可选\> 默认 null</br>
+　　　　　　　　***`error`*** : function(err){　　　　请求失败回调函数 [*function*]　\<可选\> 默认 null</br>
 　　　　　　　　　　　　　　　　　　`回调函数的参数 *err* 即为错误对象`</br>
 　　　　　　　　}</br>
 　　　　　　}
