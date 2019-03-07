@@ -50,9 +50,9 @@ document.getElementById('demo').onclick = function(){　　//　给'#demo'元素
 };
 </script>
 ```
-　　　**`_dateFormat(dateValue, str)` :　　　　　日期格式化,　返回　*string***</br>
-　　　　　参数 : *`dateValue`* :　　　日期字符串 [*string*] / 'now' [*string*] / 时间戳(毫秒) [*number*]</br>
-　　　　　　　　str :　　　　　　格式化字符串</br>
+　　　**`_dateFormat(dateValue, str)` :　　　　　日期格式化,　返回　*string***</br></br>
+　　　　　**参数 : *`dateValue`* :**　　　日期字符串 [*string*] / 'now' [*string*] / 时间戳(毫秒) [*number*]</br>
+　　　　　　　　***`str`*** :　　　　　　格式化字符串</br>
 　　　　　　　　　　　　　　　　　`Y :　年`</br>
 　　　　　　　　　　　　　　　　　`M :　月`</br>
 　　　　　　　　　　　　　　　　　`D :　日`</br>
