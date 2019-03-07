@@ -183,7 +183,7 @@ console.log(_ifDom('#dom'));　　//　true
 　　　　　　　　　　}</br>
 　　　　　　　　},</br>
 　　　　　　　　FormData_More : {　　　　　发送多个表单的FormData文件 [*json*]　\<可选\> 默认 null</br>
-　　　　　　　　　　　　　　　　`\*当存在 *FormData_More* 参数时, _ajax()方法的 *data* 参数、*method* 参数和 *FormData* 参数将会失效`</br>
+　　　　　`\*当存在 *FormData_More* 参数时, _ajax()方法的 *data* 参数、*method* 参数和 *FormData* 参数将会失效`</br>
 　　　　　　　　　　name:'name_',　　　　　供服务器端文件改名的字符串 [*string*] (必须)</br>
 　　　　　　　　　　files:[],　　　　　　　需要上传的文件数组 [*array*] (必须)</br>
 　　　　　　　　　　　　　　　　　　　　　`数组里面存放的必须是 *表单dom元素*`</br>
@@ -194,21 +194,21 @@ console.log(_ifDom('#dom'));　　//　true
 　　　　　　　　　　}</br>
 　　　　　　　　},</br>
 　　　　　　　　async : true　　　　　是否异步传输 [*boolean*]　\<可选\> 默认 true</br>
-　　　　　　　　overtime : {　　　　　设定请求超时时间 [*json*]　\<可选\> 默认 null
-　　　　　　　　　　name : 'timerName',　　　　定时器名字 [*string*] (必须)
-　　　　　　　　　　msg : '连接超时!',　　　　　超时后打印的信息 [*string*] (必须)
-　　　　　　　　　　time : 10*1000　　　　　　　设定超时时间 (单位 : 毫秒) [*number*] (必须)
+　　　　　　　　overtime : {　　　　　设定请求超时时间 [*json*]　\<可选\> 默认 null</br>
+　　　　　　　　　　name : 'timerName',　　　　定时器名字 [*string*] (必须)</br>
+　　　　　　　　　　msg : '连接超时!',　　　　　超时后打印的信息 [*string*] (必须)</br>
+　　　　　　　　　　time : 10*1000　　　　　　　设定超时时间 (单位 : 毫秒) [*number*] (必须)</br>
+　　　　　　　　},</br>
+　　　　　　　　UPpercent : function(persent){　　　　　文件上传进度监控回调函数 [*function*]　\<可选\> 默认 null</br>
+　　　　　　　　　　　　　　　　　　`回调函数的参数 *persent* 即为文件上传进度百分比`</br>
+　　　　　　　　　　　　　　　　　　`UPpercent选项只有在 *存在FormData选项或者FormData_More选项* 的情况下才起作用`</br>
 　　　　　　　　},
-　　　　　　　　UPpercent : function(persent){　　　　　文件上传进度监控回调函数 [*function*]　\<可选\> 默认 null
-　　　　　　　　　　　　　　　　　　`回调函数的参数 *persent* 即为文件上传进度百分比`
-　　　　　　　　　　　　　　　　　　`UPpercent选项只有在 *存在FormData选项或者FormData_More选项* 的情况下才起作用`
-　　　　　　　　},
-　　　　　　　　success : function(data){　　　　请求成功回调函数 [*function*]　\<可选\> 默认 null
-　　　　　　　　　　　　　　　　　　`回调函数的参数 *data* 即为服务器返回的数据对象`
-　　　　　　　　},
-　　　　　　　　error : function(err){　　　　请求失败回调函数 [*function*]　\<可选\> 默认 null
-　　　　　　　　　　　　　　　　　　`回调函数的参数 *err* 即为错误对象`
-　　　　　　　　},
+　　　　　　　　success : function(data){　　　　请求成功回调函数 [*function*]　\<可选\> 默认 null</br>
+　　　　　　　　　　　　　　　　　　`回调函数的参数 *data* 即为服务器返回的数据对象`</br>
+　　　　　　　　},</br>
+　　　　　　　　error : function(err){　　　　请求失败回调函数 [*function*]　\<可选\> 默认 null</br>
+　　　　　　　　　　　　　　　　　　`回调函数的参数 *err* 即为错误对象`</br>
+　　　　　　　　}</br>
 　　　　　　}
 ```javascript
 <html>
