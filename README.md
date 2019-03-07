@@ -51,7 +51,7 @@ document.getElementById('demo').onclick = function(){　　//　给'#demo'元素
 </script>
 ```
 　　　**`_dateFormat(dateValue, str)` :　　　　　日期格式化,　返回　*string***</br>
-　　　　　参数 : dateValue :　　　日期字符串 [*string*] / 'now' [*string*] / 时间戳(毫秒) [*number*]</br>
+　　　　　参数 : *`dateValue`* :　　　日期字符串 [*string*] / 'now' [*string*] / 时间戳(毫秒) [*number*]</br>
 　　　　　　　　str :　　　　　　格式化字符串</br>
 　　　　　　　　　　　　　　　　　`Y :　年`</br>
 　　　　　　　　　　　　　　　　　`M :　月`</br>
@@ -183,7 +183,7 @@ console.log(_ifDom('#dom'));　　//　true
 　　　　　　　　　　}</br>
 　　　　　　　　},</br>
 　　　　　　　　FormData_More : {　　　　　发送多个表单的FormData文件 [*json*]　\<可选\> 默认 null</br>
-　　　　　`\*当存在 *FormData_More* 参数时, _ajax()方法的 *data* 参数、*method* 参数和 *FormData* 参数将会失效`</br>
+　　　　　　　`\*当存在 *FormData_More* 参数时, _ajax()方法的 *data* 参数、*method* 参数和 *FormData* 参数将会失效`</br>
 　　　　　　　　　　name:'name_',　　　　　供服务器端文件改名的字符串 [*string*] (必须)</br>
 　　　　　　　　　　files:[],　　　　　　　需要上传的文件数组 [*array*] (必须)</br>
 　　　　　　　　　　　　　　　　　　　　　`数组里面存放的必须是 *表单dom元素*`</br>
