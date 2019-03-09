@@ -266,15 +266,14 @@ _ajax({
 
 　</br>
 　　　**`_(select, index)` :　　　　　dom选择器对象**</br></br>
-　　　　　参数 : select :　　　css选择器字符串 / dom元素 / window /document</br>
-　　　　　**参数 : *`select`* :**　　　css选择器字符串 或者 dom元素 [*string*]</br>
-　　　　　　　　　　　　　　　如果`参数select的值是` `window` 或者 `document`, 那么选择器对象所选的是 `window` 或者 `document`<br>
+　　　　　**参数 : *`select`* :**　　　css选择器字符串 / dom元素 / window /document</br>
+　　　　　　　　　　　　如果`参数select的值是` `window` 或者 `document`, 那么选择器对象所选的是 `window` 或者 `document`<br>
 　　　　　　　　***`index`*** :　　　　dom选择器索引值 [*number*] \<可选\></br>
 　　　　　　　　　　　　　　　　　　　如果`没有指定`index参数, 则选择器对象选择的是一个dom元素集合</br>
 　　　　　　　　　　　　　　　　　　　如果`指定`了index参数, 则选择器对象选择的是第index+1个dom元素</br></br>
 　　　　　**属性** : _(select, index)**`.el` :　　　　　 dom选择器对象 所选择的dom元素, 返回 [*element*]**</br>
-　　　　　　　　　_(select, index)**`.length` :　　　　　 dom选择器对象 所选择的dom元素的个数, 返回 [*number*]**</br>
-　　　　　　　　　　　　　　　　　　　　　　如果苏选择器对象选择的是 `window` 或者 `document` , 那么此时 `length属性的值` 为 **`null`**
+　　　　　　　　_(select, index)**`.length` :　　　　　 dom选择器对象 所选择的dom元素的个数, 返回 [*number*]**</br>
+　　　　　　　　　　　　如果苏选择器对象选择的是 `window` 或者 `document` , 那么此时 `length属性的值` 为 **`null`**
 　　　
 ```javascript
 <html>
