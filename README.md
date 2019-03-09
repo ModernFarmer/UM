@@ -267,7 +267,7 @@ _ajax({
 　</br>
 　　　**`_(select, index)` :　　　　　dom选择器对象**</br></br>
 　　　　　**参数 : *`select`* :**　　　css选择器字符串 / dom元素 / window /document</br>
-　　　　　　　　　　　　如果`参数select的值是` `window` 或者 `document`, 那么选择器对象所选的是 `window` 或者 `document`<br>
+　　　　　　　　　　　　如果`参数select的值是` `window` 或者 `document`, 那么选择器对象所选的是 **`window`** 或者 **`document`**<br>
 　　　　　　　　***`index`*** :　　　　dom选择器索引值 [*number*] \<可选\></br>
 　　　　　　　　　　　　　　　　　　　如果`没有指定`index参数, 则选择器对象选择的是一个dom元素集合</br>
 　　　　　　　　　　　　　　　　　　　如果`指定`了index参数, 则选择器对象选择的是第index+1个dom元素</br></br>
@@ -277,10 +277,45 @@ _ajax({
 　　　
 ```javascript
 <html>
+<div id="divId"></div>
 
+<div class="divClass"></div>
+<div class="divClass"></div>
+<div class="divClass"></div>
 </html>
 
 <script>
+let dom_class = document.querySelectorAll('.divClass');
+let dom_class_lonely = document.querySelector('.divClass');
 
+console.log(_('#divId').el);　　//　NodeList:[div#divId]
+console.log(_('#divId').length);　　//　1
+
+console.log(_('#divId', 0).el);　　//　div#divId
+console.log(_('#divId', 0).length);　　//　1
+
+console.log(_('.divClass').el);　　//　NodeList:[div.divClass, div.divClass, div.divClass]
+console.log(_('.divClass').length);　　//　3
+
+console.log(_('.divClass', 0).el);　　//　div.divClass
+console.log(_('.divClass', 0).length);　　//　1
+
+console.log(_(divId).el);　　//　div#divId
+console.log(_(divId).length);　　//　1
+
+console.log(_(dom_class).el);　　//　NodeList:[div.divClass, div.divClass, div.divClass]
+console.log(_(dom_class).length);　　//　3
+
+console.log(_(dom_class, 0).el);　　//　div.divClass
+console.log(_(dom_class, 0).length);　　//　1
+
+console.log(_(dom_class_lonely).el);　　//　div.divClass
+console.log(_(dom_class_lonely).length);　　//　1
+
+console.log(_(window).el);　　//　window
+console.log(_(window).length);　　//　null
+
+console.log(_(document).el);　　//　document
+console.log(_(document).length);　　//　null
 </script>
 ```
