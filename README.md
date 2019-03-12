@@ -155,11 +155,11 @@ console.log(_isJson(c));　　//　true
 
 <script>
 myDom.onchange = function(){　　//　当文本域(即<input type="file">)选择单个文件时
-	console.log(_isImg(myDom));　　//　true|false
+　　console.log(_isImg(myDom));　　//　true|false
 };
 
 myDom_more.onchange = function(){　　//　当文本域(即<input type="file">)选择多个文件时
-	console.log(_isImg(myDom_more, 1));　　//　true|false|undefined(当文件数量少于i+1时)
+　　console.log(_isImg(myDom_more, 1));　　//　true|false|undefined(当文件数量少于i+1时)
 };
 </script>
 ```
@@ -300,7 +300,7 @@ _ajax({
 　　　　　　　　　　　　　　　　　　　如果`没有指定`index参数, 则选择器对象选择的是一个dom元素集合</br>
 　　　　　　　　　　　　　　　　　　　如果`指定`了index参数, 则选择器对象选择的是第index+1个dom元素</br></br>
 **\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-**</br>
-　　　　　**属性** : _(select, index)**`.el` :　　　　　 dom选择器对象 所选择的dom元素, 返回 [*element*]**</br>
+　　　　　**属性** :　_(select, index)**`.el` :　　　　　 dom选择器对象 所选择的dom元素, 返回 [*element*]**</br>
 　　　　　　　　_(select, index)**`.length` :　　　　　 dom选择器对象 所选择的dom元素的个数, 返回 [*number*]**</br>
 **\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-**</br></br>
 　　　　　　　　　　　　如果苏选择器对象选择的是 `window` 或者 `document` , 那么此时 `length属性的值` 为 **`null`**
@@ -366,13 +366,13 @@ console.log(_(document).length);　　//　null
 
 <script>
 setTimeout(() => {　　//　1秒后改变div#app的样式
-	_(app).css({width:'100px', height:'100px', background:'salmon'});
-	setTimeout(() => {　　//　1秒后改变div#app的样式
-		_(app).css({border:'5px solid black'});
-		setTimeout(() => {　　//　1秒后改变div#app的样式
-			_(app).css({borderRadius:'20px'});
-		}, 1000)
-	}, 1000)
+　　_(app).css({width:'100px', height:'100px', background:'salmon'});
+　　setTimeout(() => {　　//　1秒后改变div#app的样式
+　　　　_(app).css({border:'5px solid black'});
+　　　　setTimeout(() => {　　//　1秒后改变div#app的样式
+　　　　　　_(app).css({borderRadius:'20px'});
+　　　　}, 1000)
+　　}, 1000)
 }, 1000);
 </script>
 ```
@@ -383,8 +383,8 @@ setTimeout(() => {　　//　1秒后改变div#app的样式
 　　　　　　　　.getStyle()方法只能获取`一个dom元素`的最终样式, *不能* 获取dom元素集合的最终样式
 ```javascript
 <style>
-	#app {width:100px; height:150px; background:salmon; transition:1s ease;}
-	.bpp {width:50px; height:50px; background:green;}
+　　#app {width:100px; height:150px; background:salmon; transition:1s ease;}
+　　.bpp {width:50px; height:50px; background:green;}
 </style>
 
 <html>
