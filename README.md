@@ -403,3 +403,107 @@ console.log(_('.bpp').getStyle('width'));　　//　*!报错
 console.log(_('.bpp', 1).getStyle('width'));　　//　50px
 </script>
 ```
+**\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-**</br>
+　　　_(select, index)**`.setW(selector, json)` :　　　　　基于参数selector的第一个元素的`宽度值`来设置选择器选择的所有dom元素的单一数值型css样式,**</br>
+　　　　　　　　　　　　　　　　　　　　　　　　　　　　　**`并且当window窗口尺寸发生变化时,选择器选择的所有dom元素的css样式也会跟随着变化`**</br>
+　　　_(select, index)**`.setMW(selector, json)` :　　　　　基于参数selector的第一个元素的`宽度值`来设置选择器选择的所有dom元素的单一数值型css样式**</br>
+**\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-**</br></br>
+　　　　　**参数 : *`selector`* :**　　　样式json [*json*]</br>
+　　　　　参数 : selector :　　　css选择器字符串 / dom元素</br>
+　　　　　　　　 json :　　　样式json [json]</br>
+　　　　　**参数详解 : json参数 -\>**</br>
+　　　　　　{</br>
+　　　　　　　　**`[样式名1]` : `[倍数 [*number*]]`**,</br>
+　　　　　　　　**`[样式名2]` : `[倍数 [*number*]]`**,</br>
+　　　　　　　　...</br>
+　　　　　　}
+```javascript
+<style>
+　html, body {width:100%; height:100%; padding:0; margin:0;}
+　#box {width:50%; height:50%; background:salmon; position:relative;}
+　#_child {background:red;}
+　.child1 {background:green;}
+　.child2 {background:yellow;}
+</style>
+
+<html>
+<div id="_child">id="_child"</div>
+<div class="child1">child1_line1</div>
+<div class="child1">child1_line2</div>
+<div class="child2">child2</div>
+</html>
+
+<script>
+//　将_(_child).el元素的宽度设置成_(box, 0).el元素的*宽度*的0.6倍,
+//　将_(_child).el元素的字体大小设置成_(box, 0).el元素的*宽度*的0.07倍,
+//　将_(_child).el元素的行高设置成_(box, 0).el元素的*宽度*的0.1倍,
+//　当window窗口大小发生变化时, div#_child元素的宽度、字体大小和行高都会随着div#box的*宽度*的变化而变化
+_(_child).setW(box, {width:.6, fontSize:.07, lineHeight:.1});
+
+
+//　将_(_child).el元素集合内所有元素的宽度设置成_('#_child', 0).el元素的*宽度*的1.1倍,
+//　将_(_child).el元素集合内所有元素的字体大小设置成_('#_child', 0).el元素的*宽度*的0.05倍,
+//　将_(_child).el元素集合内所有元素的行高设置成_('#_child', 0).el元素的*宽度*的0.08倍,
+//　当window窗口大小发生变化时, 所有div.child1元素的宽度、字体大小和行高都会随着div#_child的*宽度*的变化而变化
+_('.child1').setW('#_child', {width:1.1, fontSize:.05, lineHeight:.08});
+
+
+//　将_(_child).el元素集合内所有元素的宽度设置成_(box, 0).el元素的*宽度*的0.5倍,
+//　将_(_child).el元素集合内所有元素的字体大小设置成_(box, 0).el元素的*宽度*的0.05倍,
+//　将_(_child).el元素集合内所有元素的行高设置成_(box, 0).el元素的*宽度*的0.8倍,
+//　当window窗口大小发生变化时, 所有div.child2元素的宽度、字体大小和行高都不会随着div#box的*宽度*的变化而变化
+_('.child2').setMW(box, {width:.5, fontSize:.05, lineHeight:.08});
+</script>
+```
+**\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-**</br>
+　　　_(select, index)**`.setH(selector, json)` :　　　　　基于参数selector的第一个元素的`高度值`来设置选择器选择的所有dom元素的单一数值型css样式,**</br>
+　　　　　　　　　　　　　　　　　　　　　　　　　　　　　**`并且当window窗口尺寸发生变化时,选择器选择的所有dom元素的css样式也会跟随着变化`**</br>
+　　　_(select, index)**`.setMH(selector, json)` :　　　　　基于参数selector的第一个元素的`高度值`来设置选择器选择的所有dom元素的单一数值型css样式**</br>
+**\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-**</br></br>
+　　　　　**参数 : *`selector`* :**　　　样式json [*json*]</br>
+　　　　　参数 : selector :　　　css选择器字符串 / dom元素</br>
+　　　　　　　　 json :　　　样式json [json]</br>
+　　　　　**参数详解 : json参数 -\>**</br>
+　　　　　　{</br>
+　　　　　　　　**`[样式名1]` : `[倍数 [*number*]]`**,</br>
+　　　　　　　　**`[样式名2]` : `[倍数 [*number*]]`**,</br>
+　　　　　　　　...</br>
+　　　　　　}
+```javascript
+<style>
+　html, body {width:100%; height:100%; padding:0; margin:0;}
+　#box {width:50%; height:50%; background:salmon; position:relative;}
+　#_child {background:red;}
+　.child1 {background:green;}
+　.child2 {background:yellow;}
+</style>
+
+<html>
+<div id="_child">id="_child"</div>
+<div class="child1">child1_line1</div>
+<div class="child1">child1_line2</div>
+<div class="child2">child2</div>
+</html>
+
+<script>
+//　将_(_child).el元素的宽度设置成_(box, 0).el元素的*高度*的1.5倍,
+//　将_(_child).el元素的字体大小设置成_(box, 0).el元素的*高度*的0.07倍,
+//　将_(_child).el元素的行高设置成_(box, 0).el元素的*高度*的0.1倍,
+//　当window窗口大小发生变化时, div#_child元素的宽度、字体大小和行高都会随着div#box的*高度*的变化而变化
+_(_child).setH(box, {width:1.5, fontSize:.07, lineHeight:.1});
+
+
+//　将_(_child).el元素集合内所有元素的宽度设置成_('#_child', 0).el元素的*高度*的10倍,
+//　将_(_child).el元素集合内所有元素的字体大小设置成_('#_child', 0).el元素的*高度*的0.8倍,
+//　将_(_child).el元素集合内所有元素的行高设置成_('#_child', 0).el元素的*高度*的1倍,
+//　当window窗口大小发生变化时, 所有div.child1元素的宽度、字体大小和行高都会随着div#_child的*高度*的变化而变化
+_('.child1').setH('#_child', {width:10, fontSize:.8, lineHeight:1});
+
+
+//　将_(_child).el元素集合内所有元素的宽度设置成_(box, 0).el元素的*高度*的0.5倍,
+//　将_(_child).el元素集合内所有元素的字体大小设置成_(box, 0).el元素的*高度*的0.05倍,
+//　将_(_child).el元素集合内所有元素的行高设置成_(box, 0).el元素的*高度*的0.8倍,
+//　当window窗口大小发生变化时, 所有div.child2元素的宽度、字体大小和行高都不会随着div#box的*高度*的变化而变化
+_('.child2').setMH(box, {width:.5, fontSize:.05, lineHeight:.08});
+</script>
+```
