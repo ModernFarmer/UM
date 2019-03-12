@@ -323,8 +323,8 @@ console.log(_(document).length);　　//　null
 　　　　　**参数 : *`json`* :**　　　样式json [*json*]</br>
 　　　　　**参数详解 :**</br>
 　　　　　　{</br>
-　　　　　　　　***`[样式名1]`*** : ***`'[样式1]'`***,</br>
-　　　　　　　　***`[样式名2]`*** : ***`'[样式2]'`***,</br>
+　　　　　　　　***`[样式名1]`*** : ***`\'[样式1]\'`***,</br>
+　　　　　　　　***`[样式名2]`*** : ***`\'[样式2]\'`***,</br>
 　　　　　　　　...</br>
 　　　　　　}
 ```javascript
@@ -346,7 +346,7 @@ setTimeout(() => {　　//　1秒后改变div#app的样式
 ```
 　　　_(select, index)**`.getStyle(styleName)` :　　　　　 获取选择器选择的dom元素的最终样式值**</br></br>
 　　　　　**参数 : *`styleName`* :**　　　样式名 [*string*]</br>
-　　　　　　　　`.getStyle()方法只能获取***一个dom元素***的最终样式, *不能*获取dom元素集合的最终样式`
+　　　　　　　　.getStyle()方法只能获取***一个dom元素***的最终样式, *不能*获取dom元素集合的最终样式
 ```javascript
 <style>
 	#app {width:100px; height:150px; background:salmon; transition:1s ease;}
