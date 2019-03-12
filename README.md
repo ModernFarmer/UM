@@ -159,7 +159,7 @@ console.log(_ifDom('#dom'));　　//　true
 　　　**`_ajax(json)` :　　　　　ajax请求**</br></br>
 　　　　　**参数 : *`json`* :**　　　ajax参数对象 [*json*]</br>
 　　　　　**参数详解 :**</br>
-　　　　　　{
+　　　　　　{</br>
 　　　　　　　　***`url`*** : 'https:\/\/...',　　　请求地址 [*string*]</br>
 　　　　　　　　***`method`*** : 'post/get',　　　　请求方法(\*只能'get'或者'post') [*string*]　\<可选\> 默认 'get'</br>
 　　　　　　　　***`headers`*** : {　　　　　　　　　请求头 [*json*]　\<可选\> 默认 null</br>
@@ -317,5 +317,30 @@ console.log(_(window).length);　　//　null
 
 console.log(_(document).el);　　//　document
 console.log(_(document).length);　　//　null
+</script>
+```
+　　　_(select, index)**`.css(*json*)` :　　　　　 给选择器选择的所有dom元素添加css样式**</br></br>
+　　　　　**参数 : *`json`* :**　　　样式json [*json*]</br>
+　　　　　**参数详解 :**</br>
+　　　　　　{</br>
+　　　　　　　　***`[样式名1]`*** : '[样式1]',</br>
+　　　　　　　　***`[样式名2]`*** : '[样式2]',</br>
+　　　　　　　　...</br>
+　　　　　　}
+```javascript
+<html>
+<div id="app"></div>
+</html>
+
+<script>
+setTimeout(() => {　　//　1秒后改变div#app的样式
+	_(app).css({width:'100px', height:'100px', background:'salmon'});
+	setTimeout(() => {　　//　1秒后改变div#app的样式
+		_(app).css({border:'5px solid black'});
+		setTimeout(() => {　　//　1秒后改变div#app的样式
+			_(app).css({borderRadius:'20px'});
+		}, 1000)
+	}, 1000)
+}, 1000);
 </script>
 ```
