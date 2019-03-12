@@ -319,12 +319,12 @@ console.log(_(document).el);　　//　document
 console.log(_(document).length);　　//　null
 </script>
 ```
-　　　_(select, index)**`.css(*json*)` :　　　　　 给选择器选择的所有dom元素添加css样式**</br></br>
+　　　_(select, index)**`.css(json)` :　　　　　 给选择器选择的所有dom元素添加css样式**</br></br>
 　　　　　**参数 : *`json`* :**　　　样式json [*json*]</br>
 　　　　　**参数详解 :**</br>
 　　　　　　{</br>
-　　　　　　　　***`[样式名1]`*** : '[样式1]',</br>
-　　　　　　　　***`[样式名2]`*** : '[样式2]',</br>
+　　　　　　　　***`[样式名1]`*** : ***`'[样式1]'`***,</br>
+　　　　　　　　***`[样式名2]`*** : ***`'[样式2]'`***,</br>
 　　　　　　　　...</br>
 　　　　　　}
 ```javascript
@@ -342,5 +342,30 @@ setTimeout(() => {　　//　1秒后改变div#app的样式
 		}, 1000)
 	}, 1000)
 }, 1000);
+</script>
+```
+　　　_(select, index)**`.getStyle(styleName)` :　　　　　 获取选择器选择的dom元素的最终样式值**</br></br>
+　　　　　**参数 : *`styleName`* :**　　　样式名 [*string*]</br>
+　　　　　　　　`.getStyle()方法只能获取***一个dom元素***的最终样式, *不能*获取dom元素集合的最终样式`
+```javascript
+<style>
+	#app {width:100px; height:150px; background:salmon; transition:1s ease;}
+	.bpp {width:50px; height:50px; background:green;}
+</style>
+
+<html>
+<div id="app"></div>
+<div ckass='bpp'></div>
+<div ckass='bpp'></div>
+</html>
+
+<script>
+console.log(_(app).getStyle('width'));　　//　100px
+console.log(_(app).getStyle('height'));　　//　150px
+console.log(_(app).getStyle('background'));　　//　rgb(250, 128, 114) none repeat scroll 0% 0% / auto padding-box border-box
+console.log(_(app).getStyle('transition'));　　//　all 1s ease 0s
+
+console.log(_('.bpp').getStyle('width'));　　//　*!报错
+console.log(_('.bpp', 1).getStyle('width'));　　//　50px
 </script>
 ```
