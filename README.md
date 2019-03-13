@@ -536,13 +536,14 @@ _('.child2').setMH(box, {width:.5, fontSize:.05, lineHeight:.08});
 　　　　　　}
 ```javascript
 <html>
-<div class="btn1" style="width:100px; height:30px; background:salmon; margin-right:20px; float:left"></div>
-<div class="btn1" style="width:100px; height:30px; background:red; float:left"></div></br>
-<div id="btn2" style="width:100px; height:30px; background:green; margin-top:30px"></div>
+<div class="btn1" style="width:100px; height:30px; background:salmon; margin-right:20px; float:left">.btn1_1</div>
+<div class="btn1" style="width:100px; height:30px; background:red; float:left">.btn1_2</div></br>
+<div id="btn2" style="width:100px; height:30px; background:green; margin-top:30px">#btn2</div>
+<div id="btn3" style="width:100px; height:30px; background:green; margin-top:30px">#btn3</div>
 </html>
 
 <script>
-/* _('.btn1').BD('click', function(){　　//　*! 报错
+/* _('.btn1').BD('click', function(){　　//　*! 报错　选择器所选的是一个元素集合, 不是单一元素
 	alert('btn1');
 }); */
 
@@ -550,8 +551,14 @@ _('.btn1', 0).BD('click', function(){　　//　给第一个div.btn1绑定click�
 	alert('.btn1');
 });
 
-_(btn2).BD('click', function(){　　//　给div#btn2绑定click事件
+_(btn2).BD('click', function(){　　//　给div#btn2绑定一次click事件, 监听器执行一次之后将失效
 	alert('#btn2');
-});
+}, {once : true});
+
+_(btn3).BD('touchstart', function(){
+	_preventDefault(event);　　//　当监听事件需要调用 preventDefault()方法 来取消默认时, 
+　　　　　　　　　　　　　　　//　可以设置 {passive : false}, 否则事件执行过程中可能会卡顿
+　　　　　//　*注: 绑定移动端touch事件相关事件时, 如果要调用 preventDefault()方法 来取消默认, 必须要设置 {passive : false}　
+}, {passive : false});
 </script>
 ```
