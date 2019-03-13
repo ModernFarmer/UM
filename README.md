@@ -516,11 +516,24 @@ _('.child2').setMH(box, {width:.5, fontSize:.05, lineHeight:.08});
 </script>
 ```
 **\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-**</br>
-　　　_(select, index)**`.BD(eventName, function)` :　　　　　 给选择器选择的dom元素绑定事件**</br>
+　　　_(select, index)**`.BD(eventName, function, option)` :　　　　　 给选择器选择的dom元素绑定事件**</br>
 **\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-**</br>
-　　　　　　　　　　　　　　　　　　　　　　　　　　　　　*`!* 每次只能给一个dom元素绑定事件`*</br>
+　　　　　　　　　　　　　　　　　　　　　　　　　　　　　*`!* 每次只能给一个dom元素绑定事件`*</br></br>
 　　　　　**参数 : *`eventName`* :**　　　事件名称 [*string*]</br>
-　　　　　　　　 ***`function`* :**　　　要执行的函数 [*function*]
+　　　　　　　　 ***`function`* :**　　　要执行的函数 [*function*]</br>
+　　　　　　　　 ***`option`* :**　　　要执行的函数 [*json*] \<可选\></br>
+　　　　　**参数详解 : option参数 -\>**</br>
+　　　　　　{</br>
+　　　　　　　　***`capture`*** : false　　　　　　[*boolean*] \<可选\>　　默认false,</br>
+　　　　　　　　　　　`如果将 capture 设置为 true, 则侦听器只在捕获阶段处理事件, 而不在目标或冒泡阶段处理事件,` </br>
+　　　　　　　　　　　`如果useCapture 为 false, 则侦听器只在目标或冒泡阶段处理事件. 要在所有三个阶段都侦听事件,` </br>
+　　　　　　　　　　　`则要调用两次 .BD()方法, 第一次将 capture 设置为 true，第二次将capture 设置为 false.`</br>
+　　　　　　　　***`passive`*** : true　　　　　　[*boolean*] \<可选\>　　默认true,</br>
+　　　　　　　　　　　`如果将 passive 设置为 true, 则监听事件和默认事件同时(异步)执行, 不能调用preventDefault()方法` </br>
+　　　　　　　　　　　`如果将 passive 设置为 false, 则先执行监听事件再执行默认事件, 可以调用preventDefault()方法` </br>
+　　　　　　　　***`once`*** : false　　　　　　[*boolean*] \<可选\>　　默认false</br>
+　　　　　　　　　　　`如果将 once 设置为 true, 表明该监听器是一次性的, 执行一次后就会自动注销掉`</br>
+　　　　　　}
 ```javascript
 <html>
 <div class="btn1" style="width:100px; height:30px; background:salmon; margin-right:20px; float:left"></div>
