@@ -563,9 +563,9 @@ _(btn3).BD('touchstart', function(){
 </script>
 ```
 **\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-**</br>
-　　　_(select, index)**`.unBD(eventName, function)` :　　　　　 取消择器选择的dom元素绑定的事件**</br>
+　　　_(select, index)**`.unBD(eventName, function)` :　　　　　 解除择器选择的dom元素绑定的事件**</br>
 **\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-**</br>
-　　　　　　　　　　　　　　　　　　　　　　　　　　　　　*`!* 每次只能给一个dom元素绑定事件`*</br></br>
+　　　　　　　　　　　　　　　　　　　　　　　　　　　　　*`!* 每次只能给一个dom元素解除绑定事件`*</br></br>
 　　　　　**参数 : *`eventName`* :**　　　事件名称 [*string*]</br>
 　　　　　　　　 ***`function`* :**　　　要取消的`函数名` [*function*]</br>
 　　　　　　　　 　　　　　　　`.unBD()方法的第二个参数必须是一个 *函数名* , 不能是整个function表达式`
@@ -590,5 +590,49 @@ setTimeout(()=>{
 　　　　console.log('contextmenu');
 　　});
 }, 2000);
+</script>
+```
+**\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-**</br>
+　　　_(select, index)**`.mousewheel(fn_up, fn_down)` :　　　　　 给择器选择的dom元素绑定鼠标滚轮滚动事件**</br>
+**\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-**</br>
+　　　　　　　　　　　　　　　　　　　　　　　　　　　　　*`!* 每次只能给一个dom元素绑定滚轮滚动事件`*</br></br>
+　　　　　**参数 : *`fn_up`* :**　　　滚轮向上滚动时的监听函数 [*function*]</br>
+　　　　　　　　 ***`fn_down`* :**　　　滚轮向下滚动时的监听函数 [*function*]
+```javascript
+<style>
+　　#box {width:200px; height:100px; background:gray; overflow:hidden; border-radius:10px; position:relative;}
+　　#contentBox {width:180px; background:black; color:white; position:absolute; left:10px; top:0;}
+</style>
+
+<html>
+<div id="box">
+　　<div id="contentBox">
+　　　　---1</br></br></br>
+　　　　---2</br></br></br>
+　　　　---3</br></br></br>
+　　　　---4</br></br></br>
+　　　　---5</br></br></br>
+　　　　---6</br></br></br>
+　　　　---7</br></br></br>
+　　　　---8</br></br></br>
+　　　　---9</br></br></br>
+　　</div>
+</div>
+</html>
+
+<script>
+let _top = 0;
+
+function fn_up(){
+　　_top += 10;
+　　_(contentBox).css({top:_top + 'px'});
+};
+
+function fn_down(){
+　　_top -= 10;
+　　_(contentBox).css({top:_top + 'px'});
+};
+
+_(box).mousewheel(fn_up, fn_down);　　//　滚轮向上滚动时, 执行fn_up; 滚轮向下滚动时, 执行fn_down
 </script>
 ```
