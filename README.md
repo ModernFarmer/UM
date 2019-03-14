@@ -544,21 +544,51 @@ _('.child2').setMH(box, {width:.5, fontSize:.05, lineHeight:.08});
 
 <script>
 /* _('.btn1').BD('click', function(){　　//　*! 报错　选择器所选的是一个元素集合, 不是单一元素
-	alert('btn1');
+　　alert('btn1');
 }); */
 
 _('.btn1', 0).BD('click', function(){　　//　给第一个div.btn1绑定click事件
-	alert('.btn1');
+　　alert('.btn1');
 });
 
 _(btn2).BD('click', function(){　　//　给div#btn2绑定一次click事件, 监听器执行一次之后将失效
-	alert('#btn2');
+　　alert('#btn2');
 }, {once : true});
 
 _(btn3).BD('touchstart', function(){
-	_preventDefault(event);　　//　当监听事件需要调用 preventDefault()方法 来取消默认时, 
+　　_preventDefault(event);　　//　当监听事件需要调用 preventDefault()方法 来取消默认时, 
 　　　　　　　　　　　　　　　//　可以设置 {passive : false}, 否则事件执行过程中可能会卡顿
 　　　　　//　*注: 绑定移动端touch事件相关事件时, 如果要调用 preventDefault()方法 来取消默认, 必须要设置 {passive : false}　
 }, {passive : false});
+</script>
+```
+**\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-**</br>
+　　　_(select, index)**`.unBD(eventName, function)` :　　　　　 取消择器选择的dom元素绑定的事件**</br>
+**\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-**</br>
+　　　　　　　　　　　　　　　　　　　　　　　　　　　　　*`!* 每次只能给一个dom元素绑定事件`*</br></br>
+　　　　　**参数 : *`eventName`* :**　　　事件名称 [*string*]</br>
+　　　　　　　　 ***`function`* :**　　　要取消的`函数名` [*function*]</br>
+　　　　　　　　 　　　　　　　`.unBD()方法的第二个参数必须是一个 *函数名* , 不能是整个function表达式`
+```javascript
+<html>
+<div id="button1">我是一颗小小的按钮</div>
+</html>
+
+<script>
+function myEvent(){
+　　console.log('click');
+};
+
+_(button1).BD('click', myEvent).BD('contextmenu', function(){　　//　给_(button1)分别绑定两个事件
+　　console.log('contextmenu');
+});
+
+setTimeout(()=>{
+　　_(button1).unBD('click', myEvent);　　//　正确的解绑方法
+
+　　_(button1).unBD('contextmenu', function(){　　//　无效的解绑方法
+　　　　console.log('contextmenu');
+　　});
+}, 2000);
 </script>
 ```
