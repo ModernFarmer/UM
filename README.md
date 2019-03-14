@@ -199,7 +199,7 @@ console.log(_ifDom('#dom'));　　//　true
 　　　　　　　　　　...</br>
 　　　　　　　　},</br>
 　　　　　　　　***`FormData`*** : {　　　　发送单个表单的FormData文件 [*json*]　\<可选\> 默认 null</br>
-　　　　　　　　　　　　　　　　　　`\*当存在 *FormData* 参数时, _ajax()方法的 *data* 参数和 *method* 参数将会失效`</br>
+　　　　　　　　　　　　　　　　　　`当存在 *FormData* 参数时, _ajax()方法的 *data* 参数和 *method* 参数将会失效`</br>
 　　　　　　　　　　*`fileEl`* : element,　　　　　　发送数据的表单元素 [*element*] (必须)</br>
 　　　　　　　　　　*`name`* : 'name_',　　　　　　　供服务器端文件改名的字符串 [*string*] (必须)</br>
 　　　　　　　　　　*`encoded`* : {　　　　　　　　　上传encoded数据 [*json*]　\<可选\> 默认 null</br>
@@ -209,7 +209,7 @@ console.log(_ifDom('#dom'));　　//　true
 　　　　　　　　　　}</br>
 　　　　　　　　},</br>
 　　　　　　　　***`FormData_More`*** : {　　　　　发送多个表单的FormData文件 [*json*]　\<可选\> 默认 null</br>
-　　　　　　　`\*当存在 *FormData_More* 参数时, _ajax()方法的 *data* 参数、*method* 参数和 *FormData* 参数将会失效`</br>
+　　　　　　　`当存在 *FormData_More* 参数时, _ajax()方法的 *data* 参数、*method* 参数和 *FormData* 参数将会失效`</br>
 　　　　　　　　　　*`name`* : 'name_',　　　　　供服务器端文件改名的字符串 [*string*] (必须)</br>
 　　　　　　　　　　*`files`* : [],　　　　　　　需要上传的元素数组 [*array*] (必须)</br>
 　　　　　　　　　　　　　　　　　　　　　`数组里面存放的必须是 *表单dom元素*`</br>
