@@ -383,8 +383,8 @@ setTimeout(() => {　　//　1秒后改变div#app的样式
 　　　　　　　　.getStyle()方法只能获取`一个dom元素`的最终样式, *不能* 获取dom元素集合的最终样式
 ```javascript
 <style>
-　　#app {width:100px; height:150px; background:salmon; transition:1s ease;}
-　　.bpp {width:50px; height:50px; background:green;}
+	#app {width:100px; height:150px; background:salmon; transition:1s ease;}
+	.bpp {width:50px; height:50px; background:green;}
 </style>
 
 <html>
@@ -423,11 +423,11 @@ console.log(_('.bpp', 1).getStyle('width'));　　//　50px
 　　　　　　}
 ```javascript
 <style>
-　html, body {width:100%; height:100%; padding:0; margin:0;}
-　#box {width:50%; height:50%; background:salmon; position:relative;}
-　#_child {background:red;}
-　.child1 {background:green;}
-　.child2 {background:yellow;}
+	html, body {width:100%; height:100%; padding:0; margin:0;}
+	#box {width:50%; height:50%; background:salmon; position:relative;}
+	#_child {background:red;}
+	.child1 {background:green;}
+	.child2 {background:yellow;}
 </style>
 
 <html>
@@ -479,11 +479,11 @@ _('.child2').setMW(box, {width:.5, fontSize:.05, lineHeight:.08});
 　　　　　　}
 ```javascript
 <style>
-　html, body {width:100%; height:100%; padding:0; margin:0;}
-　#box {width:50%; height:50%; background:salmon; position:relative;}
-　#_child {background:red;}
-　.child1 {background:green;}
-　.child2 {background:yellow;}
+	html, body {width:100%; height:100%; padding:0; margin:0;}
+	#box {width:50%; height:50%; background:salmon; position:relative;}
+	#_child {background:red;}
+	.child1 {background:green;}
+	.child2 {background:yellow;}
 </style>
 
 <html>
@@ -600,8 +600,8 @@ setTimeout(()=>{
 　　　　　　　　 ***`fn_down`* :**　　　滚轮向下滚动时的监听函数 [*function*]
 ```javascript
 <style>
-　　#box {width:200px; height:100px; background:gray; overflow:hidden; border-radius:10px; position:relative;}
-　　#contentBox {width:180px; background:black; color:white; position:absolute; left:10px; top:0;}
+	#box {width:200px; height:100px; background:gray; overflow:hidden; border-radius:10px; position:relative;}
+	#contentBox {width:180px; background:black; color:white; position:absolute; left:10px; top:0;}
 </style>
 
 <html>
@@ -654,14 +654,14 @@ _('.box', 2).choosable(true);　　//　将第3个div.box元素设置为文字�
 </script>
 ```
 **\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-**</br>
-　　　_(select, index)**`.center(val)` :　　　　　 设置选择器选择的dom元素里居中**</br>
+　　　_(select, index)**`.center(val)` :　　　　　 设置选择器选择的dom元素居中**</br>
 **\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-**</br></br>
-　　　　　**参数 : *`val`* :**　　　垂直或水平居中('w'时水平居中, 'h'时垂直居中, 其它时水平垂直都居中) [*string*] \<可选\>　　默认 null</br>
+　　　　　**参数 : *`val`* :**　　　垂直或水平居中('w'时水平居中, 'h'时垂直居中, 其它时水平垂直都居中) [*string*] \<可选\></br>
 　　　　　　　　　　　　　　　　　　　　　`居中元素的参考元素的 *position* 样式必须为 *absolute* 或者 *relative*`
 ```javascript
 <style>
-　　.box {width:200px; height:200px; background:salmon; margin-left:30px; margin-top:30px; float:left; position:relative;}
-　　#child1, #child2, #child3 {width:40px; height:60px; background:yellow;}
+	.box {width:200px; height:200px; background:salmon; margin-left:30px; margin-top:30px; float:left; position:relative;}
+	#child1, #child2, #child3 {width:40px; height:60px; background:yellow;}
 </style>
 
 <html>
@@ -683,5 +683,96 @@ _('.box', 2).choosable(true);　　//　将第3个div.box元素设置为文字�
 _(child1).center();　　//　使div#child1元素水平垂直都居中
 _(child2).center('w');　　//　使div#child2元素水平居中
 _(child3).center('h');　　//　使div#child3元素垂直居中
+</script>
+```
+**\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-**</br>
+　　　_(select, index)**`.transformOrigin(val)` :　　　　　设置选择器选择的dom元素的 transform-origin (变形原点)**</br>
+**\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-**</br></br>
+　　　　　**参数 : *`val`* :**　　　变形原点的值 [*string*]</br></br>
+**\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-**</br>
+　　　_(select, index)**`.perspective(val1, val2)` :　　　　　设置选择器选择的dom元素的 perspective (透视距离) </br>
+　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　和 perspective-origin (透视原点)**</br>
+**\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-**</br></br>
+　　　　　**参数 : *`val1`* :**　　　透视距离的值 [*number*]</br>
+　　　　　**参数 : *`val2`* :**　　　透视原点的值 [*string*] \<可选\>　默认 '50% 50%'</br>
+　　　　　　　　　　　　　　`当为元素设置透视距离和透视原点后, 其子元素会获得透视效果, 而不是元素本身.`
+**\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-**</br>
+　　　_(select, index)**`.transformStyle(val1, val2)` :　　　　　设置选择器选择的dom元素的 transform-style (变形风格)**</br>
+　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　和 backface-visibility (背面是否可见)
+**\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-**</br></br>
+　　　　　**参数 : *`val1`* :**　　　变形风格 [*string*]</br>
+　　　　　**参数 : *`val2`* :**　　　背面是否可见 [*string*] \<可选\>　默认 visible(可见)</br></br>
+**\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-**</br>
+　　　_(select, index)**`.transform(val)` :　　　　　设置选择器选择的dom元素的 transform (2d或3d变换)**</br>
+**\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-**</br></br>
+　　　　　**参数 : *`val`* :**　　　2d或3d变换的值 [*string*] \<可选\></br></br>
+**\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-**</br>
+　　　_(select, index)**`.transition(val)` :　　　　　设置选择器选择的dom元素的 transition (动画过渡)**</br>
+**\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-**</br></br>
+　　　　　**参数 : *`val`* :**　　　动画过渡的值 [*string*] \<可选\></br></br>
+**\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-**</br>
+　　　_(select, index)**`.animation(val)` :　　　　　设置选择器选择的dom元素的 animation (动画属性)**</br>
+**\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-**</br></br>
+　　　　　**参数 : *`val`* :**　　　动画属性的值 [*string*] \<可选\></br></br>
+```javascript
+<style>
+	#box {width:400px; height:400px; background:salmon; padding:50px;}
+	#content1 {width:200px; height:300px; background:green;}
+	#content2 {width:350px; height:200px; background:yellow; position:relative; left:0; top:150px;}
+
+	@keyframes _CONTENT {
+		25% {background:red; left:100px;}
+		50% {background:gray; left:200px;}
+		75% {background:black; left:100px;}
+		100% {background:yellow; left:0;}
+	}
+	@-webkit-keyframes _CONTENT {
+		25% {background:red; left:100px;}
+		50% {background:gray; left:200px;}
+		75% {background:black; left:100px;}
+		100% {background:yellow; left:0;}
+	}
+	@-ms-keyframes _CONTENT {
+		25% {background:red; left:100px;}
+		50% {background:gray; left:200px;}
+		75% {background:black; left:100px;}
+		100% {background:yellow; left:0;}
+	}
+	@-o-keyframes _CONTENT {
+		25% {background:red; left:100px;}
+		50% {background:gray; left:200px;}
+		75% {background:black; left:100px;}
+		100% {background:yellow; left:0;}
+	}
+	@-moz-keyframes _CONTENT {
+		25% {background:red; left:100px;}
+		50% {background:gray; left:200px;}
+		75% {background:black; left:100px;}
+		100% {background:yellow; left:0;}
+	}
+</style>
+
+<html>
+<div id="box">
+　　<div id="content1">
+　　　　content1
+　　　　<div id="content2">
+　　　　　　content2
+　　　　</div>
+　　</div>
+</div>
+</html>
+
+<script>
+_(box).perspective(1000, '0% 0%');　　//　给父级设置透视距离和透视原点
+
+//　给_(content1)分别设置变形原点、变形风格、背面可见、动画过渡和旋转30度(2d变换)
+_(content1).transformOrigin('center center').transformStyle('preserve-3d', 'visible').transition('1s ease').transform('rotateY(30deg)');
+
+_(content2).animation('_CONTENT 3s infinite linear');　　//　给_(content2)设置animation动画
+
+_(document).BD('dblclick', function(){
+　　_(content1).css({height:'400px'});　　//　由于之前给_(content1)设置了动画过渡, 这里高度变化时将在1秒内动画过渡
+});
 </script>
 ```
