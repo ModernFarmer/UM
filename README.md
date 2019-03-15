@@ -787,7 +787,7 @@ _(document).BD('dblclick', function(){
 　　　　　　　　 　　　　　　　`*fnName* 参数必须是一个 *函数名* , 不能是整个function表达式`
 ```javascript
 <html>
-	<div id="box" style="width:100px; height:100px; background:salmon; margin-left:0"></div>
+　　<div id="box" style="width:100px; height:100px; background:salmon; margin-left:0"></div>
 </html>
 
 <script>
@@ -846,11 +846,11 @@ _(document).BD('dblclick', function(){
 　　　　　**参数 : *`fnName`* :**　　　要解除绑定的`函数名` [*function*]</br>
 　　　　　　　　 　　　　　　　`*fnName* 参数必须是一个 *函数名* , 不能是整个function表达式`</br></br>
 **\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-**</br>
-　　　_(select, index)**`.BD_animationiteration(fn)` :　　给选择器选择的dom元素绑定 animation动画重复时发生 事件**</br>
+　　　_(select, index)**`.BD_animationiteration(fn)` :　　给选择器选择的dom元素绑定 animation动画循环时发生 事件**</br>
 **\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-**</br></br>
 　　　　　**参数 : *`fn`* :**　　　要执行的函数 [*function*]</br></br>
 **\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-**</br>
-　　　_(select, index)**`.unBD_animationiteration(fnName)` :　　解除选择器选择的dom元素绑定的 animation动画重复时发生 事件** </br>
+　　　_(select, index)**`.unBD_animationiteration(fnName)` :　　解除选择器选择的dom元素绑定的 animation动画循环时发生 事件** </br>
 **\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-**</br></br>
 　　　　　**参数 : *`fnName`* :**　　　要解除绑定的`函数名` [*function*]</br>
 　　　　　　　　 　　　　　　　`*fnName* 参数必须是一个 *函数名* , 不能是整个function表达式`</br></br>
@@ -864,23 +864,95 @@ _(document).BD('dblclick', function(){
 　　　　　**参数 : *`fnName`* :**　　　要解除绑定的`函数名` [*function*]</br>
 　　　　　　　　 　　　　　　　`*fnName* 参数必须是一个 *函数名* , 不能是整个function表达式`</br></br>
 ```javascript
+<style>
+	.text {line-height:50px; font-size:18px;}
+	.content {color:blue; display:none;}
+	#box {width:100px; height:100px; background:salmon; margin-left:0;}
+
+	@keyframes _CONTENT {
+		0% {width:100px; height:100px; background:salmon; margin-left:0;}
+		25% {width:500px; height:500px; background:green; margin-left:100px;}
+		50% {width:300px; height:300px; background:black; margin-left:200px;}
+		75% {width:400px; height:400px; background:red; margin-left:100px;}
+		100% {width:100px; height:100px; background:yellow; margin-left:200px;}
+	}
+	@-webkit-keyframes _CONTENT {
+		0% {width:100px; height:100px; background:salmon; margin-left:0;}
+		25% {width:500px; height:500px; background:green; margin-left:100px;}
+		50% {width:300px; height:300px; background:black; margin-left:200px;}
+		75% {width:400px; height:400px; background:red; margin-left:100px;}
+		100% {width:100px; height:100px; background:yellow; margin-left:200px;}
+	}
+	@-ms-keyframes _CONTENT {
+		0% {width:100px; height:100px; background:salmon; margin-left:0;}
+		25% {width:500px; height:500px; background:green; margin-left:100px;}
+		50% {width:300px; height:300px; background:black; margin-left:200px;}
+		75% {width:400px; height:400px; background:red; margin-left:100px;}
+		100% {width:100px; height:100px; background:yellow; margin-left:200px;}
+	}
+	@-o-keyframes _CONTENT {
+		0% {width:100px; height:100px; background:salmon; margin-left:0;}
+		25% {width:500px; height:500px; background:green; margin-left:100px;}
+		50% {width:300px; height:300px; background:black; margin-left:200px;}
+		75% {width:400px; height:400px; background:red; margin-left:100px;}
+		100% {width:100px; height:100px; background:yellow; margin-left:200px;}
+	}
+	@-moz-keyframes _CONTENT {
+		0% {width:100px; height:100px; background:salmon; margin-left:0;}
+		25% {width:500px; height:500px; background:green; margin-left:100px;}
+		50% {width:300px; height:300px; background:black; margin-left:200px;}
+		75% {width:400px; height:400px; background:red; margin-left:100px;}
+		100% {width:100px; height:100px; background:yellow; margin-left:200px;}
+	}
+</style>
+
 <html>
-	<div id="box" style="width:100px; height:100px; background:salmon; margin-left:0"></div>
+<div class="text">
+　　进程 : 
+　　<span class="content">动画开始</span>
+　　<span class="content"></span>
+　　<span class="content"> ---> 动画结束</span>
+</div>
+
+<div id="box"></div>
 </html>
 
 <script>
-function moveend(){
-　　_(box).css({marginLeft:0}).unBD_transitionend(moveend);　　//　执行将div#box的margin-left样式变为0, 并解除绑定transitionend事件
+let n=0;
+
+function _start(){
+　　_('.content', 0).css({display:'inline'});
+　　_(box).unBD_animationstart(_start);　　//　解除监听 animationstart事件
 };
 
-_(document).BD('dblclick', function(){
-　　//　执行设置动画过渡1秒, 绑定transitionend事件, 并将div#box的margin-left样式变为500px(当动画过渡结束时将会执行 moveend()方法)
-　　_(box).transition('1s').BD_transitionend(moveend).css({marginLeft:'500px'});
+function _iteration(){
+　　n += 1;
+　　_('.content', 1).el.innerHTML = ` ---> 第${n}次播放结束`;
+　　_('.content', 1).css({display:'inline'});
+};
 
-　　setTimeout(()=>{
-　　//　由于上面执行了 moveend() 方法, div#box元素已经解绑了transitionend事件, 所以这里将不会执行 _(box).css({marginLeft:0}).unBD_transitionend(moveend); 语句
-　　　　_(box).css({marginLeft:'500px'});
-　　}, 3000);
-}, {once:true});
+function _end(){
+　　n += 1;
+　　_('.content', 1).el.innerHTML = ` ---> 第${n}次播放结束`;
+　　_('.content', 2).css({display:'inline'});
+　　n = 0;　　//　初始化 n值
+　　_(box).animation('none');　　//　初始化 div#box的animation样式
+　　_(box).unBD_animationiteration(_iteration).unBD_animationend(_end);　　//　解除监听 animationiteration事件 和 animationend事件
+};
+
+_(box).BD_animationstart(_start);　　//　动画开始时调用 _start函数
+
+_(box).BD_animationiteration(_iteration);　　//　动画循环播放时调用 _iteration函数
+
+_(box).BD_animationend(_end);　　//　动画结束时调用 _end函数
+
+setTimeout(()=>{
+　　_(box).animation('_CONTENT 2s 3');
+}, 1000);
+
+setTimeout(()=>{
+　　_('.text', 0).el.innerHTML = '第二次动画 ---> 将不再监听事件';
+　　_(box).animation('_CONTENT 2s 3');
+}, 8000);
 </script>
 ```
