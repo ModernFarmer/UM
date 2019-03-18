@@ -35,7 +35,7 @@ console.log(value);　　// {x:100, y:50}
 ```javascript
 <script>
 document.oncontextmenu = function(){　　//　右键点击事件, 原本会默认跳出菜单
-	_preventDefault(event);　　//　取消默认事件后, 将不会跳出菜单
+    _preventDefault(event);　　//　取消默认事件后, 将不会跳出菜单
 };
 </script>
 ```
@@ -49,12 +49,12 @@ document.oncontextmenu = function(){　　//　右键点击事件, 原本会默�
 
 <script>
 document.onclick = function(){　　//　给document定义一个点击事件
-	alert('document');
+    alert('document');
 };
 
 document.getElementById('demo').onclick = function(){　　//　给'#demo'元素定义一个点击事件
-	_stopPropation(event);　　//　阻止事件冒泡之后, 点击'#demo'元素将只执行'#demo'元素上的事件, 不会执行document上的事件
-	alert('demo');
+    _stopPropation(event);　　//　阻止事件冒泡之后, 点击'#demo'元素将只执行'#demo'元素上的事件, 不会执行document上的事件
+    alert('demo');
 };
 </script>
 ```
@@ -159,7 +159,7 @@ myDom.onchange = function(){　　//　当文本域(即<input type="file">)选�
 };
 
 myDom_more.onchange = function(){　　//　当文本域(即<input type="file">)选择多个文件时
-	console.log(_isImg(myDom_more, 1));　　//　true|false|undefined(当文件数量少于i+1时)
+    console.log(_isImg(myDom_more, 1));　　//　true|false|undefined(当文件数量少于i+1时)
 };
 </script>
 ```
@@ -244,46 +244,46 @@ console.log(_ifDom('#dom'));　　//　true
 
 <script>
 _ajax({
-	url:'',　　　　　　　//请求地址　　'/address'      
-	method:'post',　　　//请求的方法　　get || post　　默认为get
-	headers:{　　　　　//请求头　　{tokenName1:tokenValue1, ...}　　默认为null
-		'token':'a-b-c'
-	},
-	data:{},　　　　　//请求的数据　　{a:'xxxx', b:'xxxxx', ......}　　默认为空的json
-	FormData:{　　　　//**设置为formdata上传模式　　默认为null**　>>>　该模式下data,method参数将会失效 <<<
-		input:inputElement_1,　　//文件域dom元素
-		name:'name_',　　//上传名字　　供后台改名用
-		encoded:{　　　　//**是否上传encoded数据　　默认为null**
-			text1:'111111',
-			text2:'222222'
-		}
-	},
-	FormData_More:{
-		name:'name_',　　　//上传名字　　供后台改名用
-		inputs:[　　　//文件数组　　[文件域dom元素, 文件域dom元素, ......]
-			inputElement_1,
-			inputElement_2
-		],
-		encoded:{　　　//**是否上传encoded数据　　默认为null**
-			text1:'111111',
-			text2:'222222'
-		}
-	},
-	async:true,　　　//是否异步传输　　boolean　　默认为true
-	overtime:{　　　//设定请求超时时间　　objact　　默认为null
-		name:'',　　　//设定定时器名字　　string
-		msg:'连接超时!',　　　//设定超时后打印的信息　　string
-		time:10*1000　　　//设定超时时间　　毫秒
-	},
-	UPpercent:function(val){　　　//**设置执行上传文件进度监控回调函数　　function(){},参数即为上传进度百分比　　默认为null**
+    url:'',　　　　　　　//请求地址　　'/address'      
+    method:'post',　　　//请求的方法　　get || post　　默认为get
+    headers:{　　　　　//请求头　　{tokenName1:tokenValue1, ...}　　默认为null
+        'token':'a-b-c'
+    },
+    data:{},　　　　　//请求的数据　　{a:'xxxx', b:'xxxxx', ......}　　默认为空的json
+    FormData:{　　　　//**设置为formdata上传模式　　默认为null**　>>>　该模式下data,method参数将会失效 <<<
+        input:inputElement_1,　　//文件域dom元素
+        name:'name_',　　//上传名字　　供后台改名用
+        encoded:{　　　　//**是否上传encoded数据　　默认为null**
+            text1:'111111',
+            text2:'222222'
+        }
+    },
+    FormData_More:{
+        name:'name_',　　　//上传名字　　供后台改名用
+        inputs:[　　　//文件数组　　[文件域dom元素, 文件域dom元素, ......]
+            inputElement_1,
+            inputElement_2
+        ],
+        encoded:{　　　//**是否上传encoded数据　　默认为null**
+            text1:'111111',
+            text2:'222222'
+        }
+    },
+    async:true,　　　//是否异步传输　　boolean　　默认为true
+    overtime:{　　　//设定请求超时时间　　objact　　默认为null
+        name:'',　　　//设定定时器名字　　string
+        msg:'连接超时!',　　　//设定超时后打印的信息　　string
+        time:10*1000　　　//设定超时时间　　毫秒
+    },
+    UPpercent:function(val){　　　//**设置执行上传文件进度监控回调函数　　function(){},参数即为上传进度百分比　　默认为null**
 　　　　　　　　　　　　　　　　//   ***UPpercent选项只有在 *存在FormData选项或者FormData_More选项* 的情况下才起作用
-	}.bind(this),
-	success:function(data){　　　//请求成功回调函数　　function(){},参数即为服务器返回的信息　　默认为空
+    }.bind(this),
+    success:function(data){　　　//请求成功回调函数　　function(){},参数即为服务器返回的信息　　默认为空
 
-	}.bind(this),
-	error:function(err){　　　//请求失败回调函数　　function(){},参数即为服务器返回的错误信息　　默认为空
+    }.bind(this),
+    error:function(err){　　　//请求失败回调函数　　function(){},参数即为服务器返回的错误信息　　默认为空
 
-	}
+    }
 });
 </script>
 ```
@@ -366,13 +366,13 @@ console.log(_(document).length);　　//　null
 
 <script>
 setTimeout(() => {　　//　1秒后改变div#app的样式
-	_(app).css({width:'100px', height:'100px', background:'salmon'});
-	setTimeout(() => {　　//　1秒后改变div#app的样式
-		_(app).css({border:'5px solid black'});
-		setTimeout(() => {　　//　1秒后改变div#app的样式
-			_(app).css({borderRadius:'20px'});
-		}, 1000)
-	}, 1000)
+    _(app).css({width:'100px', height:'100px', background:'salmon'});
+    setTimeout(() => {　　//　1秒后改变div#app的样式
+        _(app).css({border:'5px solid black'});
+        setTimeout(() => {　　//　1秒后改变div#app的样式
+            _(app).css({borderRadius:'20px'});
+        }, 1000)
+    }, 1000)
 }, 1000);
 </script>
 ```
@@ -383,8 +383,8 @@ setTimeout(() => {　　//　1秒后改变div#app的样式
 　　　　　　　　.getStyle()方法只能获取`一个dom元素`的最终样式, *不能* 获取dom元素集合的最终样式
 ```javascript
 <style>
-	#app {width:100px; height:150px; background:salmon; transition:1s ease;}
-	.bpp {width:50px; height:50px; background:green;}
+    #app {width:100px; height:150px; background:salmon; transition:1s ease;}
+    .bpp {width:50px; height:50px; background:green;}
 </style>
 
 <html>
@@ -423,11 +423,11 @@ console.log(_('.bpp', 1).getStyle('width'));　　//　50px
 　　　　　　}
 ```javascript
 <style>
-	html, body {width:100%; height:100%; padding:0; margin:0;}
-	#box {width:50%; height:50%; background:salmon; position:relative;}
-	#_child {background:red;}
-	.child1 {background:green;}
-	.child2 {background:yellow;}
+    html, body {width:100%; height:100%; padding:0; margin:0;}
+    #box {width:50%; height:50%; background:salmon; position:relative;}
+    #_child {background:red;}
+    .child1 {background:green;}
+    .child2 {background:yellow;}
 </style>
 
 <html>
@@ -479,11 +479,11 @@ _('.child2').setMW(box, {width:.5, fontSize:.05, lineHeight:.08});
 　　　　　　}
 ```javascript
 <style>
-	html, body {width:100%; height:100%; padding:0; margin:0;}
-	#box {width:50%; height:50%; background:salmon; position:relative;}
-	#_child {background:red;}
-	.child1 {background:green;}
-	.child2 {background:yellow;}
+    html, body {width:100%; height:100%; padding:0; margin:0;}
+    #box {width:50%; height:50%; background:salmon; position:relative;}
+    #_child {background:red;}
+    .child1 {background:green;}
+    .child2 {background:yellow;}
 </style>
 
 <html>
@@ -548,15 +548,15 @@ _('.child2').setMH(box, {width:.5, fontSize:.05, lineHeight:.08});
 }); */
 
 _('.btn1', 0).BD('click', function(){　　//　给第一个div.btn1绑定click事件
-	alert('.btn1');
+    alert('.btn1');
 });
 
 _(btn2).BD('click', function(){　　//　给div#btn2绑定一次click事件, 监听器执行一次之后将失效
-	alert('#btn2');
+    alert('#btn2');
 }, {once : true});
 
 _(btn3).BD('touchstart', function(){
-	_preventDefault(event);　　//　当监听事件需要调用 preventDefault()方法 来取消默认时, 
+    _preventDefault(event);　　//　当监听事件需要调用 preventDefault()方法 来取消默认时, 
 　　　　　　　　　　　　　　　//　可以设置 {passive : false}, 否则事件执行过程中可能会卡顿
 　　　　　//　*注: 绑定移动端touch事件相关事件时, 如果要调用 preventDefault()方法 来取消默认, 必须要设置 {passive : false}　
 }, {passive : false});
@@ -576,19 +576,19 @@ _(btn3).BD('touchstart', function(){
 
 <script>
 function myEvent(){
-	console.log('click');
+    console.log('click');
 };
 
 _(button1).BD('click', myEvent).BD('contextmenu', function(){　　//　给_(button1)分别绑定两个事件
-	console.log('contextmenu');
+    console.log('contextmenu');
 });
 
 setTimeout(()=>{
-	_(button1).unBD('click', myEvent);　　//　正确的解绑方法
+    _(button1).unBD('click', myEvent);　　//　正确的解绑方法
 
-	_(button1).unBD('contextmenu', function(){　　//　无效的解绑方法
-		console.log('contextmenu');
-	});
+    _(button1).unBD('contextmenu', function(){　　//　无效的解绑方法
+        console.log('contextmenu');
+    });
 }, 2000);
 </script>
 ```
@@ -600,23 +600,23 @@ setTimeout(()=>{
 　　　　　　　　 ***`fn_down`* :**　　　滚轮向下滚动时的监听函数 [*function*]
 ```javascript
 <style>
-	#box {width:200px; height:100px; background:gray; overflow:hidden; border-radius:10px; position:relative;}
-	#contentBox {width:180px; background:black; color:white; position:absolute; left:10px; top:0;}
+    #box {width:200px; height:100px; background:gray; overflow:hidden; border-radius:10px; position:relative;}
+    #contentBox {width:180px; background:black; color:white; position:absolute; left:10px; top:0;}
 </style>
 
 <html>
 <div id="box">
-	<div id="contentBox">
-		---1</br></br></br>
-		---2</br></br></br>
-		---3</br></br></br>
-		---4</br></br></br>
-		---5</br></br></br>
-		---6</br></br></br>
-		---7</br></br></br>
-		---8</br></br></br>
-		---9</br></br></br>
-	</div>
+    <div id="contentBox">
+        ---1</br></br></br>
+        ---2</br></br></br>
+        ---3</br></br></br>
+        ---4</br></br></br>
+        ---5</br></br></br>
+        ---6</br></br></br>
+        ---7</br></br></br>
+        ---8</br></br></br>
+        ---9</br></br></br>
+    </div>
 </div>
 </html>
 
@@ -624,13 +624,13 @@ setTimeout(()=>{
 let _top = 0;
 
 function fn_up(){
-	_top += 10;
-	_(contentBox).css({top:_top + 'px'});
+    _top += 10;
+    _(contentBox).css({top:_top + 'px'});
 };
 
 function fn_down(){
-	_top -= 10;
-	_(contentBox).css({top:_top + 'px'});
+    _top -= 10;
+    _(contentBox).css({top:_top + 'px'});
 };
 
 _(box).mousewheel(fn_up, fn_down);　　//　滚轮向上滚动时, 执行fn_up; 滚轮向下滚动时, 执行fn_down
@@ -660,22 +660,22 @@ _('.box', 2).choosable(true);　　//　将第3个div.box元素设置为文字�
 　　　　　　　　　　　　　　　　　　　　　`居中元素的参考元素的 *position* 样式必须为 *absolute* 或者 *relative*`
 ```javascript
 <style>
-	.box {width:200px; height:200px; background:salmon; margin-left:30px; margin-top:30px; float:left; position:relative;}
-	#child1, #child2, #child3 {width:40px; height:60px; background:yellow;}
+    .box {width:200px; height:200px; background:salmon; margin-left:30px; margin-top:30px; float:left; position:relative;}
+    #child1, #child2, #child3 {width:40px; height:60px; background:yellow;}
 </style>
 
 <html>
 <div class="box">
-	水平垂直居中
-	<div id="child1"></div>
+    水平垂直居中
+    <div id="child1"></div>
 </div>
 <div class="box">
-	水平居中
-	<div id="child2"></div>
+    水平居中
+    <div id="child2"></div>
 </div>
 <div class="box">
-	垂直居中
-	<div id="child3"></div>
+    垂直居中
+    <div id="child3"></div>
 </div>
 </html>
 
@@ -716,50 +716,50 @@ _(child3).center('h');　　//　使div#child3元素垂直居中
 　　　　　**参数 : *`val`* :**　　　动画属性的值 [*string*]</br></br>
 ```javascript
 <style>
-	#box {width:400px; height:400px; background:salmon; padding:50px;}
-	#content1 {width:200px; height:300px; background:green;}
-	#content2 {width:350px; height:200px; background:yellow; position:relative; left:0; top:150px;}
+    #box {width:400px; height:400px; background:salmon; padding:50px;}
+    #content1 {width:200px; height:300px; background:green;}
+    #content2 {width:350px; height:200px; background:yellow; position:relative; left:0; top:150px;}
 
-	@keyframes _CONTENT {
-		25% {background:red; left:100px;}
-		50% {background:gray; left:200px;}
-		75% {background:black; left:100px;}
-		100% {background:yellow; left:0;}
-	}
-	@-webkit-keyframes _CONTENT {
-		25% {background:red; left:100px;}
-		50% {background:gray; left:200px;}
-		75% {background:black; left:100px;}
-		100% {background:yellow; left:0;}
-	}
-	@-ms-keyframes _CONTENT {
-		25% {background:red; left:100px;}
-		50% {background:gray; left:200px;}
-		75% {background:black; left:100px;}
-		100% {background:yellow; left:0;}
-	}
-	@-o-keyframes _CONTENT {
-		25% {background:red; left:100px;}
-		50% {background:gray; left:200px;}
-		75% {background:black; left:100px;}
-		100% {background:yellow; left:0;}
-	}
-	@-moz-keyframes _CONTENT {
-		25% {background:red; left:100px;}
-		50% {background:gray; left:200px;}
-		75% {background:black; left:100px;}
-		100% {background:yellow; left:0;}
-	}
+    @keyframes _CONTENT {
+        25% {background:red; left:100px;}
+        50% {background:gray; left:200px;}
+        75% {background:black; left:100px;}
+        100% {background:yellow; left:0;}
+    }
+    @-webkit-keyframes _CONTENT {
+        25% {background:red; left:100px;}
+        50% {background:gray; left:200px;}
+        75% {background:black; left:100px;}
+        100% {background:yellow; left:0;}
+    }
+    @-ms-keyframes _CONTENT {
+        25% {background:red; left:100px;}
+        50% {background:gray; left:200px;}
+        75% {background:black; left:100px;}
+        100% {background:yellow; left:0;}
+    }
+    @-o-keyframes _CONTENT {
+        25% {background:red; left:100px;}
+        50% {background:gray; left:200px;}
+        75% {background:black; left:100px;}
+        100% {background:yellow; left:0;}
+    }
+    @-moz-keyframes _CONTENT {
+        25% {background:red; left:100px;}
+        50% {background:gray; left:200px;}
+        75% {background:black; left:100px;}
+        100% {background:yellow; left:0;}
+    }
 </style>
 
 <html>
 <div id="box">
-	<div id="content1">
-		content1
-		<div id="content2">
-			content2
-		</div>
-	</div>
+    <div id="content1">
+        content1
+        <div id="content2">
+            content2
+        </div>
+    </div>
 </div>
 </html>
 
@@ -787,22 +787,22 @@ _(document).BD('dblclick', function(){
 　　　　　　　　 　　　　　　　`*fnName* 参数必须是一个 *函数名* , 不能是整个function表达式`
 ```javascript
 <html>
-	<div id="box" style="width:100px; height:100px; background:salmon; margin-left:0"></div>
+    <div id="box" style="width:100px; height:100px; background:salmon; margin-left:0"></div>
 </html>
 
 <script>
 function moveend(){
-	_(box).css({marginLeft:0}).unBD_transitionend(moveend);　　//　执行将div#box的margin-left样式变为0, 并解除绑定transitionend事件
+    _(box).css({marginLeft:0}).unBD_transitionend(moveend);　　//　执行将div#box的margin-left样式变为0, 并解除绑定transitionend事件
 };
 
 _(document).BD('dblclick', function(){
 　　//　执行设置动画过渡1秒, 绑定transitionend事件, 并将div#box的margin-left样式变为500px
-	_(box).transition('1s').BD_transitionend(moveend).css({marginLeft:'500px'});
+    _(box).transition('1s').BD_transitionend(moveend).css({marginLeft:'500px'});
 
-	setTimeout(()=>{
+    setTimeout(()=>{
 　　//　由于上面执行了 moveend() 方法, div#box元素已经解绑了transitionend事件, 所以这里将不会执行 _(box).css({marginLeft:0}).unBD_transitionend(moveend); 语句
-		_(box).css({marginLeft:'500px'});
-	}, 3000);
+        _(box).css({marginLeft:'500px'});
+    }, 3000);
 }, {once:true});
 </script>
 ```
@@ -817,22 +817,22 @@ _(document).BD('dblclick', function(){
 　　　　　　　　 　　　　　　　`*fnName* 参数必须是一个 *函数名* , 不能是整个function表达式`
 ```javascript
 <html>
-	<div id="box" style="width:100px; height:100px; background:salmon; margin-left:0"></div>
+    <div id="box" style="width:100px; height:100px; background:salmon; margin-left:0"></div>
 </html>
 
 <script>
 function moveend(){
-	_(box).css({marginLeft:0}).unBD_transitionend(moveend);　　//　执行将div#box的margin-left样式变为0, 并解除绑定transitionend事件
+    _(box).css({marginLeft:0}).unBD_transitionend(moveend);　　//　执行将div#box的margin-left样式变为0, 并解除绑定transitionend事件
 };
 
 _(document).BD('dblclick', function(){
 　　//　执行设置动画过渡1秒, 绑定transitionend事件, 并将div#box的margin-left样式变为500px(当动画过渡结束时将会执行 moveend()方法)
-	_(box).transition('1s').BD_transitionend(moveend).css({marginLeft:'500px'});
+    _(box).transition('1s').BD_transitionend(moveend).css({marginLeft:'500px'});
 
-	setTimeout(()=>{
+    setTimeout(()=>{
 　　//　由于上面执行了 moveend() 方法, div#box元素已经解绑了transitionend事件, 所以这里将不会执行 _(box).css({marginLeft:0}).unBD_transitionend(moveend); 语句
-		_(box).css({marginLeft:'500px'});
-	}, 3000);
+        _(box).css({marginLeft:'500px'});
+    }, 3000);
 }, {once:true});
 </script>
 ```
@@ -865,53 +865,53 @@ _(document).BD('dblclick', function(){
 　　　　　　　　 　　　　　　　`*fnName* 参数必须是一个 *函数名* , 不能是整个function表达式`</br></br>
 ```javascript
 <style>
-	.text {line-height:50px; font-size:18px;}
-	.content {color:blue; display:none;}
-	#box {width:100px; height:100px; background:salmon; margin-left:0;}
+    .text {line-height:50px; font-size:18px;}
+    .content {color:blue; display:none;}
+    #box {width:100px; height:100px; background:salmon; margin-left:0;}
 
-	@keyframes _CONTENT {
-		0% {width:100px; height:100px; background:salmon; margin-left:0;}
-		25% {width:500px; height:500px; background:green; margin-left:100px;}
-		50% {width:300px; height:300px; background:black; margin-left:200px;}
-		75% {width:400px; height:400px; background:red; margin-left:100px;}
-		100% {width:100px; height:100px; background:yellow; margin-left:200px;}
-	}
-	@-webkit-keyframes _CONTENT {
-		0% {width:100px; height:100px; background:salmon; margin-left:0;}
-		25% {width:500px; height:500px; background:green; margin-left:100px;}
-		50% {width:300px; height:300px; background:black; margin-left:200px;}
-		75% {width:400px; height:400px; background:red; margin-left:100px;}
-		100% {width:100px; height:100px; background:yellow; margin-left:200px;}
-	}
-	@-ms-keyframes _CONTENT {
-		0% {width:100px; height:100px; background:salmon; margin-left:0;}
-		25% {width:500px; height:500px; background:green; margin-left:100px;}
-		50% {width:300px; height:300px; background:black; margin-left:200px;}
-		75% {width:400px; height:400px; background:red; margin-left:100px;}
-		100% {width:100px; height:100px; background:yellow; margin-left:200px;}
-	}
-	@-o-keyframes _CONTENT {
-		0% {width:100px; height:100px; background:salmon; margin-left:0;}
-		25% {width:500px; height:500px; background:green; margin-left:100px;}
-		50% {width:300px; height:300px; background:black; margin-left:200px;}
-		75% {width:400px; height:400px; background:red; margin-left:100px;}
-		100% {width:100px; height:100px; background:yellow; margin-left:200px;}
-	}
-	@-moz-keyframes _CONTENT {
-		0% {width:100px; height:100px; background:salmon; margin-left:0;}
-		25% {width:500px; height:500px; background:green; margin-left:100px;}
-		50% {width:300px; height:300px; background:black; margin-left:200px;}
-		75% {width:400px; height:400px; background:red; margin-left:100px;}
-		100% {width:100px; height:100px; background:yellow; margin-left:200px;}
-	}
+    @keyframes _CONTENT {
+        0% {width:100px; height:100px; background:salmon; margin-left:0;}
+        25% {width:500px; height:500px; background:green; margin-left:100px;}
+        50% {width:300px; height:300px; background:black; margin-left:200px;}
+        75% {width:400px; height:400px; background:red; margin-left:100px;}
+        100% {width:100px; height:100px; background:yellow; margin-left:200px;}
+    }
+    @-webkit-keyframes _CONTENT {
+        0% {width:100px; height:100px; background:salmon; margin-left:0;}
+        25% {width:500px; height:500px; background:green; margin-left:100px;}
+        50% {width:300px; height:300px; background:black; margin-left:200px;}
+        75% {width:400px; height:400px; background:red; margin-left:100px;}
+        100% {width:100px; height:100px; background:yellow; margin-left:200px;}
+    }
+    @-ms-keyframes _CONTENT {
+        0% {width:100px; height:100px; background:salmon; margin-left:0;}
+        25% {width:500px; height:500px; background:green; margin-left:100px;}
+        50% {width:300px; height:300px; background:black; margin-left:200px;}
+        75% {width:400px; height:400px; background:red; margin-left:100px;}
+        100% {width:100px; height:100px; background:yellow; margin-left:200px;}
+    }
+    @-o-keyframes _CONTENT {
+        0% {width:100px; height:100px; background:salmon; margin-left:0;}
+        25% {width:500px; height:500px; background:green; margin-left:100px;}
+        50% {width:300px; height:300px; background:black; margin-left:200px;}
+        75% {width:400px; height:400px; background:red; margin-left:100px;}
+        100% {width:100px; height:100px; background:yellow; margin-left:200px;}
+    }
+    @-moz-keyframes _CONTENT {
+        0% {width:100px; height:100px; background:salmon; margin-left:0;}
+        25% {width:500px; height:500px; background:green; margin-left:100px;}
+        50% {width:300px; height:300px; background:black; margin-left:200px;}
+        75% {width:400px; height:400px; background:red; margin-left:100px;}
+        100% {width:100px; height:100px; background:yellow; margin-left:200px;}
+    }
 </style>
 
 <html>
 <div class="text">
-	进程 : 
-	<span class="content">动画开始</span>
-	<span class="content"></span>
-	<span class="content"> ---> 动画结束</span>
+    进程 : 
+    <span class="content">动画开始</span>
+    <span class="content"></span>
+    <span class="content"> ---> 动画结束</span>
 </div>
 
 <div id="box"></div>
@@ -921,23 +921,23 @@ _(document).BD('dblclick', function(){
 let n=0;
 
 function _start(){
-	_('.content', 0).css({display:'inline'});
-	_(box).unBD_animationstart(_start);　　//　解除监听 animationstart事件
+    _('.content', 0).css({display:'inline'});
+    _(box).unBD_animationstart(_start);　　//　解除监听 animationstart事件
 };
 
 function _iteration(){
-	n += 1;
-	_('.content', 1).el.innerHTML = ` ---> 第${n}次播放结束`;
-	_('.content', 1).css({display:'inline'});
+    n += 1;
+    _('.content', 1).el.innerHTML = ` ---> 第${n}次播放结束`;
+    _('.content', 1).css({display:'inline'});
 };
 
 function _end(){
-	n += 1;
-	_('.content', 1).el.innerHTML = ` ---> 第${n}次播放结束`;
-	_('.content', 2).css({display:'inline'});
-	n = 0;　　//　初始化 n值
-	_(box).animation('none');　　//　初始化 div#box的animation样式
-	_(box).unBD_animationiteration(_iteration).unBD_animationend(_end);　　//　解除监听 animationiteration事件 和 animationend事件
+    n += 1;
+    _('.content', 1).el.innerHTML = ` ---> 第${n}次播放结束`;
+    _('.content', 2).css({display:'inline'});
+    n = 0;　　//　初始化 n值
+    _(box).animation('none');　　//　初始化 div#box的animation样式
+    _(box).unBD_animationiteration(_iteration).unBD_animationend(_end);　　//　解除监听 animationiteration事件 和 animationend事件
 };
 
 _(box).BD_animationstart(_start);　　//　动画开始时调用 _start函数
@@ -947,12 +947,12 @@ _(box).BD_animationiteration(_iteration);　　//　动画循环播放时调用 
 _(box).BD_animationend(_end);　　//　动画结束时调用 _end函数
 
 setTimeout(()=>{
-	_(box).animation('_CONTENT 2s 3');
+    _(box).animation('_CONTENT 2s 3');
 }, 1000);
 
 setTimeout(()=>{
-	_('.text', 0).el.innerHTML = '第二次动画 ---> 将不再监听事件';
-	_(box).animation('_CONTENT 2s 3');
+    _('.text', 0).el.innerHTML = '第二次动画 ---> 将不再监听事件';
+    _(box).animation('_CONTENT 2s 3');
 }, 8000);
 </script>
 ```
