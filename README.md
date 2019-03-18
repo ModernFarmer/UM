@@ -155,7 +155,7 @@ console.log(_isJson(c));　　//　true
 
 <script>
 myDom.onchange = function(){　　//　当文本域(即<input type="file">)选择单个文件时
-	console.log(_isImg(myDom));　　//　true|false
+    console.log(_isImg(myDom));　　//　true|false
 };
 
 myDom_more.onchange = function(){　　//　当文本域(即<input type="file">)选择多个文件时
