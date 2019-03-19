@@ -404,6 +404,36 @@ console.log(_('.bpp', 1).getStyle('width'));　　//　50px
 </script>
 ```
 **\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-**</br>
+　　　_(select, index)**`.offset(val)` :　　　　　 获取选择器选择的dom元素的边到浏览器的距离**</br>
+**\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-**</br></br>
+　　　　　**参数 : *`val`* :**　　　'left'(元素左边到浏览器左边距离)|'top'(元素顶边到浏览器顶边距离) [*string*]</br>
+　　　　　　　　.offset()方法只能获取`一个dom元素`的边到浏览器的距离, *不能* 获取dom元素集合的边到浏览器的距离
+```javascript
+<style>
+    #box1 {position:absolute; left:10px; top:11px;}
+    #box2 {position:absolute; left:10px; top:11px;}
+    #box3 {position:absolute; left:10px; top:11px;}
+    #box4 {position:absolute; left:10px; top:11px;}
+</style>
+
+<html>
+<div id="box1">
+    <div id="box2">
+        <div id="box3">
+            <div id="box4"></div>
+        </div>
+    </div>
+</div>
+</html>
+
+<script>
+console.log(_(box1).offset('left'), _(box1).offset('top'));　　//　10 11
+console.log(_(box2).offset('left'), _(box2).offset('top'));　　//　20 22
+console.log(_(box3).offset('left'), _(box3).offset('top'));　　//　30 33
+console.log(_(box4).offset('left'), _(box4).offset('top'));　　//　40 44
+</script>
+```
+**\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-**</br>
 　　　_(select, index)**`.setW(selector, json)` :　　　　　基于参数selector的第一个元素的`宽度值`来设置**</br>
 　　　　　　　　　　　　　　　　　　　　　　　　　 **选择器选择的所有dom元素的单一数值型css样式,**</br>
 　　　　　　　　　　　　　　　　　　　　**`并且当window窗口尺寸发生变化时,选择器选择的所有dom元素的css样式也会跟随着变化`**</br>
