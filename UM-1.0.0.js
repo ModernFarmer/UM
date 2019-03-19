@@ -469,6 +469,33 @@ ___UM_getDom.prototype.getStyle=function(typeName){           //原型: .getStyl
 	};
 };
 
+___UM_getDom.prototype.offset=function(val){           //原型: .offset()方法    获取一个元素的边到浏览器的距离
+	if(!this.el.length){
+		val=val || '';
+		if(val.toLowerCase()==='left'){
+			var distance=this.el.offsetLeft;
+			var par=this.el.offsetParent;
+			while(par!=null){
+				distance+=par.offsetLeft;
+				par=par.offsetParent;
+			};
+			return distance;
+		}else if(val.toLowerCase()==='top'){
+			var distance=this.el.offsetTop;
+			var par=this.el.offsetParent;
+			while(par!=null){
+				distance+=par.offsetTop;
+				par=par.offsetParent;
+			};
+			return distance;
+		}else{
+			return undefined;
+		};
+	}else{
+		throw 'UM库 .offset() 方法错误: .offset()方法只能获取一个元素的边到浏览器的距离!';
+	}
+};
+
 ___UM_getDom.prototype.transform=function(val){              //原型: .transform()方法    设置2d或3d变换
 	if(this.arguments[0]===window || this.arguments[0]===document)throw 'UM库 .transform() 方法错误: window和document不能有.transform()方法!';
 	var mould=['ms','moz','webkit','o',''];
