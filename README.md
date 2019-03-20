@@ -44,7 +44,9 @@ document.oncontextmenu = function(){　　//　右键点击事件, 原本会默�
 **\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-**
 ```javascript
 <html>
-<div id="demo" style="width:300px; height:300px; background:salmon"></div>
+<body>
+    <div id="demo" style="width:300px; height:300px; background:salmon"></div>
+</body>
 </html>
 
 <script>
@@ -149,8 +151,10 @@ console.log(_isJson(c));　　//　true
 　　　　　　　　　***`i`*** :　　　　选择的文件的索引 [*number*]　\<可选\>  \* 默认为 0
 ```javascript
 <html>
-<input type="file" id="myDom">　　<!-- 选择单个文件 -->
-<input type="file" multiple id="myDom_more">　　<!-- 选择多个文件 -->
+<body>
+    <input type="file" id="myDom">　　<!-- 选择单个文件 -->
+    <input type="file" multiple id="myDom_more">　　<!-- 选择多个文件 -->
+</body>
 </html>
 
 <script>
@@ -169,8 +173,10 @@ myDom_more.onchange = function(){　　//　当文本域(即<input type="file">)
 　　　　　**参数 : *`str`* :**　　　css选择器 [*string*]
 ```javascript
 <html>
-<div class="element"></div>
-<div id="dom"></div>
+<body>
+    <div class="element"></div>
+    <div id="dom"></div>
+</body>
 </html>
 
 <script>
@@ -238,8 +244,10 @@ console.log(_ifDom('#dom'));　　//　true
 　　　　　　}
 ```javascript
 <html>
-<input type="file" id="inputElement_1">
-<input type="file" id="inputElement_2">
+<body>
+    <input type="file" id="inputElement_1">
+    <input type="file" id="inputElement_2">
+</body>
 </html>
 
 <script>
@@ -307,11 +315,13 @@ _ajax({
 　　　
 ```javascript
 <html>
-<div id="divId"></div>
+<body>
+    <div id="divId"></div>
 
-<div class="divClass"></div>
-<div class="divClass"></div>
-<div class="divClass"></div>
+    <div class="divClass"></div>
+    <div class="divClass"></div>
+    <div class="divClass"></div>
+</body>
 </html>
 
 <script>
@@ -361,7 +371,9 @@ console.log(_(document).length);　　//　null
 　　　　　　}
 ```javascript
 <html>
-<div id="app"></div>
+<body>
+    <div id="app"></div>
+</body>
 </html>
 
 <script>
@@ -388,9 +400,11 @@ setTimeout(() => {　　//　1秒后改变div#app的样式
 </style>
 
 <html>
-<div id="app"></div>
-<div ckass='bpp'></div>
-<div ckass='bpp'></div>
+<body>
+    <div id="app"></div>
+    <div ckass='bpp'></div>
+    <div ckass='bpp'></div>
+</body>
 </html>
 
 <script>
@@ -417,13 +431,15 @@ console.log(_('.bpp', 1).getStyle('width'));　　//　50px
 </style>
 
 <html>
-<div id="box1">
-    <div id="box2">
-        <div id="box3">
-            <div id="box4"></div>
+<body>
+    <div id="box1">
+        <div id="box2">
+            <div id="box3">
+                <div id="box4"></div>
+            </div>
         </div>
     </div>
-</div>
+</body>
 </html>
 
 <script>
@@ -461,10 +477,12 @@ console.log(_(box4).offset('left'), _(box4).offset('top'));　　//　40 44
 </style>
 
 <html>
-<div id="_child">id="_child"</div>
-<div class="child1">child1_line1</div>
-<div class="child1">child1_line2</div>
-<div class="child2">child2</div>
+<body>
+    <div id="_child">id="_child"</div>
+    <div class="child1">child1_line1</div>
+    <div class="child1">child1_line2</div>
+    <div class="child2">child2</div>
+</body>
 </html>
 
 <script>
@@ -517,10 +535,12 @@ _('.child2').setMW(box, {width:.5, fontSize:.05, lineHeight:.08});
 </style>
 
 <html>
-<div id="_child">id="_child"</div>
-<div class="child1">child1_line1</div>
-<div class="child1">child1_line2</div>
-<div class="child2">child2</div>
+<body>
+    <div id="_child">id="_child"</div>
+    <div class="child1">child1_line1</div>
+    <div class="child1">child1_line2</div>
+    <div class="child2">child2</div>
+</body>
 </html>
 
 <script>
@@ -566,10 +586,12 @@ _('.child2').setMH(box, {width:.5, fontSize:.05, lineHeight:.08});
 　　　　　　}
 ```javascript
 <html>
-<div class="btn1" style="width:100px; height:30px; background:salmon; margin-right:20px; float:left">.btn1_1</div>
-<div class="btn1" style="width:100px; height:30px; background:red; float:left">.btn1_2</div></br>
-<div id="btn2" style="width:100px; height:30px; background:green; margin-top:30px">#btn2</div>
-<div id="btn3" style="width:100px; height:30px; background:green; margin-top:30px">#btn3</div>
+<body>
+    <div class="btn1" style="width:100px; height:30px; background:salmon; margin-right:20px; float:left">.btn1_1</div>
+    <div class="btn1" style="width:100px; height:30px; background:red; float:left">.btn1_2</div></br>
+    <div id="btn2" style="width:100px; height:30px; background:green; margin-top:30px">#btn2</div>
+    <div id="btn3" style="width:100px; height:30px; background:green; margin-top:30px">#btn3</div>
+</body>
 </html>
 
 <script>
@@ -601,7 +623,9 @@ _(btn3).BD('touchstart', function(){
 　　　　　　　　 　　　　　　　`.unBD()方法的第二个参数必须是一个 *函数名* , 不能是整个function表达式`
 ```javascript
 <html>
-<div id="button1">我是一颗小小的按钮</div>
+<body>
+    <div id="button1">我是一颗小小的按钮</div>
+</body>
 </html>
 
 <script>
@@ -635,19 +659,21 @@ setTimeout(()=>{
 </style>
 
 <html>
-<div id="box">
-    <div id="contentBox">
-        ---1</br></br></br>
-        ---2</br></br></br>
-        ---3</br></br></br>
-        ---4</br></br></br>
-        ---5</br></br></br>
-        ---6</br></br></br>
-        ---7</br></br></br>
-        ---8</br></br></br>
-        ---9</br></br></br>
+<body>
+    <div id="box">
+        <div id="contentBox">
+            ---1</br></br></br>
+            ---2</br></br></br>
+            ---3</br></br></br>
+            ---4</br></br></br>
+            ---5</br></br></br>
+            ---6</br></br></br>
+            ---7</br></br></br>
+            ---8</br></br></br>
+            ---9</br></br></br>
+        </div>
     </div>
-</div>
+</body>
 </html>
 
 <script>
@@ -672,9 +698,11 @@ _(box).mousewheel(fn_up, fn_down);　　//　滚轮向上滚动时, 执行fn_up;
 　　　　　**参数 : *`val`* :**　　　文字是否可被选中(true为可被选中) [*boolean*] \<可选\>　　默认 false
 ```javascript
 <html>
-<div class="box">第 1 个div.box元素</div>
-<div class="box">第 2 个div.box元素</div>
-<div class="box">第 3 个div.box元素</div>
+<body>
+    <div class="box">第 1 个div.box元素</div>
+    <div class="box">第 2 个div.box元素</div>
+    <div class="box">第 3 个div.box元素</div>
+</body>
 </html>
 
 <script>
@@ -695,18 +723,20 @@ _('.box', 2).choosable(true);　　//　将第3个div.box元素设置为文字�
 </style>
 
 <html>
-<div class="box">
-    水平垂直居中
-    <div id="child1"></div>
-</div>
-<div class="box">
-    水平居中
-    <div id="child2"></div>
-</div>
-<div class="box">
-    垂直居中
-    <div id="child3"></div>
-</div>
+<body>
+    <div class="box">
+        水平垂直居中
+        <div id="child1"></div>
+    </div>
+    <div class="box">
+        水平居中
+        <div id="child2"></div>
+    </div>
+    <div class="box">
+        垂直居中
+        <div id="child3"></div>
+    </div>
+</body>
 </html>
 
 <script>
@@ -783,14 +813,16 @@ _(child3).center('h');　　//　使div#child3元素垂直居中
 </style>
 
 <html>
-<div id="box">
-    <div id="content1">
-        content1
-        <div id="content2">
-            content2
+<body>
+    <div id="box">
+        <div id="content1">
+            content1
+            <div id="content2">
+                content2
+            </div>
         </div>
     </div>
-</div>
+</body>
 </html>
 
 <script>
@@ -817,7 +849,9 @@ _(document).BD('dblclick', function(){
 　　　　　　　　 　　　　　　　`*fnName* 参数必须是一个 *函数名* , 不能是整个function表达式`
 ```javascript
 <html>
+<body>
     <div id="box" style="width:100px; height:100px; background:salmon; margin-left:0"></div>
+</body>
 </html>
 
 <script>
@@ -847,7 +881,9 @@ _(document).BD('dblclick', function(){
 　　　　　　　　 　　　　　　　`*fnName* 参数必须是一个 *函数名* , 不能是整个function表达式`
 ```javascript
 <html>
+<body>
     <div id="box" style="width:100px; height:100px; background:salmon; margin-left:0"></div>
+</body>
 </html>
 
 <script>
@@ -937,14 +973,16 @@ _(document).BD('dblclick', function(){
 </style>
 
 <html>
-<div class="text">
-    进程 : 
-    <span class="content">动画开始</span>
-    <span class="content"></span>
-    <span class="content"> ---> 动画结束</span>
-</div>
+<body>
+    <div class="text">
+        进程 : 
+        <span class="content">动画开始</span>
+        <span class="content"></span>
+        <span class="content"> ---> 动画结束</span>
+    </div>
 
-<div id="box"></div>
+    <div id="box"></div>
+</body>
 </html>
 
 <script>
