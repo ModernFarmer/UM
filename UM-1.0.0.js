@@ -151,7 +151,7 @@ function _transposition(arr,i,j) {        //数组内元素换位
 };
 
 function _ajax(json){
-	if(!_isJson(json))throw 'UM库_ajax()方法错误: _ajax()方法的参数必须是一个json对象!';
+    if(!_isJson(json))throw 'UM库_ajax()方法错误: _ajax()方法的参数必须是一个json对象!';
     if(!json.url)throw 'UM库_ajax()方法错误: 缺少 [ url ] 参数!';
     json.data=json.data || {};
     json.headers=json.headers || null;
@@ -210,7 +210,7 @@ function _ajax(json){
      
         ajaxObj.onreadystatechange=function(){
             if(ajaxObj.readyState==4){
-                if(json.overtime)clearTimeout(ajax_overtime___um);              //如果超时器规定时间内服务器读取完成,则关闭超时器
+                if(json.overtime)clearTimeout(window['UM_ajax__'+json.overtime.name]);              //如果超时器规定时间内服务器读取完成,则关闭超时器
                 if(ajaxObj.status>=200 && ajaxObj.status<300 || ajaxObj.status==304){
                     json.success && json.success(JSON.parse(ajaxObj.responseText));
                 }else{
@@ -264,7 +264,7 @@ function _ajax(json){
             }
 	        ajaxObj.onreadystatechange=function(){
 	            if(ajaxObj.readyState==4){
-	                if(json.overtime)clearTimeout(ajax_overtime___um);              //如果超时器规定时间内服务器读取完成,则关闭超时器
+	                if(json.overtime)clearTimeout(window['UM_ajax__'+json.overtime.name]);              //如果超时器规定时间内服务器读取完成,则关闭超时器
 	                if(ajaxObj.status>=200 && ajaxObj.status<300 || ajaxObj.status==304){
 	                    json.success && json.success(JSON.parse(ajaxObj.responseText));
 	                }else{
@@ -283,7 +283,7 @@ function _ajax(json){
             }
 	        ajaxObj.onreadystatechange=function(){
 	            if(ajaxObj.readyState==4){
-	                if(json.overtime)clearTimeout(ajax_overtime___um);              //如果超时器规定时间内服务器读取完成,则关闭超时器
+	                if(json.overtime)clearTimeout(window['UM_ajax__'+json.overtime.name]);              //如果超时器规定时间内服务器读取完成,则关闭超时器
 	                if(ajaxObj.status>=200 && ajaxObj.status<300 || ajaxObj.status==304){
 	                    json.success && json.success(JSON.parse(ajaxObj.responseText));
 	                }else{
@@ -334,7 +334,7 @@ function _ajax(json){
                     }
 			        ajaxObj.onreadystatechange=function(){
 			            if(ajaxObj.readyState==4){
-			                if(json.overtime)clearTimeout(ajax_overtime___um);              //如果超时器规定时间内服务器读取完成,则关闭超时器
+			                if(json.overtime)clearTimeout(window['UM_ajax__'+json.overtime.name]);              //如果超时器规定时间内服务器读取完成,则关闭超时器
 			                if(ajaxObj.status>=200 && ajaxObj.status<300 || ajaxObj.status==304){
 			                    json.success && json.success(JSON.parse(ajaxObj.responseText));
 			                }else{
@@ -353,7 +353,7 @@ function _ajax(json){
                     }
 			        ajaxObj.onreadystatechange=function(){
 			            if(ajaxObj.readyState==4){
-			                if(json.overtime)clearTimeout(ajax_overtime___um);              //如果超时器规定时间内服务器读取完成,则关闭超时器
+			                if(json.overtime)clearTimeout(window['UM_ajax__'+json.overtime.name]);              //如果超时器规定时间内服务器读取完成,则关闭超时器
 			                if(ajaxObj.status>=200 && ajaxObj.status<300 || ajaxObj.status==304){
 			                    json.success && json.success(JSON.parse(ajaxObj.responseText));
 			                }else{
@@ -384,7 +384,7 @@ function _ajax(json){
                 }
 		        ajaxObj.onreadystatechange=function(){
 		            if(ajaxObj.readyState==4){
-		                if(json.overtime)clearTimeout(ajax_overtime___um);              //如果超时器规定时间内服务器读取完成,则关闭超时器
+		                if(json.overtime)clearTimeout(window['UM_ajax__'+json.overtime.name]);              //如果超时器规定时间内服务器读取完成,则关闭超时器
 		                if(ajaxObj.status>=200 && ajaxObj.status<300 || ajaxObj.status==304){
 		                    json.success && json.success(JSON.parse(ajaxObj.responseText));
 		                }else{
