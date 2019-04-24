@@ -206,7 +206,7 @@ console.log(_ifDom('#dom'));　　//　true
 　　　　　　　　},</br>
 　　　　　　　　***`FormData`*** : {　　　　发送单个表单的FormData文件 [*json*]　\<可选\> 默认 null</br>
 　　　　　　　　　　　　　　　　　　`当存在 *FormData* 参数时, _ajax()方法的 *data* 参数和 *method* 参数将会失效`</br>
-　　　　　　　　　　*`fileEl`* : element,　　　　　　发送数据的表单元素 [*element*] (必须)</br>
+　　　　　　　　　　*`input`* : element,　　　　　　要发送数据的表单元素 | 要发送的文件数组 [*element | array*] (必须)</br>
 　　　　　　　　　　*`name`* : 'name_',　　　　　　　供服务器端文件改名的字符串 [*string*] (必须)</br>
 　　　　　　　　　　*`encoded`* : {　　　　　　　　　上传encoded数据 [*json*]　\<可选\> 默认 null</br>
 　　　　　　　　　　　　encodedName1 : 'encodedContent1',</br>
@@ -217,7 +217,7 @@ console.log(_ifDom('#dom'));　　//　true
 　　　　　　　　***`FormData_More`*** : {　　　　　发送多个表单的FormData文件 [*json*]　\<可选\> 默认 null</br>
 　　　　　　　`当存在 *FormData_More* 参数时, _ajax()方法的 *data* 参数、*method* 参数和 *FormData* 参数将会失效`</br>
 　　　　　　　　　　*`name`* : 'name_',　　　　　供服务器端文件改名的字符串 [*string*] (必须)</br>
-　　　　　　　　　　*`files`* : [],　　　　　　　需要上传的元素数组 [*array*] (必须)</br>
+　　　　　　　　　　*`inputs`* : [],　　　　　　　需要上传的元素数组 [*array*] (必须)</br>
 　　　　　　　　　　　　　　　　　　　　　`数组里面存放的必须是 *表单dom元素*`</br>
 　　　　　　　　　　*`encoded`* : {　　　　　上传encoded数据 [*json*]　\<可选\> 默认 null</br>
 　　　　　　　　　　　　encodedName1 : 'encodedContent1',</br>
@@ -260,6 +260,7 @@ _ajax({
     data:{},　　　　　//请求的数据　　{a:'xxxx', b:'xxxxx', ......}　　默认为空的json
     FormData:{　　　　//**设置为formdata上传模式　　默认为null**　>>>　该模式下data,method参数将会失效 <<<
         input:inputElement_1,　　//文件域dom元素
+        // 或者写成 : input:[inputElement_1.files[0]],　　(1.1.0新增)
         name:'name_',　　//上传名字　　供后台改名用
         encoded:{　　　　//**是否上传encoded数据　　默认为null**
             text1:'111111',
