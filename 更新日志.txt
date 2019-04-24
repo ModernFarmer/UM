@@ -1,2 +1,4 @@
 1.0.0
-        UM���׷�
+        UM首发
+1.1.0
+        _ajax()方法的FormData参数新增可传入文件数组    如input:[<file>, <file>, ... ]
