@@ -41,14 +41,15 @@ function _stopPropagation(event){
 	}
 }           //---------调用   _stopPropagation(event)   取消事件冒泡（必须在事件函数内传递一个事件对象event）
 
-function _getFileUrl(fileDom){        //获取type="file"的input表单的本地文件地址
+function _getFileUrl(fileDom, index){        //获取type="file"的input表单的本地文件地址
     let UM_fileUrl=null;
+    let index=index || 0;
     if(window.createObjectURL!=undefined){
-        UM_fileUrl=window.createObjectURL(fileDom.files[0]);          //basic
+        UM_fileUrl=window.createObjectURL(fileDom.files[index]);          //basic
     }else if(window.URL!=undefined){
-        UM_fileUrl=window.URL.createObjectURL(fileDom.files[0]);      //firefox
+        UM_fileUrl=window.URL.createObjectURL(fileDom.files[index]);      //firefox
     }else if(window.webkitURL!=undefined){
-        UM_fileUrl=window.webkitURL.createObjectURL(fileDom.files[0]);   //chrome
+        UM_fileUrl=window.webkitURL.createObjectURL(fileDom.files[index]);   //chrome
     }
     return UM_fileUrl;
 };
