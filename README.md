@@ -317,15 +317,18 @@ _ajax({
 </script>
 ```
 **\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-**</br>
-　　　**`_condense(json)` :　　　　　获取压缩后的图片,　返回　*Promise***</br>
+　　　**`_condense(json)` :　　　　　获取压缩后的二进制图片文件,　返回　*Promise***</br>
 **\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-**</br></br>
 　　　　　**参数 : *`json`* :**　　　_condense参数对象 [*json*]</br>
 　　　　　**参数详解 :**</br>
 　　　　　　{</br>
 　　　　　　　　***`file`*** : [file],　　　要压缩的**图片** 或者 **图片数组** [*file*|*string*] (必须)</br>
-　　　　　　　　***`maxWidth`*** : 500,　　　压缩最大宽度, 如果原图片宽度超过该值则会被压缩至该值 [*number*]　\<可选\> 默认 null(即保持原图片宽度不变)</br>
-　　　　　　　　***`maxHeight`*** : 500,　　　压缩最大高度, 如果原图片高度超过该值则会被压缩至该值 [*number*]　\<可选\> 默认 null(即保持原图片高度不变)</br>
-　　　　　　　　***`quality`*** : 'image/jpeg',　　　压缩成什么品质 大于0且小于等于1 [*number*]　\<可选\> 默认 null(即保持原图片高度不变)</br>
+　　　　　　　　***`maxWidth`*** : 500,　　　压缩最大宽度, 如果原图片宽度超过该值则会被压缩至该值 [*number*]</br>
+　　　　　　　　　　　　　　　　　　　　\<可选\> 默认 null(即保持原图片宽度不变)</br>
+　　　　　　　　***`maxHeight`*** : 500,　　　压缩最大高度, 如果原图片高度超过该值则会被压缩至该值 [*number*]</br>
+　　　　　　　　　　　　　　　　　　　　\<可选\> 默认 null(即保持原图片高度不变)</br>
+　　　　　　　　***`quality`*** : 'image/jpeg',　　　压缩成什么品质 大于0且小于等于1 [*number*]</br>
+　　　　　　　　　　　　　　　　　　　　\<可选\> 默认 null(即保持原图片高度不变)</br>
 　　　　　　　　***`type`*** : 'image/jpeg',　　　压缩成什么格式 [*string*]　\<可选\> 默认 'image/jpeg'
 ```javascript
 <style>
@@ -351,6 +354,10 @@ let result=[];
 
 fileId.onchange=function(){
     if(this.files.length>0){
+        if(this.files[0].type!='image/jpeg' && this.files[0].type!='image/png'){
+            alert('请选择jpeg或者png格式的图片!');
+            return;
+        }
         arr.push(this.files[0]);
         result.push(this.files[0].name);
         now=this.files[0];
