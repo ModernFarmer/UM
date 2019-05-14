@@ -43,13 +43,13 @@ function _stopPropagation(event){
 
 function _getFileUrl(fileDom, index){        //获取type="file"的input表单的本地文件地址
     let UM_fileUrl=null;
-    let index=index || 0;
+    let _i=index || 0;
     if(window.createObjectURL!=undefined){
-        UM_fileUrl=window.createObjectURL(fileDom.files[index]);          //basic
+        UM_fileUrl=window.createObjectURL(fileDom.files[_i]);          //basic
     }else if(window.URL!=undefined){
-        UM_fileUrl=window.URL.createObjectURL(fileDom.files[index]);      //firefox
+        UM_fileUrl=window.URL.createObjectURL(fileDom.files[_i]);      //firefox
     }else if(window.webkitURL!=undefined){
-        UM_fileUrl=window.webkitURL.createObjectURL(fileDom.files[index]);   //chrome
+        UM_fileUrl=window.webkitURL.createObjectURL(fileDom.files[_i]);   //chrome
     }
     return UM_fileUrl;
 };
