@@ -356,6 +356,7 @@ fileId.onchange=function(){
     if(this.files.length>0){
         if(this.files[0].type!='image/jpeg' && this.files[0].type!='image/png'){
             alert('请选择jpeg或者png格式的图片!');
+            this.value='';
             return;
         }
         arr.push(this.files[0]);
