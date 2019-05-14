@@ -212,7 +212,7 @@ console.log(_ifDom('#dom'));　　//　true
 　　　　　**参数 : *`json`* :**　　　ajax参数对象 [*json*]</br>
 　　　　　**参数详解 :**</br>
 　　　　　　{</br>
-　　　　　　　　***`url`*** : 'https:\/\/...',　　　请求地址 [*string*]</br>
+　　　　　　　　***`url`*** : 'https:\/\/...',　　　请求地址 [*string*] (必须)</br>
 　　　　　　　　***`method`*** : 'post/get',　　　　请求方法(\*只能'get'或者'post') [*string*]　\<可选\> 默认 'get'</br>
 　　　　　　　　***`headers`*** : {　　　　　　　　　请求头 [*json*]　\<可选\> 默认 null</br>
 　　　　　　　　　　token_1 : 'token_1',</br>
@@ -314,6 +314,82 @@ _ajax({
 
     }
 });
+</script>
+```
+**\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-**</br>
+　　　**`_condense(json)` :　　　　　获取压缩后的图片,　返回　*Promise***</br>
+**\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-**</br></br>
+　　　　　**参数 : *`json`* :**　　　_condense参数对象 [*json*]</br>
+　　　　　**参数详解 :**</br>
+　　　　　　{</br>
+　　　　　　　　***`file`*** : [file],　　　要压缩的**图片** 或者 **图片数组** [*file*|*string*] (必须)</br>
+　　　　　　　　***`maxWidth`*** : 500,　　　压缩最大宽度, 如果原图片宽度超过该值则会被压缩至该值 [*number*]　\<可选\> 默认 null(即保持原图片宽度不变)</br>
+　　　　　　　　***`maxHeight`*** : 500,　　　压缩最大高度, 如果原图片高度超过该值则会被压缩至该值 [*number*]　\<可选\> 默认 null(即保持原图片高度不变)</br>
+　　　　　　　　***`quality`*** : 'image/jpeg',　　　压缩成什么品质 大于0且小于等于1 [*number*]　\<可选\> 默认 null(即保持原图片高度不变)</br>
+　　　　　　　　***`type`*** : 'image/jpeg',　　　压缩成什么格式 [*string*]　\<可选\> 默认 'image/jpeg'
+```javascript
+<style>
+    #showCheckedImg1,#showCheckedImg2 {margin-top:20px;}
+    #submitBtn1 {width:200px; height:50px; background:salmon; margin-top:50px; text-align:center; line-height:50px; cursor:pointer; float:left;}
+    #submitBtn2 {width:200px; height:50px; background:#0080FF; margin-top:50px; margin-left:20px; text-align:center; line-height:50px; cursor:pointer; float:left;}
+</style>
+
+<html>
+<body>
+    <input type="file" id="fileId">
+    <div id="showCheckedImg1">当前选择: -</div>
+    <div id="showCheckedImg2">已选择: -</div>
+    <div id="submitBtn1">压缩一张图片</div>
+    <div id="submitBtn2">压缩多张图片</div>
+</body>
+</html>
+
+<script>
+let arr=[];    // 存放所有选择的图片文件
+let now=null;    // 最后选择的一张图片
+let result=[];
+
+fileId.onchange=function(){
+    if(this.files.length>0){
+        arr.push(this.files[0]);
+        result.push(this.files[0].name);
+        now=this.files[0];
+        showCheckedImg1.innerHTML=`当前选择: <span style="color:#FF8000">${this.files[0].name}</span>`;
+        showCheckedImg2.innerHTML=`已选择: [ <span style="color:#0AA3F5">${result.join(', ')}</span> ]`;
+        this.value='';
+    }
+};
+
+submitBtn1.onclick=function(){    // 压缩最后选择的一张图片
+    if(!now){
+        alert('请先选择一张图片');
+        return;
+    }
+    _condense({
+        file:now,    // 文件格式的图片
+        quality:.2    // 压缩成品质为0.2的图片
+    }).then(blob=>{
+        console.log(blob);    // 压缩后的二进制图片文件
+    }).catch(err=>{
+        console.log(err);
+    });
+};
+
+submitBtn2.onclick=function(){    // 压缩选择过的所有图片
+    if(arr.length==0){
+        alert('请先选择一张图片');
+        return;
+    }
+    _condense({
+        file:arr,    // 存放文件格式的图片数组
+        quality:.2    // 压缩成品质为0.2的图片
+    }).then(blobArr=>{
+        console.log(blobArr);    // 存放压缩后的二进制图片文件数组
+　　　　　　　　　　　　// ***注 : blobArr里面的图片的顺序与file参数传入的图片文件的顺序一致
+    }).catch(err=>{
+        console.log(err);
+    });
+}
 </script>
 ```
 　</br>
