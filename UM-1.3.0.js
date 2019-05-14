@@ -516,7 +516,7 @@ function _condense(json){      // 压缩图片
 	let maxWidth=json.maxWidth || null;
 	let maxHeight=json.maxHeight || null;
 	let quality=json.quality || null;
-	let type=json.type || 'image/png';
+	let type=json.type || 'image/jpeg';
 
 	if(!HTMLCanvasElement.prototype.toBlob){    // 如果canvas对象没有toBlob方法原型, 则加上(即兼容低版本浏览器)
 	    Object.defineProperty(HTMLCanvasElement.prototype, 'toBlob', {
@@ -531,7 +531,7 @@ function _condense(json){      // 压缩图片
 	                    arr[i]=binStr.charCodeAt(i);
 	                };
 
-	                callback(new Blob([arr], {type:type || 'image/png'}));
+	                callback(new Blob([arr], {type:type || 'image/jpeg'}));
 	            });
 	        }
 	    });
