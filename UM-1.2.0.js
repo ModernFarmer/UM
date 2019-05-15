@@ -42,8 +42,8 @@ function _stopPropagation(event){
 }           //---------调用   _stopPropagation(event)   取消事件冒泡（必须在事件函数内传递一个事件对象event）
 
 function _getFileUrl(fileDom, index){        //获取type="file"的input表单的本地文件地址
-    let UM_fileUrl=null;
-    let _i=index || 0;
+    var UM_fileUrl=null;
+    var _i=index || 0;
     if(window.createObjectURL!=undefined){
         UM_fileUrl=window.createObjectURL(fileDom.files[_i]);          //basic
     }else if(window.URL!=undefined){
@@ -151,9 +151,9 @@ function _getPastWeek(n){                      //获取前n周的日期,格式:'
 
 function _maxDate(str){     //获取某个月的最大天数.  参数的格式必须为'年-月'或者'年-月-......'
 	if(typeof str!=='string' || str.indexOf('-')==-1)throw 'UM库_maxDate()方法错误: _maxDate()方法的参数必须是 [ 字符串 ], 格式必须为 [ 年-月 ] 或者 [ 年-月-... ]!';
-	let _y=str.split('-')[0];
-	let _m=str.split('-')[1];
-	let _d=new Date(parseInt(_y),parseInt(_m)).getDate()>10?new Date(parseInt(_y),parseInt(_m)).getDate():'0'+new Date(parseInt(_y),parseInt(_m)).getDate();
+	var _y=str.split('-')[0];
+	var _m=str.split('-')[1];
+	var _d=new Date(parseInt(_y),parseInt(_m)).getDate()>10?new Date(parseInt(_y),parseInt(_m)).getDate():'0'+new Date(parseInt(_y),parseInt(_m)).getDate();
     return _y+'-'+_m+'-'+_d;
 };
 
