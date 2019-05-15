@@ -138,9 +138,9 @@ function _getPastWeek(n){                      //获取前n周的日期,格式:'
 
 function _maxDate(str){     //获取某个月的最大天数.  参数的格式必须为'年-月'或者'年-月-......'
 	if(typeof str!=='string' || str.indexOf('-')==-1)throw 'UM库_maxDate()方法错误: _maxDate()方法的参数必须是 [ 字符串 ], 格式必须为 [ 年-月 ] 或者 [ 年-月-... ]!';
-	let _y=str.split('-')[0];
-	let _m=str.split('-')[1];
-	let _d=new Date(parseInt(_y),parseInt(_m)).getDate()>10?new Date(parseInt(_y),parseInt(_m)).getDate():'0'+new Date(parseInt(_y),parseInt(_m)).getDate();
+	var _y=str.split('-')[0];
+	var _m=str.split('-')[1];
+	var _d=new Date(parseInt(_y),parseInt(_m)).getDate()>10?new Date(parseInt(_y),parseInt(_m)).getDate():'0'+new Date(parseInt(_y),parseInt(_m)).getDate();
     return _y+'-'+_m+'-'+_d;
 };
 
