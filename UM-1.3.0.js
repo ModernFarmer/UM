@@ -42,8 +42,8 @@ function _stopPropagation(event){
 }           //---------调用   _stopPropagation(event)   取消事件冒泡（必须在事件函数内传递一个事件对象event）
 
 function _getFileUrl(fileDom, index){        //获取type="file"的input表单的本地文件地址
-    let UM_fileUrl=null;
-    let _i=index || 0;
+    var UM_fileUrl=null;
+    var _i=index || 0;
     if(window.createObjectURL!=undefined){
         UM_fileUrl=window.createObjectURL(fileDom.files[_i]);          //basic
     }else if(window.URL!=undefined){
@@ -151,9 +151,9 @@ function _getPastWeek(n){                      //获取前n周的日期,格式:'
 
 function _maxDate(str){     //获取某个月的最大天数.  参数的格式必须为'年-月'或者'年-月-......'
 	if(typeof str!=='string' || str.indexOf('-')==-1)throw 'UM库_maxDate()方法错误: _maxDate()方法的参数必须是 [ 字符串 ], 格式必须为 [ 年-月 ] 或者 [ 年-月-... ]!';
-	let _y=str.split('-')[0];
-	let _m=str.split('-')[1];
-	let _d=new Date(parseInt(_y),parseInt(_m)).getDate()>10?new Date(parseInt(_y),parseInt(_m)).getDate():'0'+new Date(parseInt(_y),parseInt(_m)).getDate();
+	var _y=str.split('-')[0];
+	var _m=str.split('-')[1];
+	var _d=new Date(parseInt(_y),parseInt(_m)).getDate()>10?new Date(parseInt(_y),parseInt(_m)).getDate():'0'+new Date(parseInt(_y),parseInt(_m)).getDate();
     return _y+'-'+_m+'-'+_d;
 };
 
@@ -512,22 +512,22 @@ function _ajax(json){
 };
 
 function _condense(json){      // 压缩图片
-	let file=json.file;
-	let maxWidth=json.maxWidth || null;
-	let maxHeight=json.maxHeight || null;
-	let quality=json.quality || null;
-	let type=json.type || 'image/jpeg';
+	var file=json.file;
+	var maxWidth=json.maxWidth || null;
+	var maxHeight=json.maxHeight || null;
+	var quality=json.quality || null;
+	var type=json.type || 'image/jpeg';
 
 	if(!HTMLCanvasElement.prototype.toBlob){    // 如果canvas对象没有toBlob方法原型, 则加上(即兼容低版本浏览器)
 	    Object.defineProperty(HTMLCanvasElement.prototype, 'toBlob', {
 	        value: function(callback, type, quality){
-	            let _this=this;
+	            var _this=this;
 	            setTimeout(function(){
-	                let binStr=atob(_this.toDataURL(type, quality).split(',')[1]);
-	                let len=binStr.length;
-	                let arr=new Uint8Array(len);
+	                var binStr=atob(_this.toDataURL(type, quality).split(',')[1]);
+	                var len=binStr.length;
+	                var arr=new Uint8Array(len);
 
-	                for(let i=0; i<len; i++){
+	                for(var i=0; i<len; i++){
 	                    arr[i]=binStr.charCodeAt(i);
 	                };
 
@@ -538,11 +538,11 @@ function _condense(json){      // 压缩图片
 	}
 
 	if(_isArray(file)){    // 判断file是否是一个数组
-		let um_imgArr=[];
-		let um_promiseArr=[];
+		var um_imgArr=[];
+		var um_promiseArr=[];
 
 		file.forEach(val=>{
-			let um_json={};
+			var um_json={};
 
 			um_json.file=val;
 			um_json.img=new Image();
@@ -556,11 +556,11 @@ function _condense(json){      // 压缩图片
 		});
 
 		um_imgArr.forEach((val, i)=>{
-			let promiseObj=new Promise((resolve, reject)=>{
+			var promiseObj=new Promise((resolve, reject)=>{
 				val.img.onload=function(){
 				    // 图片原始尺寸
-				    let originWidth = this.width;
-				    let originHeight = this.height;
+				    var originWidth = this.width;
+				    var originHeight = this.height;
 
 				    if((maxWidth && maxWidth>0) && (maxHeight && maxHeight>0)){
 					    if(originWidth>maxWidth || originHeight>maxHeight){
@@ -615,8 +615,8 @@ function _condense(json){      // 压缩图片
 		return new Promise((resolve, reject)=>{
 			Promise.all(um_promiseArr).then(data=>{
 				data.sort((obj1, obj2)=>{
-					let n1=obj1._index;
-					let n2=obj2._index;
+					var n1=obj1._index;
+					var n2=obj2._index;
 					return n1-n2;
 				});
 				data.forEach((val, i, arr)=>{
@@ -629,19 +629,19 @@ function _condense(json){      // 压缩图片
 		});
 	}else{
 		return new Promise((resolve, reject)=>{
-			let reader=new FileReader();
-			let img=new Image();
+			var reader=new FileReader();
+			var img=new Image();
 
-			let canvas=document.createElement('canvas');
-			let context=canvas.getContext('2d');
+			var canvas=document.createElement('canvas');
+			var context=canvas.getContext('2d');
 
-			let target_width=0;
-			let target_height=0;
+			var target_width=0;
+			var target_height=0;
 
 			img.onload=function(){
 			    // 图片原始尺寸
-			    let originWidth = this.width;
-			    let originHeight = this.height;
+			    var originWidth = this.width;
+			    var originHeight = this.height;
 
 			    if((maxWidth && maxWidth>0) && (maxHeight && maxHeight>0)){
 				    if(originWidth>maxWidth || originHeight>maxHeight){
