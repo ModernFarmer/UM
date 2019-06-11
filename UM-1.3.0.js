@@ -66,19 +66,19 @@ function  _amountToWords(num) {    //将数字或者数字字符串转换成中�
 
     var index=num.indexOf('.');
 
-    if(index>=0)num=num.substring(0, index)+num.substr(index+1, 2);
+    if (index>=0)num=num.substring(0, index)+num.substr(index+1, 2);
 
     unit=unit.substr(unit.length-num.length);
 
-    for(var i=0; i<num.length; i++){
+    for (var i=0; i<num.length; i++){
         result+='零壹贰叁肆伍陆柒捌玖'.charAt(num.charAt(i))+unit.charAt(i);
     };
 
     return result.replace(/零(?:千|百|拾|角)/g, '零').replace(/零+/g, '零').replace(/零(万|亿|元)/g, '$1').replace(/亿万/g, '亿').replace(/^元零*?|零分/g, '').replace(/元$/g, '元整');
 };
 
-function _isArray(obj){           //判断一个对象是否为数组,返回布尔值
- 	return Object.prototype.toString.call(obj) === '[object Array]';    
+function _isArray(obj) {           //判断一个对象是否为数组,返回布尔值
+  return Object.prototype.toString.call(obj) === '[object Array]';    
 };
 
 function _isJson(obj){             //判断一个对象是否为json对象,返回布尔值
@@ -202,7 +202,9 @@ function _ajax(json){
 
     var dataStr='';
 
-    if(JSON.stringify(json.data)!=='{}'){   //将json数据转换成a='xxx'&b='xxx'&c='xxx'形式的字符串
+    if(typeof json.data=='string'){
+    	dataStr=json.data;
+    }else if(JSON.stringify(json.data)!=='{}'){   //将json数据转换成a='xxx'&b='xxx'&c='xxx'形式的字符串
 	    var arr=[];
 	    for(var name in json.data){
 	        arr.push(name+'='+json.data[name]);
