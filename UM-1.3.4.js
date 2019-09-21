@@ -1,4 +1,5 @@
 function _clientSize() {     //获取可视区宽度和高度,返回对象
+	var W=null, H=null;
 	if (window.innerWidth && window.innerHeight) {
 		W=parseInt(window.innerWidth);
 		H=parseInt(window.innerHeight);
