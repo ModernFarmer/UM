@@ -621,7 +621,7 @@ _('.child2').setMH(box, {width:.5, fontSize:.05, lineHeight:.08});
 　　　　　　　　　　　`如果将 capture 设置为 true, 则侦听器只在捕获阶段处理事件, 而不在目标或冒泡阶段处理事件,` </br>
 　　　　　　　　　　　`如果useCapture 为 false, 则侦听器只在目标或冒泡阶段处理事件. 要在所有三个阶段都侦听事件,` </br>
 　　　　　　　　　　　`则要调用两次 .BD()方法, 第一次将 capture 设置为 true，第二次将capture 设置为 false.`</br>
-　　　　　　　　***`passive`*** : true　　　　　　[*boolean*] \<可选\>　　默认true,</br>
+　　　　　　　　***`passive`*** : true　　　　　　[*boolean*] \<可选\>　　默认false,</br>
 　　　　　　　　　　　`如果将 passive 设置为 true, 则监听事件和默认事件同时(异步)执行, 不能调用preventDefault()方法` </br>
 　　　　　　　　　　　`如果将 passive 设置为 false, 则先执行监听事件再执行默认事件, 可以调用preventDefault()方法` </br>
 　　　　　　　　***`once`*** : false　　　　　　[*boolean*] \<可选\>　　默认false</br>
