@@ -960,6 +960,8 @@ ___UM_getDom.prototype.setMH=function(cssName, json){        //原型: .setMH()�
 ___UM_getDom.prototype.mousewheel=function(upFn, downFn){        //原型: .mousewheel()方法    设置 [ 鼠标滚轮事件 ]
 	if(!this.el.length || this.arguments[0]===document || this.arguments[0]===window){
 		this.BD('mousewheel', function(event){
+			_stopPropagation(event);
+			_preventDefault(event);
 			var up=event.wheelDelta>0?true:false;
 			if(up){
 				upFn();
@@ -967,6 +969,8 @@ ___UM_getDom.prototype.mousewheel=function(upFn, downFn){        //原型: .mous
 				downFn();
 			};
 		}).BD('DOMMouseScroll', function(event){
+			_stopPropagation(event);
+			_preventDefault(event);
 			var up=event.detail<0?true:false;
 			if(up){
 				upFn();
