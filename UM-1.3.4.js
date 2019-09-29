@@ -1,1031 +1,390 @@
-function _clientSize() {     //获取可视区宽度和高度,返回对象
-	var W=null, H=null;
-	if (window.innerWidth && window.innerHeight) {
-		W=parseInt(window.innerWidth);
-		H=parseInt(window.innerHeight);
-	} else if (document.body.clientWidth && document.body.clientHeight) {
-		W=parseInt(document.body.clientWidth);
-		H=parseInt(document.body.clientHeight);
-	}
-
-	if (document.documentElement.clientHeight && document.documentElement.clientWidth) {
-		W=parseInt(document.documentElement.clientWidth);
-		H=parseInt(document.documentElement.clientHeight);
-	}
-
-	return {'w':W, 'h':H};
-};
-
-//_clientSize().w;   可视区宽度,是一个数值
-//_clientSize().h;   可视区高度,是一个数值
-
-function _scrollDistance(){     //获取滚动条已滚动的距离
-	return {x:document.documentElement.scrollLeft||document.body.scrollLeft, y:document.documentElement.scrollTop||document.body.scrollTop};
-};
-
-//_scrollDistance().x  横向滚动条已滚动的距离
-//_scrollDistance().y  竖向滚动条已滚动的距离
-
-function _preventDefault(event){
-	if(document.all){
-		window.event.returnValue=false;
-	}else {
-		event.preventDefault();
-	}
-}    //---------调用   _preventDefault(event)  取消默认事件（必须在事件函数内传递一个事件对象event）
-
-function _stopPropagation(event){
-	if(event.cancelBubble){
-		event.cancelBubble=true;
-	}else {
-		event.stopPropagation();
-	}
-}           //---------调用   _stopPropagation(event)   取消事件冒泡（必须在事件函数内传递一个事件对象event）
-
-function _isIE(){
-    var info=window.navigator.userAgent;
-    if(info.indexOf('Trident')==-1)return null;
-    if(info.indexOf('MSIE 7')>0)return 7;
-    if(info.indexOf('MSIE 8')>0)return 8;
-    if(info.indexOf('MSIE 9')>0)return 9;
-    if(info.indexOf('MSIE 10')>0)return 10;
-    if(info.indexOf('rv:11'))return 11;
-};          //---------调用   _isIE()      获取IE版本, 如果不是IE, 则返回null
-
-function _getFileUrl(fileDom, index){        //获取type="file"的input表单的本地文件地址
-    var UM_fileUrl=null;
-    var _i=index || 0;
-    if(window.createObjectURL!=undefined){
-        UM_fileUrl=window.createObjectURL(fileDom.files[_i]);          //basic
-    }else if(window.URL!=undefined){
-        UM_fileUrl=window.URL.createObjectURL(fileDom.files[_i]);      //firefox
-    }else if(window.webkitURL!=undefined){
-        UM_fileUrl=window.webkitURL.createObjectURL(fileDom.files[_i]);   //chrome
-    }
-    return UM_fileUrl;
-};
-
-function  _amountToWords(num) {    //将数字或者数字字符串转换成中文大写金额
-    if(!/^(0|[1-9]\d*)(\.\d+)?$/.test(num))return "数据非法";
-
-    var unit="千百拾亿千百拾万千百拾元角分";
-    var result='';
-
-    num+='00';
-
-    if(num.replace(/0+/, 0)==0)return '零元整';
-
-    var index=num.indexOf('.');
-
-    if (index>=0)num=num.substring(0, index)+num.substr(index+1, 2);
-
-    unit=unit.substr(unit.length-num.length);
-
-    for (var i=0; i<num.length; i++){
-        result+='零壹贰叁肆伍陆柒捌玖'.charAt(num.charAt(i))+unit.charAt(i);
+function ___constructor_MovingScroll(obj){                          //滚动条插件
+    this.OB={
+        box:obj.box,
+        contentBox:obj.contentBox,
+        scrollBox:obj.scrollBox,
+        speed:obj.speed,
+        position:obj.position || null,
+        watch_keyup:obj.watch_keyup || false,
+        watch_mouseup:obj.watch_mouseup || false,
+        watch_el:obj.watch_el || false,
+        height_box:function(){
+            return this.box.el.offsetHeight-parseInt(this.box.getStyle('borderTopWidth'))-parseInt(this.box.getStyle('borderBottomWidth'));
+        },
+        height_content:function(){
+            return this.contentBox.el.offsetHeight+parseInt(this.box.getStyle('paddingTop'))+parseInt(this.box.getStyle('paddingBottom'));
+        },
+        height_scroll:function(){
+            var h_box=this.height_box();
+            var h_content=this.height_content();
+            return h_content<=h_box?0:h_box*h_box/h_content;
+        },
+        id:parseInt(Math.random()*100000000)
     };
 
-    return result.replace(/零(?:千|百|拾|角)/g, '零').replace(/零+/g, '零').replace(/零(万|亿|元)/g, '$1').replace(/亿万/g, '亿').replace(/^元零*?|零分/g, '').replace(/元$/g, '元整');
+    this.todo();
 };
 
-function _isArray(obj) {           //判断一个对象是否为数组,返回布尔值
-  return Object.prototype.toString.call(obj) === '[object Array]';
-};
+___constructor_MovingScroll.prototype.todo=function(){
+    this.OB.contentBox.transition('.5s ease-out');
+    setTimeout(function(){
+        this.OB.scrollBox.transition('.5s ease-out').css({'height':this.OB.height_scroll()+'px', 'cursor':'pointer'});       //初始化滚动条高度，必要时需要加定时器
+    }.bind(this),500);
+    this.OB.box.css({overflow:'hidden'}).mousewheel(function(){
+        var _top=parseFloat(this.OB.contentBox.getStyle('top'));
+        if(_top==0)return;
+        var h_content=this.OB.height_content();
+        var h_box=this.OB.height_box();
+        if(h_content<h_box)return;
+        var h_scroll=this.OB.height_scroll();
+        var top_contentBox=_top + this.OB.speed;
+        if(top_contentBox>0)top_contentBox=0;
+        this.OB.contentBox.transition('.1s ease-out').css({top:top_contentBox+'px'});
+        var top_scrollBox=-(h_scroll*top_contentBox/h_box);
+        this.OB.scrollBox.transition('.5s ease-out').css({'height':h_scroll+'px', 'top':top_scrollBox+'px'});
+    }.bind(this), function(){
+        var _top=parseFloat(this.OB.contentBox.getStyle('top'));
+        var h_content=this.OB.height_content();
+        var h_box=this.OB.height_box();
+        if(_top==-(h_content-h_box))return;
+        if(h_content<h_box)return;
+        var h_scroll=this.OB.height_scroll();
+        var top_contentBox=_top - this.OB.speed;
+        if(top_contentBox<-(h_content-h_box))top_contentBox=-(h_content-h_box);
+        this.OB.contentBox.transition('.1s ease-out').css({top:top_contentBox+'px'});
+        var top_scrollBox=-(h_scroll*top_contentBox/h_box);
+        this.OB.scrollBox.transition('.5s ease-out').css({'height':h_scroll+'px', 'top':top_scrollBox+'px'});
+    }.bind(this));
 
-function _isJson(obj){             //判断一个对象是否为json对象,返回布尔值
-	var boolean_isjson = typeof(obj) == "object" && Object.prototype.toString.call(obj).toLowerCase() == "[object object]" && !obj.length;
-	return boolean_isjson;
-};
+    this.OB.box.BD('mouseenter', function(){
+        this.OB.scrollBox.transition('1s ease-out').css({opacity:1});
+    }.bind(this)).BD('mouseleave', function(){
+        this.OB.scrollBox.transition('1s ease-out').css({opacity:.4});
+    }.bind(this)).BD('mousedown', function(){                                    //默认当点击容器盒子时，执行滚动条盒子的高度自动变化
+        if(window['UM_MS_default_'+this.OB.id])clearTimeout(window['UM_MS_default_'+this.OB.id]);
+        window['UM_MS_default_'+this.OB.id]=setTimeout(function(){
+            var top_contentBox=parseFloat(this.OB.contentBox.getStyle('top'));
+            var h_scroll=this.OB.height_scroll();
+            var top_scrollBox=-(h_scroll*top_contentBox/this.OB.height_box());
+            this.OB.scrollBox.transition('.5s ease-out').css({'height':h_scroll+'px', 'top':top_scrollBox+'px'});
+            delete window['UM_MS_default_'+this.OB.id];
+        }.bind(this), 500);
+    }.bind(this));
 
-function _isImg(dom, i){              //判断一个<input type="file">的files[0].type字符串是否为图片类型的src字符串
-	if(!i)i=0;
-	var str=dom.files[i].type;
-    var re=/^(?:image\/bmp|image\/cis\-cod|image\/gif|image\/ief|image\/jpeg|image\/jpeg|image\/jpeg|image\/pipeg|image\/png|image\/svg\+xml|image\/tiff|image\/x\-cmu\-raster|image\/x\-cmx|image\/x\-icon|image\/x\-portable\-anymap|image\/x\-portable\-bitmap|image\/x\-portable\-graymap|image\/x\-portable\-pixmap|image\/x\-rgb|image\/x\-xbitmap|image\/x\-xpixmap|image\/x\-xwindowdump)$/i;
-    if(re.test(str)){
-        return true;
-    }else if(!re.test(str)){
-        return false;
-    }
-};
-
-function _ifDom(str){            //判断是否存在str元素
-	if(typeof str==='string'){
-		return document.querySelector(str)?true:false;
-	}else{
-		if(str instanceof HTMLElement || str instanceof HTMLCollection || (str instanceof NodeList && str[0] instanceof HTMLElement))return true;
-		return false;
-	};
-};
-
-function _dateFormat(dateValue, string){          //格式化日期
-	var dateObj=dateValue==='now'?new Date():new Date(dateValue);
-	var json_inf = {
-		'Y+':dateObj.getFullYear(),
-		'M+':dateObj.getMonth()+1>9?dateObj.getMonth()+1:'0'+(dateObj.getMonth()+1),
-		'D+':dateObj.getDate()>9?dateObj.getDate():'0'+dateObj.getDate(),
-		'h+':dateObj.getHours()>9?dateObj.getHours():'0'+dateObj.getHours(),
-		'm+':dateObj.getMinutes()>9?dateObj.getMinutes():'0'+dateObj.getMinutes(),
-		's+':dateObj.getSeconds()>9?dateObj.getSeconds():'0'+dateObj.getSeconds(),
-		'q+':Math.floor((dateObj.getMonth() + 3) / 3),
-		'w+':dateObj.getDay(),
-		'S+':function(){
-			if(dateObj.getMilliseconds()<10){
-				return '00'+dateObj.getMilliseconds();
-			}else if(dateObj.getMilliseconds()>9 && dateObj.getMilliseconds()<100){
-				return '0'+dateObj.getMilliseconds();
-			}else{
-				return dateObj.getMilliseconds();
-			}
-		}
-	};
-	for(var key in json_inf) {
-		var re=new RegExp(key);
-		if(re.test(string)) {
-			string = string.replace(re, (json_inf[key]));
-		}
-	}
-	return string;
-};
-
-function _getPastMonth(n){        //获取前n个月的日期,格式:'年-月',类型:字符串
-	var y=new Date().getFullYear();
-	var m=new Date().getMonth()+1;
-
-	if(m<=n%12){
-		var month=12-(n%12-m)>10?12-(n%12-m):'0'+(12-(n%12-m));
-		return (y-1-parseInt(n/12))+'-'+month;
-	}else{
-		var month=m-n%12>10?m-n%12:'0'+(m-n%12);
-		return (y-1-parseInt(n/12))+'-'+month;
-	};
-};
-
-function _getPastWeek(n){                      //获取前n周的日期,格式:'年-月-日,年-月-日',类型:字符串
-	var weekDay=new Date().getDay();
-	var timeChuo=new Date().getTime();
-
-	if(weekDay==0){
-		var date_from=new Date(timeChuo-(13+7*(n-1))*24*60*60*1000);
-		var date_to=new Date(timeChuo-(7+7*(n-1))*24*60*60*1000);
-		var Month_from=(date_from.getMonth()+1)>9?date_from.getMonth()+1:'0'+(date_from.getMonth()+1);
-		var Day_from=date_from.getDate()>9?date_from.getDate():'0'+date_from.getDate();
-		var Month_to=(date_to.getMonth()+1)>9?date_to.getMonth()+1:'0'+(date_to.getMonth()+1);
-		var Day_to=date_to.getDate()>9?date_to.getDate():'0'+date_to.getDate();
-		return date_from.getFullYear()+'-'+Month_from+'-'+Day_from+','+date_to.getFullYear()+'-'+Month_to+'-'+Day_to;
-	}else{
-		var date_from=new Date(timeChuo-(weekDay+6+7*(n-1))*24*60*60*1000);
-		var date_to=new Date(timeChuo-(weekDay+7*(n-1))*24*60*60*1000);
-		var Month_from=(date_from.getMonth()+1)>9?date_from.getMonth()+1:'0'+(date_from.getMonth()+1);
-		var Day_from=date_from.getDate()>9?date_from.getDate():'0'+date_from.getDate();
-		var Month_to=(date_to.getMonth()+1)>9?date_to.getMonth()+1:'0'+(date_to.getMonth()+1);
-		var Day_to=date_to.getDate()>9?date_to.getDate():'0'+date_to.getDate();
-		return date_from.getFullYear()+'-'+Month_from+'-'+Day_from+','+date_to.getFullYear()+'-'+Month_to+'-'+Day_to;
-	};
-};
-
-function _maxDate(str){     //获取某个月的最大天数.  参数的格式必须为'年-月'或者'年-月-......'
-	if(typeof str!=='string' || str.indexOf('-')==-1)throw 'UM库_maxDate()方法错误: _maxDate()方法的参数必须是 [ 字符串 ], 格式必须为 [ 年-月 ] 或者 [ 年-月-... ]!';
-	var _y=str.split('-')[0];
-	var _m=str.split('-')[1];
-    return new Date(parseInt(_y), parseInt(_m), 0).getDate();
-};
-
-function _transposition(arr,i,j) {        //数组内元素换位
-    var _value=arr[i];
-    arr[i]=arr[j];
-    arr[j]=_value;
-};
-
-function _ajax(json){
-    if(!_isJson(json))throw 'UM库_ajax()方法错误: _ajax()方法的参数必须是一个json对象!';
-    if(!json.url)throw 'UM库_ajax()方法错误: 缺少 [ url ] 参数!';
-    json.data=json.data || {};
-    json.headers=json.headers || null;
-    json.method=json.method || 'get';
-    json.FormData=json.FormData || null;
-    json.FormData_More=json.FormData_More || null;
-    json.async=json.async || true;
-    json.overtime=json.overtime || null;
-    json.success=json.success || null;
-    json.error=json.error || null;
-    json.UPpercent=json.UPpercent || null;
-
-    var dataStr='';
-
-    if(typeof json.data=='string'){
-    	dataStr=json.data;
-    }else if(JSON.stringify(json.data)!=='{}'){   //将json数据转换成a='xxx'&b='xxx'&c='xxx'形式的字符串
-	    var arr=[];
-	    for(var name in json.data){
-	        arr.push(name+'='+json.data[name]);
-	    };
-	    dataStr=arr.join('&');
+    if(this.OB.watch_keyup===true){                  //当页面上按键抬起时，是否执行滚动条盒子的高度自动变化，根据需要添加该选项
+        _(document).BD('keyup', function(){
+            if(!this.OB.contentBox.el)return;
+            if(window['UM_MS_keyup_'+this.OB.id])clearTimeout(window['UM_MS_keyup_'+this.OB.id]);
+            window['UM_MS_keyup_'+this.OB.id]=setTimeout(function(){
+                var top_contentBox=parseFloat(this.OB.contentBox.getStyle('top'));
+                var h_scroll=this.OB.height_scroll();
+                var top_scrollBox=-(h_scroll*top_contentBox/this.OB.height_box());
+                this.OB.scrollBox.transition('.5s ease-out').css({'height':h_scroll+'px', 'top':top_scrollBox+'px'});
+                delete window['UM_MS_keyup_'+this.OB.id];
+            }.bind(this), 500);
+        }.bind(this));
     }
 
-    if(!json.FormData && !json.FormData_More){
-        if(window.XMLHttpRequest){
-            var ajaxObj=new XMLHttpRequest();
-        }else{
-            var ajaxObj=new ActiveXObject('Microsoft.XMLHTTP');
-        };
+    if(this.OB.watch_mouseup===true){                  //当页面上鼠标抬起时，是否执行滚动条盒子的高度自动变化，根据需要添加该选项
+        _(document).BD('mouseup', function(){
+            if(!this.OB.contentBox.el)return;
+            if(window['UM_MS_mouseup_'+this.OB.id])clearTimeout(window['UM_MS_mouseup_'+this.OB.id]);
+            window['UM_MS_mouseup_'+this.OB.id]=setTimeout(function() {
+                var top_contentBox=parseFloat(this.OB.contentBox.getStyle('top'));
+                var h_scroll=this.OB.height_scroll();
+                var top_scrollBox=-(h_scroll*top_contentBox/this.OB.height_box());
+                this.OB.scrollBox.transition('.5s ease-out').css({'height':h_scroll+'px', 'top':top_scrollBox+'px'});
+                delete window['UM_MS_mouseup_'+this.OB.id];
+            }.bind(this), 500);
+        }.bind(this));
+    }
 
-        if(json.method.toLowerCase()==='get'){
-            ajaxObj.open('GET',json.url+'?'+dataStr, json.async);
-            if(json.headers){
-            	for(var name in json.headers){
-            		ajaxObj.setRequestHeader(name, json.headers[name]);
-            	};
-            }
-            ajaxObj.send();
-        }else if(json.method.toLowerCase()==='post'){
-            ajaxObj.open('POST',json.url, json.async);
-            if(json.headers){
-            	for(var name in json.headers){
-            		ajaxObj.setRequestHeader(name, json.headers[name]);
-            	};
-            }else{
-            	ajaxObj.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
-            };
-            ajaxObj.send(dataStr);
-        }
+    if(this.OB.watch_el){    // 当点击一个元素时, 执行滚动条高度自动变化, 根据需要添加该选项
+        this.OB.watch_el.el.BD('click', function(){
+            if(window['UM_MS_watchEl_'+this.OB.id])clearTimeout(window['UM_MS_watchEl_'+this.OB.id]);
+            window['UM_MS_watchEl_'+this.OB.id]=setTimeout(function() {
+                var top_contentBox=parseFloat(this.OB.contentBox.getStyle('top'));
+                var h_scroll=this.OB.height_scroll();
+                var top_scrollBox=-(h_scroll*top_contentBox/this.OB.height_box());
+                this.OB.scrollBox.transition('.5s ease-out').css({'height':h_scroll+'px', 'top':top_scrollBox+'px'});
+                delete window['UM_MS_watchEl_'+this.OB.id];
+            }.bind(this), this.OB.watch_el.timeout);
+        }.bind(this));
+    }
 
-        if(json.overtime){
-            window['UM_ajax__'+json.overtime.name]=setTimeout(function(){
-                ajaxObj.abort();
-                console.log(json.overtime.msg);
-            }, json.overtime.time);
-        }
+    this.OB.scrollBox.BD('click', function(){
+        _stopPropagation(event);
+    }.bind(this)).BD('mousedown', function(event){
+        _stopPropagation(event);
+        _preventDefault(event);
+        var cursor_original=_scrollDistance().y+event.clientY;
+        var L=cursor_original-parseFloat(this.OB.scrollBox.getStyle('top'));
+        var ___runner=function(event){
+            var cursor=_scrollDistance().y+event.clientY;
+            var s=cursor-L;
+            var h_box=this.OB.height_box();
+            var h_scroll=this.OB.height_scroll();
+            var top_scroll_now=parseFloat(this.OB.scrollBox.getStyle('top'));
+            if((top_scroll_now==0 && s<0) || (top_scroll_now==Math.round((h_box-h_scroll)*1000)/1000 && s>h_box-h_scroll))return;
+            if(s<0)s=0;
+            if(s>h_box-h_scroll)s=h_box-h_scroll;
+            var S=-(h_box*s/h_scroll);
+            this.OB.scrollBox.transition('').css({top:s+'px'});
+            this.OB.contentBox.transition('').css({top:S+'px'});
+        }.bind(this);
+        var ___stopRun=function(){
+            _(document).unBD('mousemove', ___runner).unBD('mouseup', ___stopRun);
+        }.bind(this);
+        _(document).BD('mousemove', ___runner);
+        _(document).BD('mouseup', ___stopRun);
+    }.bind(this));
 
-        ajaxObj.onreadystatechange=function(){
-            if(ajaxObj.readyState==4){
-                if(json.overtime)clearTimeout(window['UM_ajax__'+json.overtime.name]);              //如果超时器规定时间内服务器读取完成,则关闭超时器
-                if(ajaxObj.status>=200 && ajaxObj.status<300 || ajaxObj.status==304){
-                    json.success && json.success(JSON.parse(ajaxObj.responseText));
-                }else{
-                    json.error && json.error(ajaxObj.status);
-                };
-            }
-        };
-    }else if(json.FormData_More && _isJson(json.FormData_More)){
-        if(window.XMLHttpRequest){
-            var ajaxObj=new XMLHttpRequest();
-        }else{
-            var ajaxObj=new ActiveXObject('Microsoft.XMLHTTP');
-        };
-        ajaxObj.open('POST',json.url, json.async);
-        if(json.headers){
-        	for(var name in json.headers){
-        		ajaxObj.setRequestHeader(name, json.headers[name]);
-        	};
-        }
-        var formObj=new FormData();
-
-        for(var i=0; i<json.FormData_More.inputs.length; i++){
-        	if(json.FormData_More.inputs[i].files && json.FormData_More.inputs[i].files.length>0){
-	        	for(var k=0; k<json.FormData_More.inputs[i].files; k++){
-		            formObj.append(json.FormData_More.name+i+'_'+k, json.FormData_More.inputs[i].files[k]);
-		            formObj.append('fileObj', json.FormData_More.name+i+'_'+k);
-	        	};
-        	}else if(!json.FormData_More.inputs[i].files){
-        		throw '目标元素数组inputs参数内含有非文本域元素!';
-        		return;
-        	}
-        };
-
-        if(json.FormData_More.encoded){
-            for(var name in json.FormData_More.encoded){
-                formObj.append(name, json.FormData_More.encoded[name]);
-            };
-
-	        if(json.overtime){
-	            window['UM_ajax__'+json.overtime.name]=setTimeout(function(){
-	                ajaxObj.abort();
-	                console.log(json.overtime.msg);
-	            }, json.overtime.time);
-	        }
-
-            if(json.UPpercent && (typeof json.UPpercent==='function') ){
-		        ajaxObj.upload.onprogress=function(event){
-		            var percent=event.loaded/event.total*100+'%';
-		            json.UPpercent(percent);
-		        };
-            }
-	        ajaxObj.onreadystatechange=function(){
-	            if(ajaxObj.readyState==4){
-	                if(json.overtime)clearTimeout(window['UM_ajax__'+json.overtime.name]);              //如果超时器规定时间内服务器读取完成,则关闭超时器
-	                if(ajaxObj.status>=200 && ajaxObj.status<300 || ajaxObj.status==304){
-	                    json.success && json.success(JSON.parse(ajaxObj.responseText));
-	                }else{
-	                    json.error && json.error(ajaxObj.status);
-	                };
-	            }
-	        };
-
-            ajaxObj.send(formObj);
-        }else{
-            if(json.UPpercent && (typeof json.UPpercent==='function')){
-		        ajaxObj.upload.onprogress=function(event){
-		            var percent=event.loaded/event.total*100+'%';
-		            json.UPpercent(percent);
-		        };
-            }
-	        ajaxObj.onreadystatechange=function(){
-	            if(ajaxObj.readyState==4){
-	                if(json.overtime)clearTimeout(window['UM_ajax__'+json.overtime.name]);              //如果超时器规定时间内服务器读取完成,则关闭超时器
-	                if(ajaxObj.status>=200 && ajaxObj.status<300 || ajaxObj.status==304){
-	                    json.success && json.success(JSON.parse(ajaxObj.responseText));
-	                }else{
-	                    json.error && json.error(ajaxObj.status);
-	                };
-	            }
-	        };
-
-            ajaxObj.send(formObj);
-        };
-    }else if(json.FormData && _isJson(json.FormData)){
-        if(window.XMLHttpRequest){
-            var ajaxObj=new XMLHttpRequest();
-        }else{
-            var ajaxObj=new ActiveXObject('Microsoft.XMLHTTP');
-        };
-
-        ajaxObj.open('POST',json.url, json.async);
-        if(json.headers){
-        	for(var name in json.headers){
-        		ajaxObj.setRequestHeader(name, json.headers[name]);
-        	};
-        }
-        if(json.FormData.input instanceof HTMLElement){
-            var formObj=new FormData();
-            if(json.FormData.input.files && json.FormData.input.files.length>0){
-                for(var i=0; i<json.FormData.input.files.length; i++){
-                    formObj.append(json.FormData.name+i, json.FormData.input.files[i]);
-                    formObj.append('fileObj', json.FormData.name+i);
-                };
-                if(json.FormData.encoded){
-                    for(var name in json.FormData.encoded){
-                        formObj.append(name, json.FormData.encoded[name]);
-                    };
-
-			        if(json.overtime){
-			            window['UM_ajax__'+json.overtime.name]=setTimeout(function(){
-			                ajaxObj.abort();
-			                console.log(json.overtime.msg);
-			            }, json.overtime.time);
-			        }
-
-                    if(json.UPpercent && (typeof json.UPpercent==='function') ){
-				        ajaxObj.upload.onprogress=function(event){
-				            var percent=event.loaded/event.total*100+'%';
-				            json.UPpercent(percent);
-				        };
-                    }
-			        ajaxObj.onreadystatechange=function(){
-			            if(ajaxObj.readyState==4){
-			                if(json.overtime)clearTimeout(window['UM_ajax__'+json.overtime.name]);              //如果超时器规定时间内服务器读取完成,则关闭超时器
-			                if(ajaxObj.status>=200 && ajaxObj.status<300 || ajaxObj.status==304){
-			                    json.success && json.success(JSON.parse(ajaxObj.responseText));
-			                }else{
-			                    json.error && json.error(ajaxObj.status);
-			                };
-			            }
-			        };
-
-                    ajaxObj.send(formObj);
-                }else{
-                    if(json.UPpercent && (typeof json.UPpercent==='function') ){
-				        ajaxObj.upload.onprogress=function(event){
-				            var percent=event.loaded/event.total*100+'%';
-				            json.UPpercent(percent);
-				        };
-                    }
-			        ajaxObj.onreadystatechange=function(){
-			            if(ajaxObj.readyState==4){
-			                if(json.overtime)clearTimeout(window['UM_ajax__'+json.overtime.name]);              //如果超时器规定时间内服务器读取完成,则关闭超时器
-			                if(ajaxObj.status>=200 && ajaxObj.status<300 || ajaxObj.status==304){
-			                    json.success && json.success(JSON.parse(ajaxObj.responseText));
-			                }else{
-			                    json.error && json.error(ajaxObj.status);
-			                };
-			            }
-			        };
-
-                    ajaxObj.send(formObj);
-                };
-            }else if(json.FormData.input.files && json.FormData.input.files.length==0 && json.FormData.encoded){
-                for(var name in json.FormData.encoded){
-                    formObj.append(name, json.FormData.encoded[name]);
-                };
-
-		        if(json.overtime){
-		            window['UM_ajax__'+json.overtime.name]=setTimeout(function(){
-		                ajaxObj.abort();
-		                console.log(json.overtime.msg);
-		            }, json.overtime.time);
-		        }
-
-                if(json.UPpercent && (typeof json.UPpercent==='function') ){
-			        ajaxObj.upload.onprogress=function(event){
-			            var percent=event.loaded/event.total*100+'%';
-			            json.UPpercent(percent);
-			        };
-                }
-		        ajaxObj.onreadystatechange=function(){
-		            if(ajaxObj.readyState==4){
-		                if(json.overtime)clearTimeout(window['UM_ajax__'+json.overtime.name]);              //如果超时器规定时间内服务器读取完成,则关闭超时器
-		                if(ajaxObj.status>=200 && ajaxObj.status<300 || ajaxObj.status==304){
-		                    json.success && json.success(JSON.parse(ajaxObj.responseText));
-		                }else{
-		                    json.error && json.error(ajaxObj.status);
-		                };
-		            }
-		        };
-
-                ajaxObj.send(formObj);
-            }else if(!json.FormData.input.files){
-                throw '目标元素input参数不是文本域元素!';
-                return;
-            }else{
-                throw '_ajax()方法未发送任何内容,请确认!';
-                return;
-            };
-        }else if(_isArray(json.FormData.input)){
-            var formObj=new FormData();
-            if(json.FormData.input.length>0){
-                for(var i=0; i<json.FormData.input.length; i++){
-                    formObj.append(json.FormData.name+i, json.FormData.input[i]);
-                    formObj.append('fileObj', json.FormData.name+i);
-                };
-                if(json.FormData.encoded){
-                    for(var name in json.FormData.encoded){
-                        formObj.append(name, json.FormData.encoded[name]);
-                    };
-
-			        if(json.overtime){
-			            window['UM_ajax__'+json.overtime.name]=setTimeout(function(){
-			                ajaxObj.abort();
-			                console.log(json.overtime.msg);
-			            }, json.overtime.time);
-			        }
-
-                    if(json.UPpercent && (typeof json.UPpercent==='function') ){
-				        ajaxObj.upload.onprogress=function(event){
-				            var percent=event.loaded/event.total*100+'%';
-				            json.UPpercent(percent);
-				        };
-                    }
-			        ajaxObj.onreadystatechange=function(){
-			            if(ajaxObj.readyState==4){
-			                if(json.overtime)clearTimeout(window['UM_ajax__'+json.overtime.name]);              //如果超时器规定时间内服务器读取完成,则关闭超时器
-			                if(ajaxObj.status>=200 && ajaxObj.status<300 || ajaxObj.status==304){
-			                    json.success && json.success(JSON.parse(ajaxObj.responseText));
-			                }else{
-			                    json.error && json.error(ajaxObj.status);
-			                };
-			            }
-			        };
-
-                    ajaxObj.send(formObj);
-                }else{
-                    if(json.UPpercent && (typeof json.UPpercent==='function') ){
-				        ajaxObj.upload.onprogress=function(event){
-				            var percent=event.loaded/event.total*100+'%';
-				            json.UPpercent(percent);
-				        };
-                    }
-			        ajaxObj.onreadystatechange=function(){
-			            if(ajaxObj.readyState==4){
-			                if(json.overtime)clearTimeout(window['UM_ajax__'+json.overtime.name]);              //如果超时器规定时间内服务器读取完成,则关闭超时器
-			                if(ajaxObj.status>=200 && ajaxObj.status<300 || ajaxObj.status==304){
-			                    json.success && json.success(JSON.parse(ajaxObj.responseText));
-			                }else{
-			                    json.error && json.error(ajaxObj.status);
-			                };
-			            }
-			        };
-
-                    ajaxObj.send(formObj);
-                };
-            }else if(json.FormData.input.length==0 && json.FormData.encoded){
-                for(var name in json.FormData.encoded){
-                    formObj.append(name, json.FormData.encoded[name]);
-                };
-
-		        if(json.overtime){
-		            window['UM_ajax__'+json.overtime.name]=setTimeout(function(){
-		                ajaxObj.abort();
-		                console.log(json.overtime.msg);
-		            }, json.overtime.time);
-		        }
-
-                if(json.UPpercent && (typeof json.UPpercent==='function') ){
-			        ajaxObj.upload.onprogress=function(event){
-			            var percent=event.loaded/event.total*100+'%';
-			            json.UPpercent(percent);
-			        };
-                }
-		        ajaxObj.onreadystatechange=function(){
-		            if(ajaxObj.readyState==4){
-		                if(json.overtime)clearTimeout(window['UM_ajax__'+json.overtime.name]);              //如果超时器规定时间内服务器读取完成,则关闭超时器
-		                if(ajaxObj.status>=200 && ajaxObj.status<300 || ajaxObj.status==304){
-		                    json.success && json.success(JSON.parse(ajaxObj.responseText));
-		                }else{
-		                    json.error && json.error(ajaxObj.status);
-		                };
-		            }
-		        };
-
-                ajaxObj.send(formObj);
-            }else{
-                throw '_ajax()方法未发送任何内容,请确认!';
-                return;
-            };
-        }else{
-            throw 'UM库_ajax()方法错误: FormData模式下的表单元素 [ #'+json.FormData.input+' ] 不存在 或者 [ #'+json.FormData.input+' ] 不是一个装着file的数组!';
+    if(_isArray(this.OB.position) && this.OB.position.length>0){  // 锚记导航, 根据需要添加该选项
+        for(var i=0; i<this.OB.position.length; i++){
+            (function(a){
+                this.OB.position[a].clickObj.BD('click', function(){
+                    _stopPropagation(event);
+                    var h_content=this.OB.height_content();
+                    var h_box=this.OB.height_box();
+                    if(h_content<h_box)return;
+                    var mark=this.OB.position[a].targetObj.el.offsetTop>(h_content-h_box)?-(h_content-h_box):-(this.OB.position[a].targetObj.el.offsetTop);
+                    console.log(mark)
+                    console.log(-(this.OB.height_scroll()*mark/h_box)+'px')
+                    this.OB.contentBox.transition('.5s ease-out').css({top:mark+'px'});
+                    this.OB.scrollBox.transition('.5s ease-out').css({top:-(this.OB.height_scroll()*mark/h_box)+'px'});
+                }.bind(this)).BD('mouseup', function(){
+                    _stopPropagation(event);
+                }).BD('mousedown', function(){
+                    _stopPropagation(event);
+                });
+            }.bind(this))(i);
         };
     }
 };
 
-function ___UM_getDom(str, i){                             //构造函数
-	if(typeof str==='string'){
-		if(i || i===0){
-			this.el=document.querySelectorAll(str)[i];
-		}else{
-			this.el=document.querySelectorAll(str);
-		};
-	}else if(str instanceof HTMLElement){
-		this.el=str;
-	}else if(str instanceof HTMLCollection || (str instanceof NodeList && str[0] instanceof HTMLElement)){
-		if(i || i===0){
-			this.el=str[i];
-		}else{
-			this.el=str;
-		};
-	}else if(str===document || str===window){
-		this.el=str;
-	}
+___constructor_MovingScroll.prototype.adaptive=function(){
 
-	this.arguments=arguments;
-	if(this.el && this.el.length){
-		this.length=this.el.length;
-	}else if(this.el===window || this.el===document){
-		this.length=null;
-	}else if(!this.el){
-		this.length=0;
-	}else{
-		this.length=1;
-	};
 };
 
-function _(str, i){                                      //实例化构造函数对象
-	return new ___UM_getDom(str, i);
+function _MovingScroll(obj){
+    return new ___constructor_MovingScroll(obj);
 };
 
-___UM_getDom.prototype.css=function(json){              //原型: .css()方法
-	if(this.arguments[0]===window || this.arguments[0]===document)throw 'UM库 .css() 方法错误: window和document不能有.css()方法!';
-	if(!this.el.length){
-		for(name in json){
-    		this.el.style[name]=json[name];
-		};
-	}else{
-		for(var i=0; i<this.el.length; i++){
-			for(name in json){
-	    		this.el[i].style[name]=json[name];
-			};
-		};
-	};
-	return this;
+
+function ___constructor_PullDown(obj){             //下拉内容过渡插件-构造函数
+    this.OB={
+        caption:obj.caption,
+        down:obj.down,
+        speed:obj.speed || 0.5,
+        select:obj.select || false,
+        D_click:obj.D_click || false,
+        choosable:obj.choosable || false,
+        within:obj.within || null,
+        maxHeight:obj.maxHeight || null,
+        scrollClassName:obj.scrollClassName || 'UM_PullDown_scrollClassName'
+    };
+
+    this.downHidden=true; // 用于判断执行一些特定事件时是否要隐藏下拉框
+    this.selectHidden=true; // 用于判断点击下拉框背景时是否要折叠下拉框
+
+    this.id='UM_PullDown_'+Math.ceil(Math.random()*100000000);
+    this.now=obj.now || false;
+
+    this._m_todo();
 };
 
-___UM_getDom.prototype.getStyle=function(typeName){           //原型: .getStyle()方法    获取计算后的样式
-	if(this.arguments[0]===window || this.arguments[0]===document)throw 'UM库 .getStyle() 方法错误: window和document不能有.getStyle()方法!';
-	if(!this.el.length){
-		if(window.getComputedStyle){
-			return getComputedStyle(this.el,false)[typeName];
-		}else{
-			return this.el.currentStyle[typeName];
-		};
-	}else{
-		throw 'UM库 .getStyle() 方法错误: .getStyle()方法只能获取一个元素的样式的值, 当前未指定元素的索引值!';
-	};
+___constructor_PullDown.prototype._m_todo=function(){
+    this.top_p=(function(){
+        return this.OB.down.getStyle('paddingTop');
+    }.bind(this))();
+    this.bottom_p=(function(){
+        return this.OB.down.getStyle('paddingBottom');
+    }.bind(this))();
+    this.top_m=(function(){
+        return this.OB.down.getStyle('marginTop');
+    }.bind(this))();
+    this.bottom_m=(function(){
+        return this.OB.down.getStyle('marginBottom');
+    }.bind(this))();
+
+    this.OB.down.css({overflow:'hidden', maxHeight:this.OB.maxHeight?this.OB.maxHeight:'none'}).BD('click', function(){
+        _stopPropagation(event);
+        this.downHidden=true;
+        if(this.selectHidden)return;
+        if(this.OB.down.el.style.height!=='auto'){
+            if(this.OB.within)this.OB.within.css({height:'auto'});
+            this.OB.down.transition(this.OB.speed+'s linear').transformOrigin('CENTER TOP').css({opacity:0, height:0, paddingTop:0, paddingBottom:0, marginTop:0, marginBottom:0});
+            this.now=false;
+        }else{
+            this.OB.down.css({height:this.OB.down.getStyle('height')});
+            setTimeout(function(){
+                if(this.OB.within)this.OB.within.css({height:'auto'});
+                this.OB.down.transition(this.OB.speed+'s linear').transformOrigin('CENTER TOP').css({opacity:0, height:0, paddingTop:0, paddingBottom:0, marginTop:0, marginBottom:0});
+                this.now=false;
+            }.bind(this));
+        };
+        this.selectHidden=true;
+    }.bind(this)).BD('mousedown', function(){
+        _stopPropagation(event);
+        this.downHidden=false;
+    }.bind(this));
+
+    if(this.OB.maxHeight){
+        var _html=this.OB.down.el.innerHTML;
+        this.OB.down.el.innerHTML='';
+        var dom_content=document.createElement('div'), dom_scroll=document.createElement('div');
+        dom_content.id=this.id;
+        dom_content.innerHTML=_html;
+        dom_content.style.width='calc(100% - 2px)';
+        dom_content.style.position='relative';
+        dom_content.style.top='0';
+        dom_content.style.left='0';
+        dom_content.style.zIndex='5';
+        dom_content.style.border='1px solid transparent'; // 防止滚动条插件的内容盒子里面的选项元素含有margin-top或者margin-bottom选项时内容盒子高度不包括第一个选项元素的margin-top和最后一个选项元素的margin-bottom
+
+        dom_scroll.style.height='0';
+        dom_scroll.style.position='absolute';
+        dom_scroll.style.top='0';
+        dom_scroll.style.right='2px';
+        dom_scroll.style.zIndex='10';
+        dom_scroll.className=this.OB.scrollClassName;
+        _(dom_scroll).BD('mousedown', function(){
+            _stopPropagation(event);
+            this.downHidden=false;
+        }.bind(this)).BD('mouseup', function(){
+            this.downHidden=true;
+        }.bind(this));
+
+        this.OB.down.el.appendChild(dom_content);
+        this.OB.down.el.appendChild(dom_scroll);
+        if(this.OB.select===false){
+            for(var i=0; i<_('#'+this.id, 0).el.children.length; i++){
+                if(_('#'+this.id, 0).el.children[i].getAttribute('isUmCaption')===null)_(_('#'+this.id, 0).el.children[i]).BD('click', function(){
+                    this.selectHidden=false;
+                }.bind(this));
+            };
+        }
+        _MovingScroll({  // 滚动条插件
+            box:this.OB.down,　　//　容器盒子选择器
+            contentBox:_(dom_content),　　//　滚动内容盒子选择器
+            scrollBox:_(dom_scroll),　　//　滚动条盒子选择器
+            watch_el:{　　　//　当点击某个h5元素时, 执行滚动条高度自动变化,可选项,默认false (主要用于配合下拉插件, 点击下拉的caption元素时, 延时执行滚动条变化, 由于caption元素已经阻止了冒泡, 故而增加该选项)　　json
+                el:this.OB.caption,　　　//　被点击的元素　　selector
+                timeout:500　　　//　执行延时　　number
+            },
+            speed:100
+        });
+    }
+
+    if(this.now===true){  // 设置初始状态为显示时的下拉框体样式
+        this.OB.down.css({opacity:1, height:this._m_height()});
+    }else if(this.now===false){  // 设置初始状态为隐藏时的下拉框体样式
+        this.OB.down.css({opacity:0, height:0, paddingTop:0, paddingBottom:0, marginTop:0, marginBottom:0});
+    }
+    if(this.OB.choosable===false)this.OB.caption.choosable(false);  // 标题字体内容是否可被选中
+    this.OB.caption.css({cursor:'pointer'});  // 设置标题的cursor样式
+
+    this.OB.caption.BD('click', function(){
+        _stopPropagation(event);
+        if(this.OB.down.el.style.height!=='auto'){
+            if(this.OB.within)this.OB.within.css({height:'auto'});
+            if(this.now===false){
+                this.OB.down.transition(this.OB.speed+'s linear').transformOrigin('CENTER TOP').css({opacity:1, height:this._m_height(), paddingTop:this.top_p, paddingBottom:this.bottom_p, marginTop:this.top_m, marginBottom:this.bottom_m});
+            }else{
+                this.OB.down.transition(this.OB.speed+'s linear').transformOrigin('CENTER TOP').css({opacity:0, height:0, paddingTop:0, paddingBottom:0, marginTop:0, marginBottom:0});
+            };
+            this.now=!this.now;
+        }else{
+            this.OB.down.css({height:this.OB.down.getStyle('height')});
+            setTimeout(function(){
+                if(this.OB.within)this.OB.within.css({height:'auto'});
+                if(this.now===false){
+                    this.OB.down.transition(this.OB.speed+'s linear').transformOrigin('CENTER TOP').css({opacity:1, height:this._m_height(), paddingTop:this.top_p, paddingBottom:this.bottom_p, marginTop:this.top_m, marginBottom:this.bottom_m});
+                }else{
+                    this.OB.down.transition(this.OB.speed+'s linear').transformOrigin('CENTER TOP').css({opacity:0, height:0, paddingTop:0, paddingBottom:0, marginTop:0, marginBottom:0});
+                };
+                this.now=!this.now;
+            }.bind(this));
+        };
+    }.bind(this)).BD('mousedown', function(){
+        _stopPropagation(event);
+    }.bind(this));
+
+    if(!this.OB.within && this.OB.D_click===false)_(document).BD('click', function(){
+        if(!this.downHidden){
+            this.downHidden=true;
+            return;
+        }
+        if(this.OB.down.el.style.height==='auto')this.OB.down.css({height:this.OB.down.getStyle('height')});  // 为了使动画正常过渡, 需要设置height(当height的值为auto时, 改变height值不会显示动效)
+        if(!this.OB.within){
+            setTimeout(function(){
+                this.OB.down.transition(this.OB.speed+'s linear').transformOrigin('CENTER TOP').css({opacity:0, height:0, paddingTop:0, paddingBottom:0, marginTop:0, marginBottom:0});
+                this.now=false;
+            }.bind(this));
+        }
+    }.bind(this));  // 当点击背景时, 折叠下拉框
+
+    if(this.OB.select===false && !this.OB.maxHeight){  // 当点击选项时, 折叠下拉框
+        for(var i=0; i<this.OB.down.el.children.length; i++){
+            if(this.OB.down.el.children[i].getAttribute('isUmCaption')===null)_(this.OB.down.el.children[i]).BD('click', function(){
+                this.selectHidden=false;
+            }.bind(this));
+        };
+    }
 };
 
-___UM_getDom.prototype.offset=function(val){           //原型: .offset()方法    获取一个元素的边到浏览器的距离
-	if(!this.el.length){
-		val=val || '';
-		if(val.toLowerCase()==='left'){
-			var distance=this.el.offsetLeft;
-			var par=this.el.offsetParent;
-			while(par!=null){
-				distance+=par.offsetLeft;
-				par=par.offsetParent;
-			};
-			return distance;
-		}else if(val.toLowerCase()==='top'){
-			var distance=this.el.offsetTop;
-			var par=this.el.offsetParent;
-			while(par!=null){
-				distance+=par.offsetTop;
-				par=par.offsetParent;
-			};
-			return distance;
-		}else{
-			return undefined;
-		};
-	}else{
-		throw 'UM库 .offset() 方法错误: .offset()方法只能获取一个元素的边到浏览器的距离!';
-	}
+___constructor_PullDown.prototype._m_getStyleInf=function(dom, typeName){
+    if(window.getComputedStyle){
+        return parseFloat(getComputedStyle(dom,false)[typeName]);
+    }else{
+        return parseFloat(dom.currentStyle[typeName]);
+    };
 };
 
-___UM_getDom.prototype.transform=function(val){              //原型: .transform()方法    设置2d或3d变换
-	if(this.arguments[0]===window || this.arguments[0]===document)throw 'UM库 .transform() 方法错误: window和document不能有.transform()方法!';
-	var mould=['ms','moz','webkit','o',''];
-	if(!this.el.length){
-		for(var j=0; j<mould.length; j++){
-			this.el.style[mould[j]+'Transform']=val;
-		};
-	}else{
-		for(var i=0; i<this.el.length; i++){
-			for(var j=0; j<mould.length; j++){
-				this.el[i].style[mould[j]+'Transform']=val;
-			}
-		};
-	};
-	return this;
+___constructor_PullDown.prototype._m_height=function(){
+    var result=0;
+    if(this.OB.maxHeight){
+        for(var i=0; i<_('#'+this.id, 0).el.children.length; i++){
+            result=result+_('#'+this.id, 0).el.children[i].offsetHeight+this._m_getStyleInf(_('#'+this.id, 0).el.children[i], 'marginTop')+this._m_getStyleInf(_('#'+this.id, 0).el.children[i], 'marginBottom');
+        };
+    }else{
+        for(var i=0; i<this.OB.down.el.children.length; i++){
+            result=result+this.OB.down.el.children[i].offsetHeight+this._m_getStyleInf(this.OB.down.el.children[i], 'marginTop')+this._m_getStyleInf(this.OB.down.el.children[i], 'marginBottom');
+        };
+    };
+    return result+'px';
 };
 
-___UM_getDom.prototype.transformOrigin=function(val){        //原型: .transformOrigin()方法    设置2d或3d变换的[变形原点]
-	if(this.arguments[0]===window || this.arguments[0]===document)throw 'UM库 .transformOrigin() 方法错误: window和document不能有.transformOrigin()方法!';
-	var mould=['ms','moz','webkit','o',''];
-	if(!this.el.length){
-		for(var j=0; j<mould.length; j++){
-			this.el.style[mould[j]+'TransformOrigin']=val;
-		};
-	}else{
-		for(var i=0; i<this.el.length; i++){
-			for(var j=0; j<mould.length; j++){
-				this.el[i].style[mould[j]+'TransformOrigin']=val;
-			};
-		};
-	};
-	return this;
+___constructor_PullDown.prototype.unfold=function(){
+    if(this.OB.down.el.style.height!=='auto'){
+        if(this.OB.within && this.OB.within.getStyle('opacity')!=0)this.OB.within.css({height:'auto'});
+        this.OB.down.transition(this.OB.speed+'s linear').transformOrigin('CENTER TOP').css({opacity:1, height:this._m_height(), paddingTop:this.top_p, paddingBottom:this.bottom_p, marginTop:this.top_m, marginBottom:this.bottom_m});
+        this.now=true;
+    }else{
+        this.OB.down.css({height:this.OB.down.getStyle('height')});
+        setTimeout(function(){
+            if(this.OB.within && this.OB.within.getStyle('opacity')!=0)this.OB.within.css({height:'auto'});
+            this.OB.down.transition(this.OB.speed+'s linear').transformOrigin('CENTER TOP').css({opacity:1, height:this._m_height(), paddingTop:this.top_p, paddingBottom:this.bottom_p, marginTop:this.top_m, marginBottom:this.bottom_m});
+            this.now=true;
+        }.bind(this));
+    };
 };
 
-___UM_getDom.prototype.transition=function(val){            //原型: .transition()方法    设置2d和3d变换的[transition动画]
-	if(this.arguments[0]===window || this.arguments[0]===document)throw 'UM库 .transition() 方法错误: window和document不能有.transition()方法!';
-	var mould=['ms','moz','webkit','o',''];
-	if(!this.el.length){
-		for(var j=0; j<mould.length; j++){
-			this.el.style[mould[j]+'Transition']=val;
-		};
-	}else{
-		for(var i=0; i<this.el.length; i++){
-			for(var j=0; j<mould.length; j++){
-				this.el[i].style[mould[j]+'Transition']=val;
-			};
-		};
-	};
-	return this;
+___constructor_PullDown.prototype.fold=function(){
+    if(this.OB.down.el.style.height!=='auto'){
+        if(this.OB.within && this.OB.within.getStyle('opacity')!=0)this.OB.within.css({height:'auto'});
+        this.OB.down.transition(this.OB.speed+'s linear').transformOrigin('CENTER TOP').css({opacity:0, height:0, paddingTop:0, paddingBottom:0, marginTop:0, marginBottom:0});
+        this.now=false;
+    }else{
+        this.OB.down.css({height:this.OB.down.getStyle('height')});
+        setTimeout(function(){
+            if(this.OB.within && this.OB.within.getStyle('opacity')!=0)this.OB.within.css({height:'auto'});
+            this.OB.down.transition(this.OB.speed+'s linear').transformOrigin('CENTER TOP').css({opacity:0, height:0, paddingTop:0, paddingBottom:0, marginTop:0, marginBottom:0});
+            this.now=false;
+        }.bind(this));
+    };
 };
 
-___UM_getDom.prototype.animation=function(val){           //原型: .animation()方法    设置2d和3d变换的[animation动画]
-	if(this.arguments[0]===window || this.arguments[0]===document)throw 'UM库 .animation() 方法错误: window和document不能有.animation()方法!';
-	var mould=['ms','moz','webkit','o',''];
-	if(!this.el.length){
-		for(var j=0; j<mould.length; j++){
-			this.el.style[mould[j]+'Animation']=val;
-		};
-	}else{
-		for(var i=0; i<this.el.length; i++){
-			for(var j=0; j<mould.length; j++){
-				this.el[i].style[mould[j]+'Animation']=val;
-			};
-		};
-	};
-	return this;
-};
-
-___UM_getDom.prototype.perspective=function(val1, val2){                   //原型: .perspective()方法    设置3d变换的[透视距离]和[透视原点]
-	if(this.arguments[0]===window || this.arguments[0]===document)throw 'UM库 .perspective() 方法错误: window和document不能有.perspective()方法!';
-	var mould=['ms','moz','webkit','o',''];
-	if(!this.el.length){
-		for(var j=0; j<mould.length; j++){
-			this.el.style[mould[j]+'Perspective']=val1;
-			if(val2)this.el.style[mould[j]+'PerspectiveOrigin']=val2;
-		};
-	}else{
-		throw 'UM库 .perspective() 方法错误: .perspective()方法只能设置一个元素的[透视距离]和[透视原点], 当前未指定元素的索引值!';
-	};
-	return this;
-};
-
-___UM_getDom.prototype.transformStyle=function(val1, val2){              //原型: .perspective()方法    设置3d变换的[变形风格]和[背面是否可见]属性
-	if(this.arguments[0]===window || this.arguments[0]===document)throw 'UM库 .transformStyle() 方法错误: window和document不能有.transformStyle()方法!';
-	var mould=['ms','moz','webkit','o',''];
-	if(!this.el.length){
-		for(var j=0; j<mould.length; j++){
-			this.el.style[mould[j]+'TransformStyle']=val1;
-			if(val2)this.el.style[mould[j]+'BackfaceVisibility']=val2;
-		};
-	}else{
-		for(var i=0; i<this.el.length; i++){
-			for(var j=0; j<mould.length; j++){
-				this.el[i].style[mould[j]+'TransformStyle']=val1;
-				if(val2)this.el[i].style[mould[j]+'BackfaceVisibility']=val2;
-			};
-		};
-	};
-	return this;
-};
-
-___UM_getDom.prototype.BD=function(eventName, fn, option){          //原型: .BD()方法    给一个元素绑定事件
-	if(!this.el.length || this.arguments[0]===document || this.arguments[0]===window){
-		if(this.el.addEventListener){
-			this.el.addEventListener(eventName, fn, option);
-		}else if(this.el.attachEvent){
-			this.el.attachEvent('on'+eventName,fn);
-		}else{
-			this.el['on'+eventName]=fn;
-		};
-	}else{
-		throw 'UM库 .BD() 方法错误: .BD()方法只能给一个元素[绑定事件], 当前未指定元素的索引值!';
-		return;
-	};
-	return this;
-};
-
-___UM_getDom.prototype.unBD=function(eventName, fn){      //原型: .unBD()方法    给一个元素解除绑定事件
-	if(!this.el.length || this.arguments[0]===document || this.arguments[0]===window){
-		if(this.el.attachEvent){
-			this.el.detachEvent('on'+eventName,fn);
-		}else{
-			this.el.removeEventListener(eventName,fn,false);
-		};
-	}else{
-		throw 'UM库 .unBD() 方法错误: .unBD()方法只能给一个元素[解除绑定事件], 当前未指定元素的索引值!';
-		return;
-	};
-	return this;
-};
-
-___UM_getDom.prototype.BD_transitionend=function(fn){
-	if(this.arguments[0]===window || this.arguments[0]===document)throw 'UM库 .transformStyle() 方法错误: window和document不能有.transformStyle()方法!';
-	var mould=['ms','moz','webkit','o'];
-	if(!this.el.length){
-		this.BD('transitionend', fn);
-		for(var j=0; j<mould.length; j++){
-			var eventName=mould[j]+'TransitionEnd';
-			this.BD(eventName, fn);
-		};
-	}else{
-		throw 'UM库 .BD_transitionend() 方法错误: .BD_transitionend()方法只能给一个元素[绑定transitionend事件], 当前未指定元素的索引值!';
-		return;
-	};
-	return this;
-};
-
-___UM_getDom.prototype.unBD_transitionend=function(fn){
-	if(this.arguments[0]===window || this.arguments[0]===document)throw 'UM库 .transformStyle() 方法错误: window和document不能有.transformStyle()方法!';
-	var mould=['ms','moz','webkit','o'];
-	if(!this.el.length){
-		this.unBD('transitionend', fn);
-		for(var j=0; j<mould.length; j++){
-			var eventName=mould[j]+'TransitionEnd';
-			this.unBD(eventName, fn);
-		};
-	}else{
-		throw 'UM库 .unBD_transitionend() 方法错误: .unBD_transitionend()方法只能给一个元素[解除绑定transitionend事件], 当前未指定元素的索引值!';
-		return;
-	};
-	return this;
-};
-
-___UM_getDom.prototype.BD_animationstart=function(fn){
-	if(this.arguments[0]===window || this.arguments[0]===document)throw 'UM库 .transformStyle() 方法错误: window和document不能有.transformStyle()方法!';
-	var mould=['ms','moz','webkit','o'];
-	if(!this.el.length){
-		this.BD('animationstart', fn);
-		for(var j=0; j<mould.length; j++){
-			var eventName=mould[j]+'AnimationStart';
-			this.BD(eventName, fn);
-		};
-	}else{
-		throw 'UM库 .BD_animationstart() 方法错误: .BD_animationstart()方法只能给一个元素[绑定animationstart事件], 当前未指定元素的索引值!';
-		return;
-	};
-	return this;
-};
-
-___UM_getDom.prototype.unBD_animationstart=function(fn){
-	if(this.arguments[0]===window || this.arguments[0]===document)throw 'UM库 .transformStyle() 方法错误: window和document不能有.transformStyle()方法!';
-	var mould=['ms','moz','webkit','o'];
-	if(!this.el.length){
-		this.unBD('animationstart', fn);
-		for(var j=0; j<mould.length; j++){
-			var eventName=mould[j]+'AnimationStart';
-			this.unBD(eventName, fn);
-		};
-	}else{
-		throw 'UM库 .unBD_animationstart() 方法错误: .unBD_animationstart()方法只能给一个元素[解除绑定animationstart事件], 当前未指定元素的索引值!';
-		return;
-	};
-	return this;
-};
-
-___UM_getDom.prototype.BD_animationiteration=function(fn){
-	if(this.arguments[0]===window || this.arguments[0]===document)throw 'UM库 .transformStyle() 方法错误: window和document不能有.transformStyle()方法!';
-	var mould=['ms','moz','webkit','o'];
-	if(!this.el.length){
-		this.BD('animationiteration', fn);
-		for(var j=0; j<mould.length; j++){
-			var eventName=mould[j]+'Animationiteration';
-			this.BD(eventName, fn);
-		};
-	}else{
-		throw 'UM库 .unBD_animationstart() 方法错误: .unBD_animationstart()方法只能给一个元素[解除绑定animationstart事件], 当前未指定元素的索引值!';
-		return;
-	};
-	return this;
-};
-
-___UM_getDom.prototype.unBD_animationiteration=function(fn){
-	if(this.arguments[0]===window || this.arguments[0]===document)throw 'UM库 .transformStyle() 方法错误: window和document不能有.transformStyle()方法!';
-	var mould=['ms','moz','webkit','o'];
-	if(!this.el.length){
-		this.unBD('animationiteration', fn);
-		for(var j=0; j<mould.length; j++){
-			var eventName=mould[j]+'Animationiteration';
-			this.unBD(eventName, fn);
-		};
-	}else{
-		throw 'UM库 .unBD_animationstart() 方法错误: .unBD_animationstart()方法只能给一个元素[解除绑定animationstart事件], 当前未指定元素的索引值!';
-		return;
-	};
-	return this;
-};
-
-___UM_getDom.prototype.BD_animationend=function(fn){
-	if(this.arguments[0]===window || this.arguments[0]===document)throw 'UM库 .transformStyle() 方法错误: window和document不能有.transformStyle()方法!';
-	var mould=['ms','moz','webkit','o'];
-	this.BD('animationend', fn);
-	if(!this.el.length){
-		for(var j=0; j<mould.length; j++){
-			var eventName=mould[j]+'AnimationEnd';
-			this.BD(eventName, fn);
-		};
-	}else{
-		throw 'UM库 .BD_animationend() 方法错误: .BD_animationend()方法只能给一个元素[绑定animationend事件], 当前未指定元素的索引值!';
-		return;
-	};
-	return this;
-};
-
-___UM_getDom.prototype.unBD_animationend=function(fn){
-	if(this.arguments[0]===window || this.arguments[0]===document)throw 'UM库 .transformStyle() 方法错误: window和document不能有.transformStyle()方法!';
-	var mould=['ms','moz','webkit','o'];
-	this.unBD('animationend', fn);
-	if(!this.el.length){
-		for(var j=0; j<mould.length; j++){
-			var eventName=mould[j]+'AnimationEnd';
-			this.unBD(eventName, fn);
-		};
-	}else{
-		throw 'UM库 .unBD_animationend() 方法错误: .unBD_animationend()方法只能给一个元素[解除绑定animationend事件], 当前未指定元素的索引值!';
-		return;
-	};
-	return this;
-};
-
-___UM_getDom.prototype.setW=function(cssName, json){        //原型: .setW()方法    设置元素 [ 宽度相关 ] 的 [ 数值型 ] CSS属性
-	if(this.arguments[0]===window || this.arguments[0]===document)throw 'UM库 .setW() 方法错误: window和document不能有.setW()方法!';
-	var __jsonX={};
-	for(name in json){
-		__jsonX[name]=parseInt(_(cssName, 0).getStyle('width'))*json[name]+'px';
-	};
-	this.css(__jsonX);
-	_(window).BD('resize', function(){
-		if(_ifDom(cssName)){
-			var __jsonX_resize={};
-			for(name in json){
-				__jsonX_resize[name]=parseInt(_(cssName, 0).getStyle('width'))*json[name]+'px';
-			};
-			this.css(__jsonX_resize);
-		}
-	}.bind(this));
-
-	return this;
-};
-
-___UM_getDom.prototype.setH=function(cssName, json){        //原型: .setH()方法    设置元素 [ 高度相关 ] 的 [ 数值型 ] CSS属性
-	if(this.arguments[0]===window || this.arguments[0]===document)throw 'UM库 .setH() 方法错误: window和document不能有.setH()方法!';
-	var __jsonX={};
-	for(name in json){
-		__jsonX[name]=parseInt(_(cssName, 0).getStyle('height'))*json[name]+'px';
-	};
-	this.css(__jsonX);
-	_(window).BD('resize', function(){
-		if(_ifDom(cssName)){
-			var __jsonX_resize={};
-			for(name in json){
-				__jsonX_resize[name]=parseInt(_(cssName, 0).getStyle('height'))*json[name]+'px';
-			};
-			this.css(__jsonX_resize);
-		}
-	}.bind(this));
-
-	return this;
-};
-___UM_getDom.prototype.setMW=function(cssName, json){        //原型: .setMW()方法    设置 [ 移动端 ] 元素 [ 宽度相关 ] 的 [ 数值型 ] CSS属性
-	if(this.arguments[0]===window || this.arguments[0]===document)throw 'UM库 .setMW() 方法错误: window和document不能有.setMW()方法!';
-	var __jsonX={};
-	for(name in json){
-		__jsonX[name]=parseInt(_(cssName, 0).getStyle('width'))*json[name]+'px';
-	};
-	this.css(__jsonX);
-
-	return this;
-};
-
-___UM_getDom.prototype.setMH=function(cssName, json){        //原型: .setMH()方法    设置 [ 移动端 ] 元素 [ 宽度相关 ] 的 [ 数值型 ] CSS属性
-	if(this.arguments[0]===window || this.arguments[0]===document)throw 'UM库 .setMH() 方法错误: window和document不能有.setMH()方法!';
-	var __jsonX={};
-	for(name in json){
-		__jsonX[name]=parseInt(_(cssName, 0).getStyle('height'))*json[name]+'px';
-	};
-	this.css(__jsonX);
-
-	return this;
-};
-
-___UM_getDom.prototype.mousewheel=function(upFn, downFn){        //原型: .mousewheel()方法    设置 [ 鼠标滚轮事件 ]
-	if(!this.el.length || this.arguments[0]===document || this.arguments[0]===window){
-		this.BD('mousewheel', function(event){
-			_stopPropagation(event);
-			_preventDefault(event);
-			var up=event.wheelDelta>0?true:false;
-			if(up){
-				upFn();
-			}else{
-				downFn();
-			};
-		}).BD('DOMMouseScroll', function(event){
-			_stopPropagation(event);
-			_preventDefault(event);
-			var up=event.detail<0?true:false;
-			if(up){
-				upFn();
-			}else{
-				downFn();
-			};
-		});
-	}else{
-		throw 'UM库 .mousewheel() 方法错误: .mousewheel()方法只能给一个元素设置 [ 鼠标滚轮事件 ], 当前未指定元素的索引值!';
-		return;
-	};
-	return this;
-};
-
-___UM_getDom.prototype.choosable=function(val){        //原型: .choosable()方法    设置元素的文字 [ 是否可被选中 ]
-	if(this.arguments[0]===window || this.arguments[0]===document)throw 'UM库 .choosable() 方法错误: window和document不能有.choosable()方法!';
-	var mould=['ms','moz','webkit','khtml',''];
-	if(!this.el.length){
-		if(val && val===true){
-			for(var j=0; j<mould.length; j++){
-				this.el.style[mould[j]+'UserSelect']='';
-			};
-		}else{
-			for(var j=0; j<mould.length; j++){
-				this.el.style[mould[j]+'UserSelect']='none';
-			};
-		};
-	}else{
-		if(val && val===true){
-			for(var i=0; i<this.el.length; i++){
-				for(var j=0; j<mould.length; j++){
-					this.el[i].style[mould[j]+'UserSelect']='';
-				};
-			};
-		}else{
-			for(var i=0; i<this.el.length; i++){
-				for(var j=0; j<mould.length; j++){
-					this.el[i].style[mould[j]+'UserSelect']='none';
-				};
-			};
-		};
-	};
-	return this;
-};
-
-___UM_getDom.prototype.center=function(val){        //原型: .center()方法    设置元素居中
-	if(this.arguments[0]===window || this.arguments[0]===document)throw 'UM库 .center() 方法错误: window和document不能有.center()方法!';
-	if(val && val==='w'){
-		this.css({position:'absolute',left:'50%'}).transform('translate(-50%,0)');
-		return this;
-	}else if(val && val==='h'){
-		this.css({position:'absolute',top:'50%'}).transform('translate(0,-50%)');
-		return this;
-	}else{
-		this.css({position:'absolute',left:'50%',top:'50%'}).transform('translate(-50%,-50%)');
-		return this;
-	};
+function _PullDown(obj){             //下拉内容过渡插件
+    return new ___constructor_PullDown(obj);
 };
