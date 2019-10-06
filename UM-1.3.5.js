@@ -992,7 +992,7 @@ ___UM_getDom.prototype.mousewheel=function(upFn, downFn){        //原型: .mous
 
 ___UM_getDom.prototype.choosable=function(val){        //原型: .choosable()方法    设置元素的文字 [ 是否可被选中 ]
 	if(this.arguments[0]===window || this.arguments[0]===document)throw 'UM库 .choosable() 方法错误: window和document不能有.choosable()方法!';
-	var mould=['ms','moz','webkit','khtml',''];
+	var mould=['ms','moz','webkit',''];
 	if(!this.el.length){
 		if(val && val===true){
 			for(var j=0; j<mould.length; j++){
