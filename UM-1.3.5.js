@@ -97,6 +97,145 @@ function _isJson(obj){             //判断一个对象是否为json对象,返�
 	return boolean_isjson;
 };
 
+function _getKeyItem(json, keyStr){  // 根据keyStr来获取json中的值, 如getKeyItem({a:{b:{c:'value'}}}, 'a.b.c')即获取第一个参数json的 json.a.b.c的值
+	if(typeof json==='string' || !keyStr)return json;
+	let keyArr=keyStr.split('.');
+	let result=null;
+	for(let i=0; i<keyArr.length; i++){
+		if(i===0){
+			result=json[keyArr[i]];
+		}else{
+			result=result[keyArr[i]];
+		};
+		if(result===undefined){
+			result=undefined;
+			break;
+		}
+	};
+	return result;
+};
+
+function _findRepeat(arr, key){ // 获取一个数组的重复项  参数: arr:需要去重的数组;  key:如果arr的选项值是json, 那么这个key就是去重根据的路径
+	let realArr=JSON.parse(JSON.stringify(arr));
+	let l=realArr.length;
+	let fetch=[], repeat=[], detail={};
+	if(l===0)return {fetch, repeat, detail};
+	if(_isJson(arr[0])){
+		while(l>1){
+			let item=realArr.pop();
+			let itemKey=_getKeyItem(item, key);
+			let i=null;
+			let bl=realArr.some((val, index)=>{
+				i=index;
+				return _getKeyItem(val, key)===itemKey;
+			});
+			if(bl){
+				realArr.splice(i, 1);
+				realArr.push(item);
+				if(repeat.indexOf(item)===-1){
+					repeat.push(item);
+					detail[itemKey]={
+						times:2,
+						self:item,
+						item:itemKey
+					};
+				}else{
+					detail[itemKey].times++;
+				};
+			}
+			if(fetch.indexOf(item)===-1)fetch.push(item);
+			l=realArr.length;
+		}
+		if(l===1){
+			let _bl=fetch.some(_val=>{
+				return _getKeyItem(_val, key)===_getKeyItem(realArr[0], key);
+			});
+			if(!_bl)fetch.push(realArr[0]);
+		}
+		return {fetch, repeat, detail};
+	}else{
+		while(l>1){
+			let item=realArr.pop();
+			let i=realArr.indexOf(item);
+			if(i!==-1){
+				realArr.splice(i, 1);
+				realArr.push(item);
+				if(repeat.indexOf(item)===-1){
+					repeat.push(item);
+					detail[item]={
+						times:2,
+						self:item,
+					};
+				}else{
+					detail[item].times++;
+				};
+			}
+			if(fetch.indexOf(item)===-1)fetch.push(item);
+			l=realArr.length;
+		}
+		if(l===1 && fetch.indexOf(realArr[0])===-1)fetch.push(realArr[0]);
+		return {fetch, repeat, detail};
+	};
+};
+
+/*例1: 
+let arr=['a', 'b', 'a', 'c'];
+console.log(JSON.stringify(_findRepeat(arr)));
+
+结果=>
+{
+	fetch:["c","a","b"],  // 去重后的数组
+	repeat:["a"],  // 包含所有有重复项的数组
+	detail:{
+		a:{  // key值是重复的选项值
+			times:2,  // 重复次数
+			self:"a"  // 重复的选项值
+		}
+	}
+}
+
+例2: 
+let arr=[{a:{b:'a', c:'ddd'}}, {a:{b:'b', c:'ccc'}}, {a:{b:'a', c:'bbb'}}];
+console.log(JSON.stringify(_findRepeat(arr, 'a.b'))); // 根据 [选项值].a.b 来判断重复
+
+结果=>
+{
+    fetch:[  // 去重后的数组
+        {
+            a:{
+                b:"a",
+                c:"bbb"
+            }
+        },
+        {
+            a:{
+                b:"b",
+                c:"ccc"
+            }
+        }
+    ],
+    repeat:[  // 包含所有有重复项的数组
+        {
+            a:{
+                b:"a",
+                c:"bbb"
+            }
+        }
+    ],
+    detail:{
+        a:{  // 重复的选项值(json)的值
+            times:2,  // 重复次数
+            self:{  // 重复的选项值(json)
+                a:{
+                    b:"a",
+                    c:"bbb"
+                }
+            },
+            item:"a"  // 重复的选项值(json)的值
+        }
+    }
+}*/
+
 function _isImg(dom, i){              //判断一个<input type="file">的files[0].type字符串是否为图片类型的src字符串
 	if(!i)i=0;
 	var str=dom.files[i].type;
